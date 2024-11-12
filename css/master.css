@@ -1,0 +1,113 @@
+/* - - - - - - - - - - - - - */
+/* F O N T S */
+/* - - - - - - - - - - - - - */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* - - - - - - - - - - - - - */
+/* R E S E T */
+/* - - - - - - - - - - - - - */
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+  }
+  
+  ol, ul {
+    list-style: none;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+/* - - - - - - - - - - - - - */
+/* G E N E R A L */
+/* - - - - - - - - - - - - - */
+body {
+    font-family: Poppins, sans-serif;
+    color: #fff6;
+}
+
+main {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100dvh;
+
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        h1 {
+            font-size: 3.6rem;
+            font-weight: 500;
+        }
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 200;
+        }
+        figure {
+            border-radius: 50%;
+            border: 6px solid #fff9;
+            height: 200px;
+            width: 200px;
+        }
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 300;
+        }
+    }
+    menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.6rem;
+        a:is(:link, :visited) {
+            background-color: #fff9;
+            border-radius: 25px;
+            color: #220038;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            width: 220px;
+            transition: all 0.2s ease-in;
+            span {
+               background-color: #220038; 
+               border: 2px solid #fff9;
+               border-radius: 50%;
+               color: #fff9;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               height: 40px;
+               transition: all 0.4s ease-in;
+               width: 40px;
+            }
+            &:hover span {
+               border-radius: 50px;
+               width: 60px;
+            }
+        }
+    }
+}
+
+/* - - - - - - - - - - - - - */
+/* M A I N   M E N U */
+/* - - - - - - - - - - - - - */
+body.main-menu {
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg fill-opacity='0.16'%3E%3Ccircle fill='%23000000' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%23230046' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%232f0052' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%233b075e' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%2348156a' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%23552277' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+}
