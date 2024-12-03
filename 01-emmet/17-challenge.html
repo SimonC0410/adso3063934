@@ -19,18 +19,38 @@
         </header>
         <section class="section">
             <h3>Example:</h3>
-            <p class="example">header.header>nav.navbar.navbar-inverse>div.container>div.navbar-header>button[type="button"].navbar-toggle>span.sr-only{Toggle navigation}+span.icon-bar*3^a.navbar-nav>li>a.link[href="index.html"]{inicio}^li.active.link>a.link[href="registro.html"]{registrarse}^li>a.link[href=contacto.html]{contacto}</p>
+            <p class="example">header#header>nav.nav-navbar-inverse>div.container>div.navbar-header>(button[type="button"]>span.sr-only{toggle navigation}+span.icon-bar*3)+(a.navbar-brand[href="index.php"]>img[src="imgs/logo.png"][alt=""])^div.collapse>ul>li>a.link[href="index.html"]{Inicio}^li.active.link>a[href="login.html"]{Ingresar}^li>a.link[href="registro.html"]{Registrarse}^li>a.link[href="contacto.html"]{Contacto}</p>
             <h3>Result:</h3>
 <xmp>
-    <header class="header">
-        <nav class="navbar navbar-inverse">
+    <header id="header">
+        <nav class="nav-navbar-inverse">
             <div class="container">
-                <div class="navbar-header"><button type="button" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                    <a href="" class="navbar-nav">
-                        <li><a href="index.html" class="link">inicio</a></li>
-                        <li class="active link"><a href="registro.html" class="link">registrarse</a></li>
-                        <li><a href="contacto.html" class="link">contacto</a></li>
+                <div class="navbar-header">
+                    <button type="button">
+                        <span class="sr-only">toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.php" class="navbar-brand">
+                        <img src="imgs/logo.png" alt="">
                     </a>
+                </div>
+                <div class="collapse">
+                    <ul>
+                        <li>
+                            <a href="index.html" class="link">Inicio</a>
+                        </li>
+                        <li class="active link">
+                            <a href="login.html">Ingresar</a>
+                        </li>
+                        <li>
+                            <a href="registro.html" class="link">Registrarse</a>
+                        </li>
+                        <li>
+                            <a href="contacto.html" class="link">Contacto</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
