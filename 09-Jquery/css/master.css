@@ -89,7 +89,7 @@ main{
             outline: none;
             padding: 0.8rem;
         }
-        button{
+        #add{
             background-color: #3d8d7a;
             border-radius: 0 0.4rem 0.4rem 0;
             color: #fff;
@@ -100,6 +100,25 @@ main{
             justify-content: center;
             align-items: center;
         }
-    }
 
+    }
+    .creset{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        margin-top: 4px;
+        #reset{
+            background-color: #d10b0b;
+            border-radius: 0.4rem;
+            color: #fff;
+            cursor: pointer;
+            border: 1px solid #3d8d7a;
+            width: 10rem;
+            height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 }
