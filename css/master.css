@@ -127,8 +127,12 @@ main {
         h3 {
             font-size: 1.6rem;
             border-bottom: 2px dotted #fff6;
+            margin-bottom: 1rem;
         }
-
+        p{
+            text-align: justify;
+            font-size: 1rem;
+        }
         p.example {
             color: #6aae11;
             margin-top: 0.4rem;
