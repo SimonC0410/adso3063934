@@ -1,80 +1,167 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/board.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <title>Memoria</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/board.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <title>Memoria</title>
 </head>
 <body>
-    
-    <h1>Juego de memoria</h1>
 
-    <main class="board-game" style="margin-bottom: 3rem;">
+  <h1>Juego de memoria</h1>
 
-        <figure>
-            <img class="back" src="./images/back.jpg" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/10.jpg" alt="Back">
-            </div>
-        </figure>
+  <main class="board-game" style="margin-bottom: 3rem;">
 
-        <figure>
-            <img class="back" src="./images/back.jpg" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/16.jpg" alt="Back">
-            </div>
-        </figure>
+    <figure>
+      <img class="back" src="./images/back.jpg" alt="Back">
+      <div class="searched-image"><img src="" alt=""></div>
+    </figure>
+    <figure>
+      <img class="back" src="./images/back.jpg" alt="Back">
+      <div class="searched-image"><img src="" alt=""></div>
+    </figure>
+    <figure>
+      <img class="back" src="./images/back.jpg" alt="Back">
+      <div class="searched-image"><img src="" alt=""></div>
+    </figure>
+    <figure>
+      <img class="back" src="./images/back.jpg" alt="Back">
+      <div class="searched-image"><img src="" alt=""></div>
+    </figure>
+    <figure>
+      <img class="back" src="./images/back.jpg" alt="Back">
+      <div class="searched-image"><img src="" alt=""></div>
+    </figure>
+    <figure>
+      <img class="back" src="./images/back.jpg" alt="Back">
+      <div class="searched-image"><img src="" alt=""></div>
+    </figure>
+    <figure>
+      <img class="back" src="./images/back.jpg" alt="Back">
+      <div class="searched-image"><img src="" alt=""></div>
+    </figure>
+    <figure>
+      <img class="back" src="./images/back.jpg" alt="Back">
+      <div class="searched-image"><img src="" alt=""></div>
+    </figure>
+  </main>
 
-        <figure>
-            <img class="back" src="./images/back.jpg" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/1.jpg" alt="Back">
-            </div>
-        </figure>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <figure>
-            <img class="back" src="./images/back.jpg" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/7.jpg" alt="Back">
-            </div>
-        </figure>
+  <script>
+    class memoria {
+      constructor() {
+        this.canPlay = false;
+        this.card1 = null;
+        this.card2 = null;
+        this.availableImages = [16, 7, 102, 103];
+        this.orderForThisRound = [];
+        this.cards = $(".board-game figure").toArray();
+        this.maxPairNumber = this.availableImages.length;
+        this.startGame();
+      }
 
-        <figure>
-            <img class="back" src="./images/back.jpg" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/10.jpg" alt="Back">
-            </div>
-        </figure>
+      startGame() {
+        this.foundPairs = 0;
+        this.setNewOrder();
+        this.setImagesInCards();
+        this.openCards();
+      }
 
-        <figure>
-            <img class="back" src="./images/back.jpg" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/1.jpg" alt="Back">
-            </div>
-        </figure>
+      setNewOrder() {
+        this.orderForThisRound = this.availableImages.concat(this.availableImages);
+        this.orderForThisRound.sort(() => Math.random() - 0.5);
+      }
 
-        <figure>
-            <img class="back" src="./images/back.jpg" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/16.jpg" alt="Back">
-            </div>
-        </figure>
+      setImagesInCards() {
+        for (let i in this.cards) {
+          const card = $(this.cards[i]);
+          const image = this.orderForThisRound[i];
+          card.data("image", image);
+          card.find(".searched-image img").attr("src", `https://randomfox.ca/images/${image}.jpg`);
+        }
+      }
 
-        <figure >
-            <img class="back" src="./images/back.jpg" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/7.jpg" alt="Back">
-            </div>
-        </figure>
-        
-    </main>
+      openCards() {
+        $(this.cards).addClass("opened");
+        setTimeout(() => this.closeCards(), 3000);
+      }
 
-    <script src="./js/script.js"></script>
+      closeCards() {
+        $(this.cards).removeClass("opened");
+        this.addClickEvents();
+        this.canPlay = true;
+      }
 
+      addClickEvents() {
+        $(this.cards).on("click", this.flipCard.bind(this));
+      }
+
+      removeClickEvents() {
+        $(this.cards).off("click");
+      }
+
+      flipCard(e) {
+        const clickedCard = $(e.currentTarget);
+        if (this.canPlay && !clickedCard.hasClass("opened")) {
+          clickedCard.addClass("opened");
+          this.checkPair(clickedCard);
+        }
+      }
+
+      checkPair(clickedCard) {
+        const image = clickedCard.data("image");
+
+        if (!this.card1) {
+          this.card1 = clickedCard;
+        } else {
+          this.card2 = clickedCard;
+        }
+
+        if (this.card1 && this.card2) {
+          if (this.card1.data("image") === this.card2.data("image")) {
+            this.canPlay = false;
+            setTimeout(this.checkIfWon.bind(this), 300);
+          } else {
+            this.canPlay = false;
+            setTimeout(this.resetOpenedCards.bind(this), 800);
+          }
+        }
+      }
+
+      resetOpenedCards() {
+        this.card1.removeClass("opened");
+        this.card2.removeClass("opened");
+        this.card1 = null;
+        this.card2 = null;
+        this.canPlay = true;
+      }
+
+      checkIfWon() {
+        this.foundPairs++;
+        this.card1 = null;
+        this.card2 = null;
+        this.canPlay = true;
+
+        if (this.maxPairNumber === this.foundPairs) {
+          alert("¡Ganaste!");
+          this.setNewGame();
+        }
+      }
+
+      setNewGame() {
+        this.removeClickEvents();
+        $(this.cards).removeClass("opened");
+        setTimeout(this.startGame.bind(this), 1000);
+      }
+    }
+
+    $(document).ready(() => {
+      new memoria();
+    });
+  </script>
 </body>
 </html>
