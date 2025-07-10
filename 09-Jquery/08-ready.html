@@ -1,33 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>08-chaining</title>
-    <link rel="stylesheet" href="../css/master.css">
+    <title>08 - Chaining</title>
+    <link rel="shortcut icon" href="favicon.ico.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/master.css">
+    <style>
+        button.btn {
+        display: flex;
+        cursor: pointer;
+        background-color: #fff9;
+        border: none;
+        margin: 1rem auto;
+        border-radius: 0.4rem;
+        padding: 0.6rem 1.2rem;
+        transition: transform 0.2s ease-in;
+        &:hover {
+        transform: scale(1.05);
+        }
+    }
+
+        article {
+            background-image: url('/images/fondoBikini.jpg');
+            height: 350px;
+            width: 350px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.4rem;
+            margin: 2rem auto;
+            position: relative;
+            width: 300px;
+
+            img.character {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                left: 10px;
+                transform: rotateY(-180deg);
+            }
+        }
+    </style>
 </head>
+
 <body class="jquery">
     <nav class="nav">
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        </a>
+    <a href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+            d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+        </svg>
+    </a>
     </nav>
     <main>
         <header class="header">
-            <h1>08-chaining</h1>
-            <h2>Chain multiple jQuery methods for concise code.
-</h2>
+            <h2>08 - Chaining</h2>
+            <p>Chain multiple jQuery methods for concise code.</p>
         </header>
         <section class="section">
-            <h3>Example:</h3>
-            <p class="example"></p>
-            <h3>Result:</h3>
-<xmp>
-
-</xmp>
+            <button class="btn">Animacion</button>
+            <article class="area">
+                <img class="character" src="/images/bobsponja.png" alt="bob">
+            </article>
         </section>
+        <script src="js/jquery-3.7.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.btn').click(function(){
+                    $('.character').animate({ left: '230px'})
+                    $('.character').animate({ top: '280px'})
+                    $('.character').animate({ left: '10px'})
+                    $('.character').animate({ top: '10px'})
+                })
+            })
+        </script>
     </main>
-    <script src="js/jquery-3.7.1.min.js"></script>
 </body>
-    
+
 </html>

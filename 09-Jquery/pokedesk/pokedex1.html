@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <title>Pokedex</title>
+
+</head>
+
+<body>
+    <nav>
+    </nav>
+
+    <main>
+        <header>
+
+        </header>
+        <section>
+            <div id="home">
+                <a href="#pokemons" class="toPokemons"><h1>Busqueda</h1></a>
+            </div>
+            <input type="text" id="pkSearch" placeholder="Buscar Pokémon...">
+            <div id="scene">
+                <div class="card" id="card">
+                    <div class="front" id="pokemons">
+                        <a href="#home" class="backhome">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25" viewBox="0 0 448 512">
+                                <path
+                                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                            </svg>
+                        </a>
+                        <select class="pk-generation">
+                            <option value="">Selecciona una generación...</option>
+                        </select>
+
+                        <img src="images/pokedex/loader-pika.gif" alt="Cargando..." width="100" class="loader">
+
+                        <ul class="pokemons">
+                        </ul>
+                    </div>
+                    <div class="back" id="pkinfo">
+                        <a href="#pokemons" class="backlist"><svg xmlns="http://www.w3.org/2000/svg" height="14"
+                                width="12.25" viewBox="0 0 448 512">
+                                <path
+                                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                            </svg></a>
+                        <div class="infoPK">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        //Elementos
+        const home = document.querySelector('#home');
+        const toPK = document.querySelector('.toPokemons');
+        const listPokemons = document.querySelector('#pokemons')
+        const backHome = document.querySelector('.backhome')
+        const pokemons = document.querySelector('.pokemons');
+        const pkGeneration = document.querySelector('.pk-generation');
+        const pkInfo = document.querySelector('#pkinfo');
+        const backlist = document.querySelector('.backlist');
+        const infoPK = document.querySelector('.infoPK');
+        const toInfoPK = document.querySelectorAll('li.toInfoPK');
+        const card = document.querySelector('#card');
+        const escene = document.querySelector('#scene');
+        const loader = document.querySelector('.loader');
+
+        //Events
+        toPK.addEventListener('click', (e) => {
+            home.style.display = 'none';
+            listPokemons.style.display = 'block';
+            escene.style.display = 'block';
+        })
+
+        backHome.addEventListener('click', (e) => {
+            home.style.display = 'block';
+            listPokemons.style.display = 'none';
+            escene.style.display = 'none';
+        })
+
+        pokemons.addEventListener('click', (e) => {
+            const li = e.target.closest('li.toInfoPK');
+            if (li) {
+                const id = li.dataset.id;
+                card.classList.add('flipped');
+                showPokemonInfo(id);
+            }
+        });
+        backlist.addEventListener('click', (e) => {
+            e.preventDefault();
+            card.classList.remove('flipped');
+            setTimeout(() => {
+                listPokemons.style.display = 'block';
+                pkInfo.style.display = 'none';
+            }, 500);
+        });
+
+        //Objects
+        const generations = {
+            range: [
+                { from: 1, to: 151 },
+                { from: 152, to: 251 },
+                { from: 252, to: 386 },
+                { from: 387, to: 493 },
+                { from: 494, to: 649 },
+                { from: 650, to: 721 },
+                { from: 722, to: 809 },
+                { from: 810, to: 890 },
+                { from: 891, to: 1025 }
+            ]
+        }
+
+        const types = {
+            normal: "#a8a77a",
+            fire: "#ee8130",
+            water: "#6390f0",
+            electric: "#f7d02c",
+            grass: "#7ac74c",
+            ice: "#96d9d6",
+            fighting: "#c22e28",
+            poison: "#a33ea1",
+            ground: "#e2bf65",
+            flying: "#a98ff3",
+            psychic: "#f95587",
+            bug: "#a6b91a",
+            rock: "#b6a136",
+            ghost: "#735797",
+            dragon: "#6f35fc",
+            dark: "#705746",
+            steel: "#b7b7ce",
+            fairy: "#d685ad",
+            shadow: "#5a5a5a",
+            unknown: "#68a090",
+        }
+
+        generations['range'].forEach((element, index) => {
+            pkGeneration.innerHTML += `<option value="${index}">Generation ${++index}</option>`
+        });
+        pkGeneration.addEventListener('change', function (e) {
+            loadPokemon(generations.range[this.value].from, generations.range[this.value].to)
+        })
+
+        const loadPokemon = async (from, to) => {
+            loader.style.display = 'block';
+            pokemons.style.display = 'none';
+            pokemons.innerHTML = ''
+            setTimeout(() => {
+                loader.style.display = 'none';
+                pokemons.style.display = 'block';
+            }, 4000)
+            for (let pk = from; pk <= to; pk++) {
+                const url = `https://pokeapi.co/api/v2/pokemon/${pk}`
+                const response = await fetch(url)
+                const data = await response.json()
+                let typeColor = data.types[0].type.name
+                const typeIcon = `<img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/${data.types[0].type.name}.svg" width="20" />`;
+                pokemons.innerHTML += `<li class="toInfoPK" data-id="${data.id}">
+                                            <div><h5>${data.name}</h5>
+                                              ${typeIcon}
+                                              <h4>#${data.id}</h4> </div>  
+                                            <div>
+                                              <img src="${data.sprites.front_default}">
+                                            </div>
+                                         </li>`
+            }
+        }
+        loadPokemon(1, 151)
+
+        // Mostrar detalle del Pokémon
+        async function showPokemonInfo(id) {
+            listPokemons.style.display = 'none';
+            pkInfo.style.display = 'block';
+            infoPK.innerHTML = '<p>Cargando...</p>';
+
+            try {
+                const [pokemonRes, speciesRes] = await Promise.all([
+                    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),
+                    fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
+                ]);
+
+                if (!pokemonRes.ok || !speciesRes.ok) throw new Error('Pokémon no encontrado');
+
+                const [pokemon, species] = await Promise.all([
+                    pokemonRes.json(),
+                    speciesRes.json()
+                ]);
+
+                const color = types[pokemon.types[0].type.name];
+
+                // Obtener descripción en español
+                const description = species.flavor_text_entries.find(
+                    entry => entry.language.name === 'es'
+                )?.flavor_text || 'Descripción no disponible';
+
+                const stats = pokemon.stats.map(stat => ({
+                    name: stat.stat.name,
+                    value: stat.base_stat
+                }));
+
+                // Crear badges para cada tipo
+                const typeBadges = pokemon.types.map(type => `
+            <span class="type-badge" style="background: ${types[type.type.name]}">
+                ${capitalize(type.type.name)}
+            </span>
+        `).join('');
+
+                infoPK.innerHTML = `
+            <div>
+                <h2>${capitalize(pokemon.name)}</h2>
+                <h3>#${String(pokemon.id).padStart(3, '0')}</h3>
+                
+                <div class="types-container">
+                    ${typeBadges}
+                </div>
+                
+                <div class="pk-image">
+                    <img src="${pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default}" 
+                         width="150" alt="${pokemon.name}">
+                </div>
+                
+                <div class="pk-details">
+                    <p>${description.replace(/\f/g, ' ')}</p>
+                    
+                    <div class="pk-attributes">
+                        <div><strong>Altura:</strong> ${pokemon.height / 10}m</div>
+                        <div><strong>Peso:</strong> ${pokemon.weight / 10}kg</div>
+                        <div><strong>Habilidad:</strong> ${capitalize(pokemon.abilities[0].ability.name)}</div>
+                    </div>
+                    
+                    <h4>Estadísticas</h4>
+                    ${stats.map(renderStatBar).join('')}
+                </div>
+            </div>
+        `;
+
+                // Animación de las barras de estadísticas
+                setTimeout(() => {
+                    document.querySelectorAll('.stat-progress').forEach(bar => {
+                        bar.style.width = bar.parentElement.style.width;
+                    });
+                }, 100);
+
+            } catch (error) {
+                infoPK.innerHTML = `
+            <div class="error">
+                <h3>Error al cargar el Pokémon</h3>
+                <p>${error.message}</p>
+                <button onclick="card.classList.remove('flipped')">Volver</button>
+            </div>
+        `;
+            }
+        }
+
+        function renderStatBar(stat) {
+            const nameMap = {
+                hp: 'HP',
+                attack: 'Ataque',
+                defense: 'Defensa',
+                'special-attack': 'At. Esp.',
+                'special-defense': 'Def. Esp.',
+                speed: 'Velocidad'
+            };
+
+            const percent = Math.min(100, (stat.value / 150) * 100).toFixed(0);
+
+            return `
+        <div class="stat-container">
+            <span class="stat-name">${nameMap[stat.name] || stat.name}</span>
+            <span class="stat-value">${stat.value}</span>
+            <div class="stat-bar">
+                <div class="stat-progress" style="width: 0; background: ${getStatColor(stat.value)}"></div>
+            </div>
+        </div>
+    `;
+        }
+
+        function getStatColor(value) {
+            if (value >= 100) return '#FF0000'; // Rojo para stats altos
+            if (value >= 80) return '#FFA500';  // Naranja
+            if (value >= 60) return '#FFFF00';  // Amarillo
+            if (value >= 40) return '#7CFC00';  // Verde claro
+            return '#4CAF50';                   // Verde para stats bajos
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        pokemons.addEventListener('click', (e) => {
+            const li = e.target.closest('li.toInfoPK');
+            if (li) {
+                const id = li.dataset.id;
+                showPokemonInfo(id);
+            }
+        });
+
+        document.getElementById('pkSearch').addEventListener('input', async (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            if (searchTerm.length < 2) return;
+
+            const allPokemons = document.querySelectorAll('.pokemons li');
+            allPokemons.forEach(pk => {
+                const pkName = pk.querySelector('h5').textContent.toLowerCase();
+                pk.style.display = pkName.includes(searchTerm) ? 'flex' : 'none';
+            });
+        });
+
+        function toggleFavorite(id) {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const index = favorites.indexOf(id);
+
+            if (index === -1) {
+                favorites.push(id);
+            } else {
+                favorites.splice(index, 1);
+            }
+
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+
+        let currentPage = 1;
+        const pokemonsPerPage = 20;
+
+        function updatePagination() {
+            document.getElementById('pageInfo').textContent =
+                `Página ${currentPage} de ${Math.ceil(totalPokemons / pokemonsPerPage)}`;
+        }        
+    </script>
+</body>
+
+</html>
