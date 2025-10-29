@@ -23,11 +23,19 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $gender = fake()->randomElement(['male', 'female']);
+
+        // asignar foto según género (admite 'male'/'female' y variantes como 'Hombre'/'Mujer')
+        $photo = ($gender === 'male' || strtolower($gender) === 'hombre')
+            ? 'https://randomuser.me/api/portraits/men/' . rand(1, 99) . '.jpg'
+            : 'https://randomuser.me/api/portraits/women/' . rand(1, 99) . '.jpg';
+
         return [
             'document'          => fake()->numerify('75#######'),
-            'fullname'          => fake()->firstName()." ". fake()->lastName(),
-            'gender'            => fake()->randomElement(array('Female','Male')),
+            'fullname'          => fake()->firstName($gender) . ' ' . fake()->lastName(),
+            'gender'            => $gender,
             'birthdate'         => fake()->date(),
+            'photo'             => $photo,
             'phone'             => fake()->numerify('3#########'),
             'email'             => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -41,7 +49,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-     protected $fillable = [
+    protected $fillable = [
         'document',
         'fullname',
         'gender',
@@ -39,6 +39,39 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // Corregir y usar $casts en lugar de method
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    // Normalizar el género antes de guardarlo
+    public function setGenderAttribute($value): void
+    {
+        if (is_null($value)) {
+            $this->attributes['gender'] = null;
+            return;
+        }
+
+        $v = strtolower(trim($value));
+
+        $mapMale = ['male', 'm', 'masculino', 'hombre'];
+        $mapFemale = ['female', 'f', 'femenino', 'mujer', 'female'];
+
+        if (in_array($v, $mapMale, true)) {
+            $this->attributes['gender'] = 'male';
+            return;
+        }
+
+        if (in_array($v, $mapFemale, true)) {
+            $this->attributes['gender'] = 'female';
+            return;
+        }
+
+        // Por defecto, almacenar en minúsculas tal cual venga
+        $this->attributes['gender'] = $v;
+    }
 
     /**
      * Get the attributes that should be cast.
