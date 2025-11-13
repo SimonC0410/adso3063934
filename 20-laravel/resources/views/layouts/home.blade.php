@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="min-h-[100dvh] bg-[url(images/fondo.jpg)] bg-coverw-full flex flex-col gap-4 items-center justify-center p-8">
+<body class="min-h-[100dvh] bg-[url({{ asset("images/fondo.jpg") }})] bg-coverw-full flex flex-col gap-4 items-center justify-center p-8">
     @yield('content')
 </body>
 

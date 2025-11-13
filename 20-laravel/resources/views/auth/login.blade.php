@@ -76,6 +76,11 @@
                             Sign up
                         </a>
                     </p>
+                    <p class="text-sm text-center mt-2">
+                        <a class="link link-default" href="{{ route('password.request') }}">
+                            Forgot your password?
+                        </a>
+                    </p>    
                 </form>
             </div>
         </section>
