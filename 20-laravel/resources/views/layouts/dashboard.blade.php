@@ -10,11 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 @php
-if(Auth::user()->role == 'Administrador'){
+if(Auth::user()->role == 'Administrator'){
 $image = "images/admin.jpg";
 }
-elseif(Auth::user()->role == 'customer'){
-$image = "images/admin.jpg";
+else{
+$image = "images/customers.jpg";
 }
 @endphp
 
