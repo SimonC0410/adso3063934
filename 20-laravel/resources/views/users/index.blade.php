@@ -57,6 +57,8 @@
 
 
 
+
+
     <div class="overflow-x-auto rounded-box text-white bg-[#0009]">
         <table class="table">
             <!-- head -->
@@ -78,7 +80,7 @@
                         <td>
                             <div class="avatar">
                                 <div class="mask mask-squircle w-16">
-                                    <img src="{{ $user->photo }}"/>
+                                    <img src="{{ asset('images/'.$user->photo) }}"/>
                                 </div>
                             </div>
                         </td>
@@ -117,5 +119,28 @@
         </table>
     </div>
 
+    <dialog id="modal_message" class="modal">
+        <div class="modal-box bg-[#1e856bf5] text-black">
+            <h3 class="text-lg font-bold">Congratulations!</h3>
+            <div role="alert" class="alert bg-[#ffffffc9]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{session('message')}}</span>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+@endsection
 
+@section('js')
+    <script>
+        $(document).ready(function(){
+            @if(session('message'))
+                modal_message.showModal();
+            @endif
+        })
+    </script>
 @endsection

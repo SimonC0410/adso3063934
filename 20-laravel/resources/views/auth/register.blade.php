@@ -56,8 +56,7 @@
 @section('title', 'Login: Larapets🐾')
 
 @section('content')
-    <section
-        class="bg-[#000000b4] text-white rounded-lg md:w-[640px] w-[360px] p-8 flex flex-col gap-4 items-center justify-center">
+    <section class="bg-[#000000b4] text-white rounded-lg md:w-[640px] w-[360px] p-8 flex flex-col gap-4 items-center justify-center">
         <h1 class="flex gap-4 justify-center items-center text-4xl">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-12" fill="currentColor" viewBox="0 0 256 256">
                 <path

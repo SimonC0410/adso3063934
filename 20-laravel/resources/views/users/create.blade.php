@@ -9,7 +9,8 @@
         </svg>
         Add User
     </h1>
-        {{-- Breadcrumbs --}}
+
+    {{-- Breadcrumbs --}}
     <div class="breadcrumbs text-sm text-white">
         <ul>
             <li>
@@ -41,5 +42,117 @@
             </li>
         </ul>
     </div>
+
+    {{-- Form --}}
+    <div class="card text-white md:w-[720px] w-[320px] border border-white p-[20px]">
+        <form method="POST" action="{{ url('users') }}" class="flex flex-col md:flex-row gap-4 mt-4 " enctype="multipart/form-data">
+            @csrf
+            <div class="w-full md:w-[320px]">
+                <div class="avatar flex flex-col gap-2 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
+                    <div id="upload" class="mask mask-squircle w-48 ">
+                        <img id="preview" src="{{asset('images/no-photo.webp')}}" />
+                    </div>
+                    <small class="pb-1 border-b-white border-b flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M208,40H48A24,24,0,0,0,24,64V176a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm-48,48a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,224ZM157.66,106.34a8,8,0,0,1-11.32,11.32L136,107.31V152a8,8,0,0,1-16,0V107.31l-10.34,10.35a8,8,0,0,1-11.32-11.32l24-24a8,8,0,0,1,11.32,0Z"></path>
+                        </svg>
+                        Upload Photo
+                    </small>
+                    @error('photo')
+                        <div>
+                            <small class="badge badge-error w-full -mt-1 text-xs py-4">{{ $message }}</small>
+                        </div>
+                    @enderror
+                </div>
+                <input type="file" name="photo" id="photo" class="hidden" accept="image/*" >
+            </div>
+
+            <div class="w-full md:w-[320px]">
+                {{-- Document --}}
+                <label class="label">Document</label>
+                <input type="number" class="input bg-[#0009]" name="document" placeholder="123456789"
+                    value="{{ old('document') }}" />
+                @error('document')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                {{-- Fullname --}}
+                <label class="label">Full Name</label>
+                <input type="text" class="input bg-[#0009]" name="fullname" placeholder="Jeremias Springfield"
+                    value="{{ old('fullname') }}" />
+                @error('fullname')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                {{-- Gender --}}
+                <label class="label">Gender</label>
+                <select name="gender" class="select bg-[#0009] outline-0">
+                    <option value="">Select...</option>
+                    <option value="Female" @if (old('gender') == 'Female') selected @endif>Female</option>
+                    <option value="Male" @if (old('gender') == 'Male') selected @endif>Male</option>
+                </select>
+                @error('gender')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                {{-- Birthdate --}}
+                <label class="label">Birthdate</label>
+                <input type="date" class="input bg-[#0009]" name="birthdate" placeholder="1983-06-16"
+                    value="{{ old('birthday') }}" />
+                @error('birthdate')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+            </div>
+
+            <div class="w-full md:w-[320px]">
+                {{-- phone --}}
+                <label class="label">Phone</label>
+                <input type="number" class="input bg-[#0009]" name="phone" placeholder="3204456321"
+                    value="{{ old('phone') }}" />
+                @error('phone')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                <label class="label">Email</label>
+                <input type="text" class="input bg-[#0009]" name="email" placeholder="Email"
+                    value="{{ old('email') }}" />
+                @error('email')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                <label class="label">Password</label>
+                <input type="password" class="input bg-[#0009]" name="password" placeholder="Password" />
+                @error('password')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                <label class="label">Password Confirmation</label>
+                <input type="password" class="input bg-[#0009]" name="password_confirmation"
+                    placeholder="Password Confirmation" />
+                @error('password_confirmation')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                <button class="btn btn-outline hover:bg-[#fff6] hover:text-white mt-4 w-full">Add</button>
+            </div>
+
+
+        </form>
+    </div>
   
+@endsection
+
+@section('js')
+<script>
+    $(document).ready(function(){
+        $('#upload').click(function(e){
+            e.preventDefault()
+            $('#photo').click()
+        })
+        $('#photo').change(function(e){
+            e.preventDefault()
+            $('#preview').attr('src', window.URL.createObjectURL($(this).prop('files')[0]))
+        })
+    })
+</script>
 @endsection
