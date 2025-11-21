@@ -65,7 +65,7 @@
                     <span class="text-[#ffffffe1] font-semibold">Gender:</span><span>{{ $user->gender }}</span> 
                 </li>
                 <li class="list-row">
-                    <span class="text-[#ffffffe1] font-semibold">BirthDate:</span><span>{{ $user->birthdate }}</span> 
+                    <span class="text-[#ffffffe1] font-semibold">BirthDate:</span><span>{{Carbon\Carbon::parse( $user->birthdate)->age }}</span> 
                 </li>                
                 <li class="list-row">
                     <span class="text-[#ffffffe1] font-semibold">Phone:</span><span>{{ $user->phone }}</span> 
@@ -99,7 +99,7 @@
                     <span class="text-[#ffffffe1] font-semibold">Created At:</span><span>{{ $user->created_at ->DiffForHumans()}}</span> 
                 </li>                
                 <li class="list-row">
-                    <span class="text-[#ffffffe1] font-semibold">Updated At:</span><span>{{ $user->update_at ->DiffForHumans()}}</span> 
+                    <span class="text-[#ffffffe1] font-semibold">Updated At:</span><span>{{ $user->update_at}}</span> 
                 </li>
             </ul>
         </div>

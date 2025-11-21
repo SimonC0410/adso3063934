@@ -101,14 +101,24 @@
                             @endif
                         <td>
                             <a class="btn btn-outline btn-xs" href="{{ url('users/'.$user->id) }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                                    <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                                </svg>
                             </a>
                             <a class="btn btn-outline btn-xs" href="{{ url('users/'.$user->id.'/edit') }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM51.31,160,136,75.31,152.69,92,68,176.68ZM48,179.31,76.69,208H48Zm48,25.38L79.31,188,164,103.31,180.69,120Zm96-96L147.31,64l24-24L216,84.68Z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                                    <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM51.31,160,136,75.31,152.69,92,68,176.68ZM48,179.31,76.69,208H48Zm48,25.38L79.31,188,164,103.31,180.69,120Zm96-96L147.31,64l24-24L216,84.68Z"></path>
+                                </svg>
                             </a>
-                            <a class="btn btn-outline btn-error btn-xs" href="javascript:;">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path></svg>
+                            <a class="btn btn-outline btn-error btn-xs btn-delete" href="javascript:;" data-fullname="{{ $user->fullname }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                                    <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
+                                </svg>
                             </a>
+                            <form class="hidden" method="POST" action="{{ url('users/'.$user->id) }}">
+                                @csrf
+                                @method('delete')
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -133,14 +143,52 @@
             <button>close</button>
         </form>
     </dialog>
+
+    <dialog id="modal_delete" class="modal">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold mb-4">
+                Are you sure?
+            </h3>
+            <div role="alert" class="alert alert-error alert-soft" >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>You want to delete: <strong class="fullname"></strong></span>
+            </div>
+            <div class="flex gap-4 mt-4">
+                <button class="btn btn-outline btn-error btn-sm btn-confirm">Confirm</button>
+                <form method="dialog">
+                    <button class="btn btn-default btn-outline btn-sm">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button class="btn-btn default">Cancel</button>
+        </form>
+    </dialog>
 @endsection
 
 @section('js')
     <script>
         $(document).ready(function(){
+
+            //Modal
+            const modal_message = document.getElementById('modal_message')
             @if(session('message'))
                 modal_message.showModal();
             @endif
+            
+            //Delete User
+            $('table').on('click','.btn-delete',function(){
+                $fullname = $(this).data('fullname')
+                $('.fullname').text($fullname)
+                $frm = $(this).next()
+                modal_delete.showModal()
+            })
+            $('.btn-confirm').click(function (e){
+                e.preventDefault()
+                $frm.submit()
+            })
         })
     </script>
 @endsection
