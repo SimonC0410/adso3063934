@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -131,5 +132,24 @@ class UserController extends Controller
         if($user->delete()){
             return redirect('users')->with('message', 'The user: '.$user->fullname.' was successfully deleted!');
         }
+    }
+
+    
+    public function search(Request $request)
+    {
+        $users = User::names($request->q)->ordeBy('id','desc')->paginate(20);
+        return view('users.search')->with('users', $users);
+    }
+
+    //Export Pdf
+    public function pdf(){
+        $users = User::all();
+        $pdf = PDF::loadView('users.pdf', compact('users'));
+        return $pdf->download('allusers.pdf');
+    }
+
+    //Export Excel
+    public function excel(){
+        return 'EXCEL';
     }
 }

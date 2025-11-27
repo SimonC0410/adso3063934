@@ -52,7 +52,7 @@
             <path d="m21 21-4.3-4.3"></path>
             </g>
         </svg>
-        <input type="search" required placeholder="qsearch" />
+        <input type="search" required placeholder="qsearch" id="qsearch"/>
     </label>
 
 
@@ -73,7 +73,7 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="datalist">
                 @foreach($users as $user)
                     <tr @if($user->id % 2 == 0) class="bg-[#0000007c]" @endif>
                         <th class="hidden md:table-cell">{{ $user->id }}</th>
@@ -172,13 +172,13 @@
     <script>
         $(document).ready(function(){
 
-            //Modal
+            //Modal ------------
             const modal_message = document.getElementById('modal_message')
             @if(session('message'))
                 modal_message.showModal();
             @endif
             
-            //Delete User
+            //Delete User ------
             $('table').on('click','.btn-delete',function(){
                 $fullname = $(this).data('fullname')
                 $('.fullname').text($fullname)
@@ -188,6 +188,46 @@
             $('.btn-confirm').click(function (e){
                 e.preventDefault()
                 $frm.submit()
+            })
+            // Serach ----------
+            function debounce(func, wait) {
+                let timeout
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout)
+                        func(...args)
+                    };
+                    clearTimeout(timeout)
+                    timeout = setTimeout(later, wait)
+                }
+            }
+            const search = debounce(function(query) {
+                
+                $token = $('input[name=_token]').val()
+                
+                $.post("search/users", {'q': query, '_token': $token},
+                    function (data) {
+                        $('.datalist').html(data).hide().fadeIn(1000)
+                    }
+                )
+            }, 500)
+            $('body').on('input', '#qsearch', function(event) {
+                event.preventDefault()
+                const query = $(this).val()
+                
+                $('.datalist').html(`<tr>
+                                        <td colspan="7" class="text-center py-18">
+                                            <span class="loading loading-dots loading-xl"></span>
+                                        </td>
+                                    </tr>`)
+                
+                if(query != ''){
+                    search(query)
+                } else {
+                    setTimeout(()=>{
+                        window.location.replace('users')
+                    },500)
+                }
             })
         })
     </script>
