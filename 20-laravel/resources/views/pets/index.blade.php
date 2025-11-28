@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
-@section('tittle', 'Module Users: Larapets 🪿')
+@section('tittle', 'Module Pets: Larapets 🪿')
 
 @section('content')
     <h1 class="text-4xl text-white flex gap-2 items-center justify-center pb-4 border-b-2 border-neutra-50 mb-10">
         <svg xmlns="http://www.w3.org/2000/svg" class="size-12" fill="currentColor" viewBox="0 0 256 256"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path></svg>
-        Module Users
+        Module Pets
     </h1>
 
     {{--  Options --}}
@@ -16,7 +16,7 @@
                 </path>
             </svg>
             <span class="hidden md:inline">
-                Add User
+                Add Pet
             </span> 
         </a>
         <a class="btn btn-outline bg-[#0006] text-white hover:bg-[#0009] hover:text-white join-item" href="{{ url('export/users/pdf') }}">
@@ -70,57 +70,60 @@
             <thead>
                 <tr class=" bg-black text-white">
                     <th class="hidden md:table-cell">Id</th>
-                    <th>Photo</th>
-                    <th class="hidden md:table-cell">Documento</th>
-                    <th>Full Name</th>
-                    <th class="hidden md:table-cell">Role</th>
-                    <th class="hidden md:table-cell">Active</th>
+                    <th>photo</th>
+                    <th>name</th>
+                    <th class="hidden md:table-cell">kind</th>
+                    <th>breed</th>
+                    <th class="hidden md:table-cell">active</th>
+                    <th class="hidden md:table-cell">status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody class="datalist">
-                @foreach($users as $user)
-                    <tr @if($user->id % 2 == 0) class="bg-[#0000007c]" @endif>
-                        <th class="hidden md:table-cell">{{ $user->id }}</th>
+                @foreach($pets as $pet)
+                    <tr @if($pet->id % 2 == 0) class="bg-[#0000007c]" @endif>
+                        <th class="hidden md:table-cell">{{ $pet->id }}</th>
                         <td>
                             <div class="avatar">
                                 <div class="mask mask-squircle w-16">
-                                    <img src="{{ asset('images/'.$user->photo) }}"/>
+                                    <img src="{{ asset('images/'.$pet->photo) }}"/>
                                 </div>
                             </div>
                         </td>
-                        <td class="hidden md:table-cell">{{ $user->document }}</td>
-                        <td>{{ $user->fullname }}</td>
-                        <td class="hidden md:table-cell">
-                            @if ($user->role == 'Administrator')
-                                <div class="badge badge-outline badge-warning">Admin</div>
-                            @else
-                                <div class="badge badge-outline badge-default">Customer</div>
-                            @endif
-                        </td>
+                        <td class="hidden md:table-cell">{{ $pet->name }}</td>
+                        <td class="hidden md:table-cell">{{ $pet->kind }}</td>
+                        <td class="hidden md:table-cell">{{ $pet->breed }}</td>
                         <td>
-                            @if ($user->active == 1)
+                            @if ($pet->active == 1)
                                 <div class="badge badge-outline badge-success">Active</div>
                             @else
                                 <div class="badge badge-outline badge-error">Inactive</div>
                             @endif
+                        </td>
                         <td>
-                            <a class="btn btn-outline btn-xs" href="{{ url('users/'.$user->id) }}">
+                            @if ($pet->status == 1)
+                                <div class="badge badge-outline badge-error">Adopted</div>
+                            @else
+                                <div class="badge badge-outline badge-success">in adoption</div>
+                            @endif
+                        </td>
+                        <td>
+                            <a class="btn btn-outline btn-xs" href="{{ url('pets/'.$pet->id) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
                                     <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
                                 </svg>
                             </a>
-                            <a class="btn btn-outline btn-xs" href="{{ url('users/'.$user->id.'/edit') }}">
+                            <a class="btn btn-outline btn-xs" href="{{ url('pets/'.$pet->id.'/edit') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
                                     <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM51.31,160,136,75.31,152.69,92,68,176.68ZM48,179.31,76.69,208H48Zm48,25.38L79.31,188,164,103.31,180.69,120Zm96-96L147.31,64l24-24L216,84.68Z"></path>
                                 </svg>
                             </a>
-                            <a class="btn btn-outline btn-error btn-xs btn-delete" href="javascript:;" data-fullname="{{ $user->fullname }}">
+                            <a class="btn btn-outline btn-error btn-xs btn-delete" href="javascript:;" data-name="{{ $pet->name }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
                                     <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
                                 </svg>
                             </a>
-                            <form class="hidden" method="POST" action="{{ url('users/'.$user->id) }}">
+                            <form class="hidden" method="POST" action="{{ url('pets/'.$pet->id) }}">
                                 @csrf
                                 @method('delete')
                             </form>
@@ -128,7 +131,7 @@
                     </tr>
                 @endforeach
                 <tr class="bg-[#0009]">
-                    <td colspan="7">{{ $users->links('layouts.pagination') }}</td>
+                    <td colspan="8">{{ $pets->links('layouts.pagination') }}</td>
                 </tr>
             </tbody>
         </table>
@@ -158,7 +161,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <span>You want to delete: <strong class="fullname"></strong></span>
+                <span>You want to delete: <strong class="name"></strong></span>
             </div>
             <div class="flex gap-4 mt-4">
                 <button class="btn btn-outline btn-error btn-sm btn-confirm">Confirm</button>
@@ -185,8 +188,8 @@
             
             //Delete User ------
             $('table').on('click','.btn-delete',function(){
-                $fullname = $(this).data('fullname')
-                $('.fullname').text($fullname)
+                $name = $(this).data('name')
+                $('.name').text($name)
                 $frm = $(this).next()
                 modal_delete.showModal()
             })
@@ -210,7 +213,7 @@
                 
                 $token = $('input[name=_token]').val()
                 
-                $.post("search/users", {'q': query, '_token': $token},
+                $.post("search/pets", {'q': query, '_token': $token},
                     function (data) {
                         $('.datalist').html(data).hide().fadeIn(1000)
                     }
@@ -221,7 +224,7 @@
                 const query = $(this).val()
                 
                 $('.datalist').html(`<tr>
-                                        <td colspan="7" class="text-center py-18">
+                                        <td colspan="8" class="text-center py-18">
                                             <span class="loading loading-dots loading-xl"></span>
                                         </td>
                                     </tr>`)
@@ -230,7 +233,7 @@
                     search(query)
                 } else {
                     setTimeout(()=>{
-                        window.location.replace('users')
+                        window.location.replace('pets')
                     },500)
                 }
             })

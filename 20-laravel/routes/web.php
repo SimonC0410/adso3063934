@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PetController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,8 +78,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::resources([
         'users' => UserController::class,
-/*         'pets' => PetController::class,
-        'adoptions' => AdoptionController::class, */
+        'pets' => PetController::class,
+        /* 'adoptions' => AdoptionController::class, */
     ]);
     //Search
     Route::post('search/users', [UserController::class, 'search']);
@@ -87,6 +88,9 @@ Route::middleware('auth')->group(function () {
     //Export
     Route::get('export/users/pdf', [UserController::class, 'pdf']);
     Route::get('export/users/excel', [UserController::class, 'excel']);
+
+    //Import
+    Route::post('import/users',[UserController::class,'import']);
     
 });
 
