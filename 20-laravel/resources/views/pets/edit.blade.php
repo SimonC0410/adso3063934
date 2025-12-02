@@ -1,13 +1,13 @@
 @extends('layouts.dashboard')
 
-@section('titule','Add Pet: Larapets 🪰')
+@section('titule','Edit Pet: Larapets 🪰')
 
 @section('content')
     <h1 class="text-4xl text-white flex gap-2 items-center justify-center pb-4 border-b-2 border-neutra-50 mb-10">
         <svg xmlns="http://www.w3.org/2000/svg" class="size-12" fill="currentColor" viewBox="0 0 256 256">
-            <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"></path>
+            <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM51.31,160,136,75.31,152.69,92,68,176.68ZM48,179.31,76.69,208H48Zm48,25.38L79.31,188,164,103.31,180.69,120Zm96-96L147.31,64l24-24L216,84.68Z"></path>
         </svg>
-        Add Pet
+        Edit Pet
     </h1>
 
     {{-- Breadcrumbs --}}
@@ -33,9 +33,9 @@
             <li>
                 <a>
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor" viewBox="0 0 256 256">
-                        <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"></path>
+                        <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM51.31,160,136,75.31,152.69,92,68,176.68ZM48,179.31,76.69,208H48Zm48,25.38L79.31,188,164,103.31,180.69,120Zm96-96L147.31,64l24-24L216,84.68Z"></path>
                     </svg>
-                    Add Pet
+                    Edit Pet
                 </a>
             </li>
         </ul>
@@ -43,18 +43,19 @@
 
     {{-- Form --}}
     <div class="card text-white md:w-[720px] w-[320px] border border-white p-[20px]">
-        <form method="POST" action="{{ url('pets') }}" class="flex flex-col md:flex-row gap-4 mt-4 " enctype="multipart/form-data">
+        <form method="POST" action="{{ url('pets/'.$pet->id) }}" class="flex flex-col md:flex-row gap-4 mt-4 " enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="w-full md:w-[320px]">
                 <div class="avatar flex flex-col gap-2 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
                     <div id="upload" class="mask mask-squircle w-48 ">
-                        <img id="preview" src="{{asset('images/no-photo-pets.jpg')}}" />
+                        <img id="preview" src="{{asset('images/'.$pet->image)}}" />
                     </div>
                     <small class="pb-1 border-b-white border-b flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
                             <path d="M208,40H48A24,24,0,0,0,24,64V176a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm-48,48a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,224ZM157.66,106.34a8,8,0,0,1-11.32,11.32L136,107.31V152a8,8,0,0,1-16,0V107.31l-10.34,10.35a8,8,0,0,1-11.32-11.32l24-24a8,8,0,0,1,11.32,0Z"></path>
                         </svg>
-                        Upload imaege
+                        Upload Image
                     </small>
                     @error('image')
                         <div>
@@ -63,69 +64,72 @@
                     @enderror
                 </div>
                 <input type="file" name="image" id="image" class="hidden" accept="image/*" >
+                <input type="hidden" name="originphoto" value="{{ $pet->image }}">
             </div>
 
             <div class="w-full md:w-[320px]">
-                {{-- Name --}}
+                {{-- name --}}
                 <label class="label">Name</label>
-                <input type="text" class="input bg-[#0009]" name="name" placeholder="rodolfo...."
-                    value="{{ old('name') }}" />
+                <input type="text" class="input bg-[#0009]" name="name" placeholder="luisito..."
+                    value="{{ old('name', $pet->name) }}" />
                 @error('name')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
 
                 {{-- Kind --}}
                 <label class="label">Kind</label>
-                <input type="text" class="input bg-[#0009]" name="kind" placeholder="Dog..."
-                    value="{{ old('kind') }}" />
+                <input type="text" class="input bg-[#0009]" name="kind" placeholder="Cat..."
+                    value="{{ old('kind', $pet->kind) }}" />
                 @error('kind')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
 
-                {{-- Weigh --}}
+                {{-- weight --}}
                 <label class="label">Weight</label>
-                <input type="number" class="input bg-[#0009]" name="weight" placeholder="20.5"
-                    value="{{ old('weight') }}" />
-                @error('weight')
+                <input type="number" class="input bg-[#0009]" name="weight" placeholder="5"
+                    value="{{ old('weight', $pet->weight) }}" />
+                @error('kind')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
 
-                {{-- Breed --}}
-                <label class="label">Breed</label>
-                <input type="text" class="input bg-[#0009]" name="breed" placeholder="Labrador..."
-                    value="{{ old('breed') }}" />
-                @error('breed')
+                {{-- Age --}}
+                <label class="label">age</label>
+                <input type="number" class="input bg-[#0009]" name="age" placeholder="16"
+                    value="{{ old('age', $pet->age) }}" />
+                @error('age')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
             </div>
 
             <div class="w-full md:w-[320px]">
-                {{-- Age --}}
-                <label class="label">Age</label>
-                <input type="number" class="input bg-[#0009]" name="age" placeholder="5"
-                    value="{{ old('age') }}" />
-                @error('age')
+
+
+                {{-- breed --}}
+                <label class="label">breed</label>
+                <input type="text" class="input bg-[#0009]" name="breed" placeholder="callejero"
+                    value="{{ old('breed', $pet->breed) }}" />
+                @error('breed')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
 
                 {{-- Location --}}
                 <label class="label">Location</label>
                 <input type="text" class="input bg-[#0009]" name="location" placeholder="paris"
-                    value="{{ old('location') }}" />
+                    value="{{ old('location', $pet->location) }}" />
                 @error('location')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
 
                 {{-- Description --}}
                 <label class="label">Description</label>
-                <textarea class="input bg-[#0009]" name="description" placeholder="description of pet...">
-                    {{ old('description') }}
-                </textarea>
+                <input type="text" class="input bg-[#0009]" name="description" placeholder="paris"
+                    value="{{ old('description', $pet->description) }}" />
+
                 @error('description')
                     <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                 @enderror
 
-                <button class="btn btn-outline hover:bg-[#fff6] hover:text-white mt-4 w-full">Add</button>
+                <button class="btn btn-outline hover:bg-[#fff6] hover:text-white mt-4 w-full">Edit</button>
             </div>
 
 

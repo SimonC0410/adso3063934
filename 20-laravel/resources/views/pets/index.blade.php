@@ -4,13 +4,12 @@
 
 @section('content')
     <h1 class="text-4xl text-white flex gap-2 items-center justify-center pb-4 border-b-2 border-neutra-50 mb-10">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-12" fill="currentColor" viewBox="0 0 256 256"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path></svg>
-        Module Pets
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-12" fill="currentColor" viewBox="0 0 256 256"><path d="M212,80a28,28,0,1,0,28,28A28,28,0,0,0,212,80Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,212,120ZM72,108a28,28,0,1,0-28,28A28,28,0,0,0,72,108ZM44,120a12,12,0,1,1,12-12A12,12,0,0,1,44,120ZM92,88A28,28,0,1,0,64,60,28,28,0,0,0,92,88Zm0-40A12,12,0,1,1,80,60,12,12,0,0,1,92,48Zm72,40a28,28,0,1,0-28-28A28,28,0,0,0,164,88Zm0-40a12,12,0,1,1-12,12A12,12,0,0,1,164,48Zm23.12,100.86a35.3,35.3,0,0,1-16.87-21.14,44,44,0,0,0-84.5,0A35.25,35.25,0,0,1,69,148.82,40,40,0,0,0,88,224a39.48,39.48,0,0,0,15.52-3.13,64.09,64.09,0,0,1,48.87,0,40,40,0,0,0,34.73-72ZM168,208a24,24,0,0,1-9.45-1.93,80.14,80.14,0,0,0-61.19,0,24,24,0,0,1-20.71-43.26,51.22,51.22,0,0,0,24.46-30.67,28,28,0,0,1,53.78,0,51.27,51.27,0,0,0,24.53,30.71A24,24,0,0,1,168,208Z"></path></svg>        Module Pets
     </h1>
 
     {{--  Options --}}
     <div class="join">
-        <a class="btn btn-outline btn-success join-item bg-[#0006] hover:bg-[#00d390]" href="{{ url('users/create') }}">
+        <a class="btn btn-outline btn-success join-item bg-[#0006] hover:bg-[#00d390]" href="{{ url('pets/create') }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z">
                 </path>
@@ -19,20 +18,20 @@
                 Add Pet
             </span> 
         </a>
-        <a class="btn btn-outline bg-[#0006] text-white hover:bg-[#0009] hover:text-white join-item" href="{{ url('export/users/pdf') }}">
+        <a class="btn btn-outline bg-[#0006] text-white hover:bg-[#0009] hover:text-white join-item" href="{{ url('export/pets/pdf') }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256"><path d="M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM92,172a28,28,0,0,1-28,28H56v8a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8H64A28,28,0,0,1,92,172Zm-16,0a12,12,0,0,0-12-12H56v24h8A12,12,0,0,0,76,172Zm88,8a36,36,0,0,1-36,36H112a8,8,0,0,1-8-8V152a8,8,0,0,1,8-8h16A36,36,0,0,1,164,180Zm-16,0a20,20,0,0,0-20-20h-8v40h8A20,20,0,0,0,148,180ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.69L160,51.31Z"></path></svg>
             <span class="hidden md:inline">
                 Export
             </span>
         </a>
-        <a class="btn btn-outline bg-[#0006] text-white hover:bg-[#0009] hover:text-white join-item" href="{{ url('export/users/excel') }}">
+        <a class="btn btn-outline bg-[#0006] text-white hover:bg-[#0009] hover:text-white join-item" href="{{ url('export/pets/excel') }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256"><path d="M200,24H72A16,16,0,0,0,56,40V64H40A16,16,0,0,0,24,80v96a16,16,0,0,0,16,16H56v24a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V40A16,16,0,0,0,200,24Zm-40,80h40v48H160Zm40-16H160V80a16,16,0,0,0-16-16V40h56ZM72,40h56V64H72ZM40,80H144v79.83c0,.06,0,.11,0,.17s0,.11,0,.17V176H40ZM72,192h56v24H72Zm72,24V192a16,16,0,0,0,16-16v-8h40v48ZM65.85,146.88,81.59,128,65.85,109.12a8,8,0,0,1,12.3-10.24L92,115.5l13.85-16.62a8,8,0,1,1,12.3,10.24L102.41,128l15.74,18.88a8,8,0,0,1-12.3,10.24L92,140.5,78.15,157.12a8,8,0,0,1-12.3-10.24Z"></path></svg>
             <span class="hidden md:inline">
                 Export
             </span>
         </a>
 
-        <form class="join-item" action="{{ url('import/users') }}" method="post" enctype="multipart/form-data">
+        <form class="join-item" action="{{ url('import/pets') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="file" name="file" id="file" class="hidden" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <button type="button" class="btn btn-outline bg-[#0006] text-white hover:bg-[#0009] hover:text-white btn-import">
@@ -44,6 +43,7 @@
         </form>
     </div>
     {{-- Buscar --}}
+
     <label class="input text-white bg-[#000000e8] outline-none mb-10">
         <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g
@@ -64,13 +64,14 @@
 
 
 
+
     <div class="overflow-x-auto rounded-box text-white bg-[#0009]">
         <table class="table">
             <!-- head -->
             <thead>
                 <tr class=" bg-black text-white">
                     <th class="hidden md:table-cell">Id</th>
-                    <th>photo</th>
+                    <th>image</th>
                     <th>name</th>
                     <th class="hidden md:table-cell">kind</th>
                     <th>breed</th>
@@ -86,7 +87,7 @@
                         <td>
                             <div class="avatar">
                                 <div class="mask mask-squircle w-16">
-                                    <img src="{{ asset('images/'.$pet->photo) }}"/>
+                                    <img src="{{ asset('images/'.$pet->image) }}"/>
                                 </div>
                             </div>
                         </td>

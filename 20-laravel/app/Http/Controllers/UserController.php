@@ -138,9 +138,8 @@ class UserController extends Controller
     }
 
     
-    public function search(Request $request)
-    {
-        $users = User::names($request->q)->ordeBy('id','desc')->paginate(20);
+    public function search(Request $request){
+        $users = User::names($request->q)->orderBy('id','desc')->paginate(20);
         return view('users.search')->with('users', $users);
     }
 
