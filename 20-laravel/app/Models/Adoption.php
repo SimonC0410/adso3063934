@@ -15,4 +15,28 @@ class Adoption extends Model
         'user_id',
         'pet_id',
     ];
+
+
+    // RelationShips
+    // Adoption belongTo  User
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    // Adoption belongTo Pet
+    public function pet() {
+        return $this->belongsTo(Pet::class);
+    }
+    
+
+    public function scopenames($query, $q){
+        $q = trim((string) $q);
+        if ($q !== '') {
+            $query->whereHas('user', function($sub) use ($q) {
+                $sub->where('fullname', 'LIKE', "%{$q}%");
+            })->orWhereHas('pet', function($sub) use ($q) {
+                $sub->where('name', 'LIKE', "%{$q}%");
+            });
+        }
+        return $query;
+    }
 }

@@ -49,7 +49,7 @@
 
 {{-- Card --}}
 
-<div class="bg-[#99a1af66] p-10 rounded-sm flex justify-center items-center flex-col">
+<div class="bg-[#000000c2] p-10 rounded-sm flex justify-center items-center flex-col">
     <div class="avatar-group m-8 -space-x-6">
         <div class="avatar border-black">
             <div class="w-36">
@@ -63,29 +63,29 @@
         </div>
     </div>
     <div class="flex gap-2 flex-col md:flex-row">
-        <ul class="list bg-[#99a1af99] mt-4 text-white text-center rounded-box shadow-md w-64">
+        <ul class="list bg-[#ffffff18] mt-4 text-white text-center rounded-box shadow-md w-64">
             <li class="list-row">
                 <span class="text-[#ffffffe1] font-semibold">Document:</span><span>{{ $adopt->user->document }}</span> 
             </li>
             <li class="list-row">
-                <span class="text-[#ffffffe1] font-semibold">FullName:</span><span>{{ $adopt->$user->fullname }}</span> 
+                <span class="text-[#ffffffe1] font-semibold">FullName:</span><span>{{ $adopt->user->fullname }}</span> 
             </li>
             <li class="list-row">
-                <span class="text-[#ffffffe1] font-semibold">Gender:</span><span>{{ $adopt->$user->gender }}</span> 
+                <span class="text-[#ffffffe1] font-semibold">Gender:</span><span>{{ $adopt->user->gender }}</span> 
             </li>
             <li class="list-row">
-                <span class="text-[#ffffffe1] font-semibold">BirthDate:</span><span>{{Carbon\Carbon::parse( $adopt->$user->birthdate)->age }}</span> 
+                <span class="text-[#ffffffe1] font-semibold">BirthDate:</span><span>{{Carbon\Carbon::parse( $adopt->user->birthdate)->age }}</span> 
             </li>                
             <li class="list-row">
-                <span class="text-[#ffffffe1] font-semibold">Phone:</span><span>{{ $adopt->$user->phone }}</span> 
+                <span class="text-[#ffffffe1] font-semibold">Phone:</span><span>{{ $adopt->user->phone }}</span> 
             </li>
             <li class="list-row">
-                <span class="text-[#ffffffe1] font-semibold">Email:</span><span>{{ $adopt->$user->email }}</span> 
+                <span class="text-[#ffffffe1] font-semibold">Email:</span><span>{{ $adopt->user->email }}</span> 
             </li>
             <li class="list-row">
                 <span class="text-[#ffffffe1] font-semibold">Active:</span>
                 <span>
-                    @if ($adopt->$user->active == 1)
+                    @if ($adopt->user->active == 1)
                         <div class="badge badge-outline badge-success">Active</div>
                     @else
                         <div class="badge badge-outline badge-error">Inactive</div>
@@ -95,21 +95,15 @@
             <li class="list-row">
                 <span class="text-[#ffffffe1] font-semibold">Role:</span>
                 <span>
-                    @if ($adopt->$user->role == 'Administrator')
+                    @if ($adopt->user->role == 'Administrator')
                         <div class="badge badge-outline badge-warning">Admin</div>
                     @else
                         <div class="badge badge-outline badge-default">Customer</div>
                     @endif
                 </span> 
             </li>
-            <li class="list-row">
-                <span class="text-[#ffffffe1] font-semibold">Created At:</span><span>{{ $adopt->$user->created_at ->DiffForHumans()}}</span> 
-            </li>                
-            <li class="list-row">
-                <span class="text-[#ffffffe1] font-semibold">Updated At:</span><span>{{ $adopt->$user->update_at}}</span> 
-            </li>
         </ul>
-        <ul class="list bg-[#99a1af99] mt-4 text-white text-center rounded-box shadow-md w-64">
+        <ul class="list bg-[#ffffff18] mt-4 text-white text-center rounded-box shadow-md w-64">
              <li class="list-row">
                 <span class="text-[#fff9] font-semibold">Name:</span> <span>{{ $adopt->pet->name }}</span>
             </li>
@@ -143,14 +137,6 @@
                     <div class="badge badge-soft badge-primary w-full">No Adopted</div>
                     @endif
                 </span>
-            </li>
-            <li class="list-row">
-                <span class="text-[#fff9] font-semibold">Created At:</span> <span>{{
-                    $adopt->pet->created_at->diffForHumans()}}</span>
-            </li>
-            <li class="list-row">
-                <span class="text-[#fff9] font-semibold">Updated At:</span> <span>{{
-                    $adopt->pet->updated_at->diffForHumans()}}</span>
             </li>
         </ul>
     </div>
