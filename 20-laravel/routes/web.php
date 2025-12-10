@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\AdoptionController;
+use App\Http\Controllers\CustomerController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -108,6 +110,22 @@ Route::middleware('auth')->group(function () {
         Route::post('import/users',[UserController::class,'import']);
 
     });
+
+        // customer
+    Route::get('myprofile/', [CustomerController::class, 'myprofile']);
+    Route::put('myprofile/{id}', [CustomerController::class, 'updatemyprofile']);
+
+    Route::get('myadoptions/', [CustomerController::class, 'myadoptions']);
+    Route::get('myadoptions/{id}', [CustomerController::class, 'showadoption']);
+
+    Route::get('makeadoption/', [CustomerController::class, 'listpets']);
+    Route::get('makeadoption/{id}', [CustomerController::class, 'confirmadoption']);
+    Route::post('makeadoption/{id}', [CustomerController::class, 'makeadoption']);
+
+    // search
+    Route::post('search/makeadoption', [CustomerController::class, 'search']);
+
+
     
 });
 

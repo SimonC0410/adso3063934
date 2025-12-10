@@ -203,16 +203,119 @@
                 </div>
             </div>
         @endif
+
+        {{-- Customer Section --}}
+        @if(Auth::user()->role == 'customer')
+            <div class="card bg-[#fffb] w-96 shadow-sm">
+                <figure>
+                    <img src="{{ asset('images/modulo_user.png') }}" alt="" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title flex gap-2 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                            <path
+                                d="M75.19,198.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,155,165.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,73.6,187.2,8,8,0,0,0,75.19,198.4ZM128,112a24,24,0,1,1-24,24A24,24,0,0,1,128,112Zm72-88H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V40A16,16,0,0,0,200,24Zm0,192H56V40H200ZM88,64a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,64Z">
+                            </path>
+                        </svg>
+                        My Profile
+                    </h2>
+                    {{-- Stats --}}
+                    <div class="card-actions justify-end">
+                        <a class="btn btn-outline hover:bg-[#0006] hover:text-white mt-4 " href="{{ url('myprofile') }}">
+                            Enter
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                                <path
+                                    d="M201.54,54.46A104,104,0,0,0,54.46,201.54,104,104,0,0,0,201.54,54.46ZM190.23,190.23a88,88,0,1,1,0-124.46A88.11,88.11,0,0,1,190.23,190.23Zm-64.57-67.89a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32-11.32L108.69,128,82.34,101.66A8,8,0,0,1,93.66,90.34Zm56,0a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32-11.32L164.69,128l-26.35-26.34a8,8,0,0,1,11.32-11.32Z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{-- Module Pets --}}
+            <div class="card bg-[#fffb] w-96 shadow-sm">
+                <figure>
+                    <img src="{{ asset('images/modulo_adoptions.png') }}" alt="Shoes" />
+                </figure>
+                <div class="card-body ">
+                    <h2 class="card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                            <path
+                                d="M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,72h64a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm80,48H40a8,8,0,0,0,0,16h80a8,8,0,0,0,0-16Zm128-40c0,36.52-50.28,62.08-52.42,63.16a8,8,0,0,1-7.16,0C186.28,206.08,136,180.52,136,144a32,32,0,0,1,56-21.14A32,32,0,0,1,248,144Zm-16,0a16,16,0,0,0-32,0,8,8,0,0,1-16,0,16,16,0,0,0-32,0c0,20.18,26.21,39.14,40,46.93C205.79,183.15,232,164.19,232,144Z">
+                            </path>
+                        </svg>
+                        My Adoptions
+                    </h2>
+                    {{-- Stats --}}
+                    <div class="card-actions justify-end">
+                        <a class="btn btn-outline hover:bg-[#0006] hover:text-white mt-4 " href="{{ url('myadoptions') }}">
+                            Enter
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                                <path
+                                    d="M201.54,54.46A104,104,0,0,0,54.46,201.54,104,104,0,0,0,201.54,54.46ZM190.23,190.23a88,88,0,1,1,0-124.46A88.11,88.11,0,0,1,190.23,190.23Zm-64.57-67.89a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32-11.32L108.69,128,82.34,101.66A8,8,0,0,1,93.66,90.34Zm56,0a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32-11.32L164.69,128l-26.35-26.34a8,8,0,0,1,11.32-11.32Z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{-- --}}
+            <div class="card bg-[#fffb] w-96 shadow-sm">
+                <figure>
+                    <img src="{{ asset('images/modulo_pets.png') }}" alt="Shoes" />
+                </figure>
+                <div class="card-body ">
+                    <h2 class="card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                            <path
+                                d="M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56ZM119.46,48A31.15,31.15,0,0,1,148.6,67a8,8,0,0,0,14.8,0,31.15,31.15,0,0,1,29.14-19C209.59,48,224,62.65,224,80c0,19.51-15.79,41.58-45.66,63.9l-11.09,2.55A28,28,0,0,0,140,112H100.68C92.05,100.36,88,90.12,88,80,88,62.65,102.41,48,119.46,48ZM16,160H40v40H16Zm203.43,8.21-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z">
+                            </path>
+                        </svg>
+                        Make Adoption
+                    </h2>
+                    {{-- Stats --}}
+
+                    <div class="card-actions justify-end">
+                        <a class="btn btn-outline hover:bg-[#0006] hover:text-white mt-4 " href="{{ url('makeadoption') }}">
+                            Enter
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
+                                <path
+                                    d="M201.54,54.46A104,104,0,0,0,54.46,201.54,104,104,0,0,0,201.54,54.46ZM190.23,190.23a88,88,0,1,1,0-124.46A88.11,88.11,0,0,1,190.23,190.23Zm-64.57-67.89a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32-11.32L108.69,128,82.34,101.66A8,8,0,0,1,93.66,90.34Zm56,0a8,8,0,0,1,0,11.32l-32,32a8,8,0,0,1-11.32-11.32L164.69,128l-26.35-26.34a8,8,0,0,1,11.32-11.32Z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
+
+    {{-- Modal --}}
+    <dialog id="success_modal" class="modal">
+        <div class="modal-box bg-sucess">
+            <h3 class="text-lg font-bold">Congrats!</h3>
+            <div role="alert" class="alert alert-soft alert-success">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{session('success')}}</span>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
 
     <dialog id="modal_message" class="modal">
         <div class="modal-box">
-            <h3 class="text-lg font-bold">
-                Sorry!
-            </h3>
-            <div role="alert" class="alert alert-error">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <h3 class="text-lg font-bold">Sorry!</h3>
+            <div role="alert" class="alert alert-soft alert-error">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>{{session('error')}}</span>
             </div>
@@ -225,12 +328,15 @@
 
 @section('js')
     <script>
-        $(document).ready(function(){
-            
-            //Modal
-            const modal_massage = documnet.getElementById('modal_message')
-            @if (session('error'))
-                modal_massage.showModal();
+        $(document).ready(function() {
+            // modal
+            const modal_message = document.getElementById('modal_message');
+            @if(session('error'))
+                modal_message.showModal();
+            @endif
+            const success_modal = document.getElementById('success_modal');
+            @if(session('success'))
+                success_modal.showModal();
             @endif
         });
     </script>

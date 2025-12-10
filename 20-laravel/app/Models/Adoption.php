@@ -28,15 +28,19 @@ class Adoption extends Model
     }
     
 
-    public function scopenames($query, $q){
-        $q = trim((string) $q);
-        if ($q !== '') {
-            $query->whereHas('user', function($sub) use ($q) {
-                $sub->where('fullname', 'LIKE', "%{$q}%");
-            })->orWhereHas('pet', function($sub) use ($q) {
-                $sub->where('name', 'LIKE', "%{$q}%");
+     public function scopenames($adopts, $q)
+    {
+        // if(trim($q)){
+        //     $adopts->where('user_id','LIKE',"%$q%")
+        //     ->orWhere('pet_id','LIKE',"%$q%");
+        // }
+        if (trim($q)) {
+            $adopts->whereHas('user', function ($query) use ($q) {
+                $query->where('fullname', 'LIKE', "%$q%")->orWhere('email', 'LIKE', "%$q%");
+            })->orWhereHas('pet', function ($query) use ($q) {
+                $query->where('name', 'LIKE', "%$q%")->orWhere('kind', 'LIKE', "%$q%");
             });
         }
-        return $query;
+        return $adopts;
     }
 }
