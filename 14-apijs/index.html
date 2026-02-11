@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API JS: Larapets</title>
+    <link rel="stylesheet" href="css/master.css">
+</head>
+<body>
+    <!-- View: Login -->
+    <main id="login" class="hide">
+        <header>
+            <img src="img/tittle-login.png" alt="">
+        </header>
+        <form action="">
+            <label for="email">
+                Email:
+                <input type="email" name="email" placeholder="example@gmail.com">
+            </label>
+            <label for="password">
+                Password:
+                <input type="password" name="password" placeholder="your secret">
+            </label>
+            <button>login</button>
+        </form>
+    </main>
+
+    <!-- view Dashboard -->
+     <main id="dashboard">
+        <header>
+            <img src="img/tittle-dashboard.png" alt="Dashboard">
+        </header>
+        <nav>
+            <a href="" class="btnAdd">
+                <img src="img/btn-add.png" alt="Add">
+            </a>
+            <a href="" class="btnLogout">
+                <img src="img/btn-logout.png" alt="Logout">
+            </a>
+        </nav>
+        <h2>Pet List</h2>
+        <section class="list">
+            <div class="row">
+                <img src="img/pet.png" alt="Pet01">
+                <div class="data">
+                    <h3>Firulais</h3>
+                    <h4>Dog: French Bulldog</h4>
+                </div>
+                <nav class="actions">
+                    <a href="" class="btnShow"></a>
+                    <a href="" class="btnEdit"></a>
+                    <a href="" class="btnDelete"></a>
+                </nav>
+            </div>
+        </section>
+     </main>
+
+
+    <script src="js/app.js"></script>
+</body>
+</html>
