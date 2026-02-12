@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- View: Login -->
-    <main id="login" class="hide">
+    <main id="login" >
         <header>
             <img src="img/tittle-login.png" alt="">
         </header>
@@ -21,20 +21,20 @@
                 Password:
                 <input type="password" name="password" placeholder="your secret">
             </label>
-            <button>login</button>
+            <button type="button" class="btnLogin">login</button>
         </form>
     </main>
 
     <!-- view Dashboard -->
-     <main id="dashboard">
+     <main id="dashboard" >
         <header>
             <img src="img/tittle-dashboard.png" alt="Dashboard">
         </header>
         <nav>
-            <a href="" class="btnAdd">
+            <a href="javascript:;" class="btnAdd">
                 <img src="img/btn-add.png" alt="Add">
             </a>
-            <a href="" class="btnLogout">
+            <a href="javascript:;" class="btnLogout">
                 <img src="img/btn-logout.png" alt="Logout">
             </a>
         </nav>
@@ -47,14 +47,202 @@
                     <h4>Dog: French Bulldog</h4>
                 </div>
                 <nav class="actions">
-                    <a href="" class="btnShow"></a>
-                    <a href="" class="btnEdit"></a>
-                    <a href="" class="btnDelete"></a>
+                    <a href="" class="btn-show"></a>
+                    <a href="" class="btn-edit"></a>
+                    <a href="" class="btn-delete"></a>
+                </nav>
+            </div>
+            <div class="row">
+                <img src="img/pet.png" alt="Pet01">
+                <div class="data">
+                    <h3>Firulais</h3>
+                    <h4>Dog: French Bulldog</h4>
+                </div>
+                <nav class="actions">
+                    <a href="" class="btn-show"></a>
+                    <a href="" class="btn-edit"></a>
+                    <a href="" class="btn-delete"></a>
+                </nav>
+            </div>
+            <div class="row">
+                <img src="img/pet.png" alt="Pet01">
+                <div class="data">
+                    <h3>Firulais</h3>
+                    <h4>Dog: French Bulldog</h4>
+                </div>
+                <nav class="actions">
+                    <a href="" class="btn-show"></a>
+                    <a href="" class="btn-edit"></a>
+                    <a href="" class="btn-delete"></a>
+                </nav>
+            </div>
+            <div class="row">
+                <img src="img/pet.png" alt="Pet01">
+                <div class="data">
+                    <h3>Firulais</h3>
+                    <h4>Dog: French Bulldog</h4>
+                </div>
+                <nav class="actions">
+                    <a href="" class="btn-show"></a>
+                    <a href="" class="btn-edit"></a>
+                    <a href="" class="btn-delete"></a>
+                </nav>
+            </div>
+            <div class="row">
+                <img src="img/pet.png" alt="Pet01">
+                <div class="data">
+                    <h3>Firulais</h3>
+                    <h4>Dog: French Bulldog</h4>
+                </div>
+                <nav class="actions">
+                    <a href="" class="btn-show"></a>
+                    <a href="" class="btn-edit"></a>
+                    <a href="" class="btn-delete"></a>
+                </nav>
+            </div>
+            <div class="row">
+                <img src="img/pet.png" alt="Pet01">
+                <div class="data">
+                    <h3>Firulais</h3>
+                    <h4>Dog: French Bulldog</h4>
+                </div>
+                <nav class="actions">
+                    <a href="" class="btn-show"></a>
+                    <a href="" class="btn-edit"></a>
+                    <a href="" class="btn-delete"></a>
                 </nav>
             </div>
         </section>
-     </main>
+        
+    </main>
 
+    <!-- Add -->
+    <main id="add" >
+        <header>
+            <a href="">
+                <img src="img/back.png" alt="Back">
+            </a>
+            <img src="img/tittle-add.png" alt="Add">
+        </header>
+        <form action="">
+            <label for="name">
+                Name:
+                <input type="text" name="name" placeholder="josefina">
+            </label>
+            <label for="kind">
+                Kind:
+                <input type="text" name="kind" placeholder="Dog">
+            </label>
+            <label for="weight">
+                Weight:
+                <input type="text" name="weight" placeholder="12">
+            </label>
+            <label for="age">
+                age:
+                <input type="number" name="age" placeholder="5">
+            </label>
+            <label for="breed">
+                breed:
+                <input type="text" name="breed" placeholder="Bulldog">
+            </label>
+            <label for="location">
+                location:
+                <input type="text" name="location" placeholder="Manizales">
+            </label>
+            <label for="description">
+                Description:
+                <textarea name="description" placeholder="Freed only chicken parts"></textarea>
+            </label>
+            <div class="actions">
+                <button>Add</button>
+                <a href="btnCancel">Cancel</a>
+            </div>
+        </form>
+    </main>
+
+
+    <!-- Edit -->
+    <main id="edit" >
+        <header>
+            <a href="">
+                <img src="img/back.png" alt="Back">
+            </a>
+            <img src="img/tittle-edit.png" alt="Add">
+        </header>
+        <form action="">
+            <label for="name">
+                Name: 
+                <input type="text" name="name" placeholder="josefina" value="josefina">
+            </label>
+            <label for="kind">
+                Kind:
+                <input type="text" name="kind" placeholder="Dog" value="Dog">
+            </label>
+            <label for="weight">
+                Weight:
+                <input type="text" name="weight" placeholder="12" value="12">
+            </label>
+            <label for="age">
+                age:
+                <input type="number" name="age" placeholder="5" value="5">
+            </label>
+            <label for="breed">
+                breed:
+                <input type="text" name="breed" placeholder="Bulldog" value="Bulldog">
+            </label>
+            <label for="location">
+                location:
+                <input type="text" name="location" placeholder="Manizales" value="Manizales">
+            </label>
+            <label for="description">
+                Description:
+                <textarea name="description" placeholder="Freed only chicken parts">Freed only chicken parts</textarea>
+            </label>
+            <div class="actions">
+                <button>Edit</button>
+                <a href="btnCancel">Cancel</a>
+            </div>
+        </form>
+    </main>
+
+    <main id="show">
+        <header>
+            <a href="">
+                <img src="img/back.png" alt="Back">
+            </a>
+            <img src="img/tittle-show.png" alt="Add">
+        </header>
+
+        <div class="imagen">
+            <img src="img/mi perrito.png" alt="el perro">
+        </div>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>Josefina</td>
+            </tr>
+            <tr>
+                <th>Kind</th>
+                <td>Dog</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>24 lbs</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>7 years</td>
+            </tr>
+            <tr>
+                <th>Breed</th>
+                <td>Dog</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>Manizales</td>
+            </tr>
+        </table>
+    </main>
 
     <script src="js/app.js"></script>
 </body>
