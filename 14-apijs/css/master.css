@@ -304,3 +304,15 @@ body {
         }
     }
 }
+
+
+main.animateView {
+    animation: animateView 0.4s ease-in 1;
+}
+
+@keyframes animateView {
+    0% {
+        opacity: 0;
+        transform: scale(.6)
+    }
+}
