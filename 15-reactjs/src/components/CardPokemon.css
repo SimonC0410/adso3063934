@@ -1,0 +1,70 @@
+.pokemon-card {
+    background-color: #0006;
+    border: 2px solid;
+    border-radius: 0.8rem;
+    padding: 1rem;
+    position: relative;
+    margin: 0.8rem;
+    text-align: center;
+    transition: transform 0.3s;
+    width: 240px;
+}
+
+.trapped-indicator {
+    display: inline-block;
+    background: #ff0000;
+    background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 199, 199, 1) 50%, rgba(255, 0, 0, 1) 100%);
+    color: #333;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    position: absolute;
+    bottom: -15px;
+    left: -10px;
+    transform: rotate(5deg);
+
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05);
+}
+
+.pokemon-image {
+    height: 120px;
+    object-fit: cover;
+    width: 120px;
+}
+
+.pokemon-type {
+    color: #ccc;
+    font-style: italic;
+    margin: 0.4rem 0;
+}
+
+.pokemon-power {
+    font-weight: bold;
+    color: #ddd;
+    margin: 0.4rem 0;
+}
+
+.legendary-badge {
+    display: inline-block;
+    background-color: #ffd700;
+    color: #333;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    transform: rotate(5deg);
+}
+
+.trapped-indicator {
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    font-size: 1.5rem;
+}
