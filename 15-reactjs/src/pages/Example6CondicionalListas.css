@@ -1,0 +1,90 @@
+/* Estilos para Example6CondicionalListas */
+.page {
+  padding: 28px 16px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #233;
+}
+.container-inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+.content-card {
+  background: #d8d8d896;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(39, 49, 66, 0.06);
+  border: 1px solid rgba(16,24,40,0.04);
+}
+.title {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 20px;
+  color: #123;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.controls label { font-weight: 600; color: #374151; }
+.select, .input, .number {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  background: #fbfdff;
+}
+.pokemon-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+.pokemon-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#e90000,#ffffff);
+  border: 1px solid #f0f3fa;
+}
+.pokemon-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(16,24,40,0.04);
+}
+.pokemon-info b { font-size: 16px; display:block; color:#0b3b6b }
+.pokemon-info .meta { font-size: 13px; color: #6b7280; }
+.empty { padding: 12px; color: #6b7280; }
+.add-form {
+  margin-top: 20px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.input.small { width: 90px; }
+.input.medium { width: 140px; }
+.input.large { width: 180px; }
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-primary {
+  background: linear-gradient(90deg,#3b82f6,#6366f1);
+  color: white;
+  box-shadow: 0 6px 18px rgba(59,130,246,0.18);
+}
+.btn:active { transform: translateY(1px); }
