@@ -1,0 +1,115 @@
+/* Page wrapper */
+.route-page {
+  padding: 28px 16px;
+  /* background: linear-gradient(180deg, #fafbfdb7 0%, #447fccda 100%); */
+  background-color: #0009;
+  border-radius: 20px;
+  min-height: 80vh;
+}
+
+.route-container {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.route-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.route-description {
+  color: #64748b;
+  margin-bottom: 24px;
+  font-size: 15px;
+}
+
+/* Navigation */
+.internal-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.internal-nav .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  transition: all 200ms ease;
+}
+
+.internal-nav .nav-link:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+
+
+/* Content card */
+.route-content {
+  background: #fbfeffc7;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.route-content h2 {
+  color: #0f172a;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.route-content p {
+  color: #475569;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.route-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+
+.route-content li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+  color: #475569;
+}
+
+.route-content li:last-child {
+  border-bottom: none;
+}
+
+.pokemon-image {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.pokemon-image img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  background: #f8fafc;
+  padding: 12px;
+}
+
+@media (max-width: 640px) {
+  .route-page { padding: 16px 12px; }
+  .internal-nav { gap: 8px; }
+  .internal-nav .nav-link { padding: 8px 12px; font-size: 13px; }
+  .route-content { padding: 16px; }
+}
