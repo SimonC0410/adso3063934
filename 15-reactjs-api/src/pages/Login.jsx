@@ -1,76 +1,69 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/loginService';
 import Navbar from '../components/Navbar';
 import "./Login.css";
+import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function Login() {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+    // Estados para email y password
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+        try {
+            // Enviar petición POST al backend con email y password
+            const response = await axios.post(
+                "http://localhost:8000/api/login",
+                {
+                    email,
+                    password
+                }
+            );
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+            Swal.fire({
+                title: "Success",
+                text: response.data.message,
+                icon: "success"
+            });
 
-    try {
-      const data = await loginUser(formData.email, formData.password);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      navigate('/dashboard');
-    } catch (err) {
-      const errorMessage = err.response?.data?.message || 'Error en el servidor';
-      alert(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
+            localStorage.setItem("token", response.data.token);
 
-  return (
-    <div>
-      <Navbar>
-        <i className="ph ph-user-circle navbar-icon"></i>
-        <span>LOGIN</span>
-      </Navbar>
-      <div className="login-container">
-        <form className="login-form" onSubmit={handleSubmit}>
-          {error && <div className="error-message">{error}</div>}
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+            navigate("/dashboard");
 
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+        } catch (error) {
+            //si las credenciales son incorrectas
+            if (error.response) {
+                Swal.fire({
+                    title: "Error",
+                    text: error.response.data.message,
+                    icon: "error"
+                });
+            }
+        }
+    };
+    return (
+        <div>
+            <Navbar>
+                <span>LOGIN</span>
+            </Navbar>
+            <div className="login-container">
+                <form className="login-form" onSubmit={handleLogin}>
+                    <label>Email</label>
+                    <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} />
 
-          <button type="submit" disabled={loading}>
-             Login
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+                    <label>Password</label>
+                    <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} />
+
+                    <button type="submit" >
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
 }
 
 export default Login;

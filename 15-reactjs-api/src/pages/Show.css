@@ -1,0 +1,84 @@
+body{
+    margin:0;
+}
+
+.container{
+    display:flex;
+    flex-direction:column;
+    height:500px;
+    background:url("../img/fondo.png");
+    background-size:cover;
+    background-position:center;
+}
+
+.container > div{
+    width:220px;
+}
+
+.foto{
+    margin-top: -5rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:15px;
+}
+
+.foto img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+}
+
+.foto h3{
+    margin-top:8px;
+    color:white;
+    font-size:22px;
+}
+
+.info{
+    background:#ffffffb7;
+    border-radius:10px;
+    width: 192px;
+    height: 164px;
+}
+
+.info ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.info li{
+    font-size:11px;
+    color:#848484;
+    padding:6px 6px;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align-last: left;
+}
+
+.info li:last-child{
+    border-bottom:none;
+}
+
+.info strong{
+    color:#000000;
+}
+
+.info span{
+    margin-left:4px;
+}
+
+
+.btn-back{
+    background:transparent;
+    border:2px solid white;
+    border-radius: 10px;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    padding: 2px;
+    
+}

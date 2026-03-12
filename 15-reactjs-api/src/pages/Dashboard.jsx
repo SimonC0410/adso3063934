@@ -1,92 +1,177 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { fetchPets } from '../services/petService';
 import "./Dashboard.css";
+import Swal from "sweetalert2";
 
-const Dashboard = () => {
-  const navigate = useNavigate();
-  const [pets, setPets] = useState([]);
-  const [loading, setLoading] = useState(true);
+//lugar donde guardar las mascotas
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-  useEffect(() => {
-    fetchPetsData();
-  }, []);
+function Dashboard() {
+    const navigate = useNavigate();
+    //Delete
+    const deletePet = async (id) => {
 
-  const fetchPetsData = async () => {
-    try {
-      const data = await fetchPets();
-      console.log('Data from API:', data);
-      const petsArray = Array.isArray(data) ? data : (data.data || data.pets || []);
-      console.log('Pets array:', petsArray);
-      setPets(petsArray);
-    } catch (error) {
-      console.error('Error fetching pets:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        try {
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/');
-  };
-  return (
+            const token = localStorage.getItem("token");
 
-    <div>
-      <Navbar>
-        <i className="ph ph-user-circle navbar-icon"></i>
-        <span>Dashboard</span>
-      </Navbar>
-      <div className="dashboard">
+            await axios.delete(
+                `http://localhost:8000/api/pets/delete/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
 
-        <div className="top-buttons">
-          <button className="btn-pet">
-            ➕ Pet
-          </button>
+            console.log("Mascota eliminada correctamente");
+            
+            // actualizar lista después de borrar
+            getPets();
+            
+            Swal.fire({
+                title: "Success",
+                text: "Mascota eliminada correctamente",
+                icon: "success"
+            });
 
-          <button className="btn-logout" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
+        } catch (error) {
 
-        <h2 className="title">Pet List</h2>
+            console.error("Error eliminando mascota:");
+            
+            let mensaje = "Error al eliminar la mascota";
+            
+            //si la mascota esta adoptada no se puede eliminar
+            if (error.response?.status === 500 && error.response?.data?.message?.includes("foreign key")) {
+                mensaje = "No puedes eliminar esta mascota porque tiene adopciones registradas";
+            }
+            
+            Swal.fire({
+                title: "Error",
+                text: mensaje,
+                icon: "error"
+            });
 
-        <div className="pets-list">
-          {(
-            pets.map(pet => (
-              <div key={pet.id || Math.random()} className="pet-card">
-                <img src={pet.image} alt="pet" className="pet-img"/>
+        }
 
-                <div className="pet-info">
-                  <h3>{pet.name}</h3>
-                  <p>{pet.description}</p>
+    };
+
+    //Logout
+    const handleLogout = async () => {
+
+        try {
+
+            const token = localStorage.getItem("token");
+
+            await axios.post(
+                "http://localhost:8000/api/logout",
+                {},
+                {
+                    headers: {
+                        // el valor después de Bearer es un token JWT o de sesión
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            // borrar token
+            localStorage.removeItem("token");
+
+            //sweet alert
+            Swal.fire({
+                title: "Success",
+                text: "Sesion cerrada correctamente!",
+                icon: "success"
+            });
+
+            // ir al login
+            navigate("/");
+
+        } catch (error) {
+
+            Swal.fire({
+                title: "Error",
+                text: "Error al cerrar sesión" + (error.response.data.message),
+                icon: "error"
+            });
+
+        }
+
+    };
+
+
+    //lista de amscotas
+    const [pets, setPets] = useState([]);
+    const getPets = async () => {
+
+        try {
+
+            const token = localStorage.getItem("token");
+
+            const response = await axios.get(
+                "http://localhost:8000/api/pets/list",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            setPets(response.data.pets || []);
+
+        } catch (error) {
+
+            console.error("Error al obtener mascotas:", error.response.data.message);
+
+        }
+
+    };
+
+    //ejecuta la funcion cuando carga la pagina
+    useEffect(() => {
+        getPets();
+    }, []);
+
+    return (
+        <div>
+            <Navbar>
+                <span>DASHBOARD</span>
+            </Navbar>
+            <div className="container">
+                <div className='buttons'>
+                    <button onClick={() => navigate("/add")}>➕ Pet</button>
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
+                <h2>Pet List</h2>
+                <div className='List'>
+                    <ul>
+                        {pets.map((pet) => (
 
-                <div className="pet-actions">
-                  <button className="view">
-                    🤓
-                  </button>
+                            <li key={pet.id}>
+                                <div style={{ display: "flex", alignItems: "center" }}>
+                                    <img src={`http://localhost:8000/images/${pet.image}`} alt="pet" />
 
-                  <button className="edit">
-                    🖊️
-                  </button>
+                                    <div>
+                                        <h3>{pet.name}</h3>
+                                        <h4>{pet.description}</h4>
+                                    </div>
+                                </div>
 
-                  <button className="delete">
-                    🗑️
-                  </button>
+                                <div className="actions">
+                                    <button id='show' onClick={() => navigate(`/show/${pet.id}`)}>👁</button>
+                                    <button id='edit' onClick={() => navigate(`/edit/${pet.id}`)}>✏</button>
+                                    <button id='delete' onClick={() => deletePet(pet.id)}>🗑</button>
+                                </div>
+
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-              </div>
-            )
-            )
-          )}
+            </div>
         </div>
-
-      </div>
-
-    </div>
-  );
-};
+    );
+}
 
 export default Dashboard;

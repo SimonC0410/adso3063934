@@ -1,0 +1,16 @@
+.navbar{
+  width:239px;
+  height:51px;
+  background:#0b4f0b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  color:white;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.navbar-icon{
+  font-size:26px;
+}
