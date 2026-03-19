@@ -3,7 +3,7 @@ import { UserButton } from "@stackframe/stack";
 import Link from "next/link";
 import { SquaresFourIcon, JoystickIcon, ComputerTowerIcon, GearIcon, ListIcon, GameControllerIcon } from "@phosphor-icons/react";
 
-export default function SideBar({ currentPath = "/dashboard" }: { currentPath: string }) {
+export default function SideBar({ currentPath = "/dashboard",children }: { currentPath: string; children: React.ReactNode }) {
     const navigation = [
         { name: "Dashboard", href: "/dashboard", icon: SquaresFourIcon },
         { name: "Games",     href: "/games",     icon: JoystickIcon },
@@ -27,7 +27,7 @@ export default function SideBar({ currentPath = "/dashboard" }: { currentPath: s
                     </div>
                 </nav>
                 {/* Page content here */}
-                <div className="p-4">Page Content</div>
+                <div className="p-4">{children}</div>
             </div>
 
             <div className="drawer-side is-drawer-close:overflow-visible">
