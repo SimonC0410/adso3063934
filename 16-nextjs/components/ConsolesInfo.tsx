@@ -7,34 +7,30 @@ const prisma = new PrismaClient({
     }),
 })
 
-export default async function GamesInfo() {
-    const games = await prisma.game.findMany({
-        include: { console: true },
-    })
+export default async function ConsolesInfo() {
+    const consoles = await prisma.console.findMany()
 
     return (
         <div>
-            <h1 className='text-4xl text-purple-400 border-b-2 pb-2 mb-8'>Games</h1>
+            <h1 className='text-4xl text-purple-400 border-b-2 pb-2 mb-8'>Consoles</h1>
             <div>
                 <div className="flex flex-wrap gap-4 justify-center items-center">
-                    {games.map((game) => (
-                        <div key={game.id} className="card bg-black-100 w-96 h-[420px] shadow-sm flex flex-col border-2 border-purple-400">
+                    {consoles.map((console) => (
+                        <div key={console.id} className="card bg-black-100 w-96 h-[420px] shadow-sm flex flex-col border-2 border-purple-400">
                             <figure className="w-full h-60 relative">
                                 <Image
-                                    src={`/img/${game.cover}`}
-                                    alt={game.cover}
+                                    src={`/img/${console.image}`}
+                                    alt={console.image}
                                     fill
                                     className="object-cover"
                                 />
                             </figure>
-                            <div className="card-body flex flex-col justify-between bg-black/40 text-white h-150px">                            
-                                <h4 className="text-purple-400">US$ {game.price}</h4>
+                            <div className="card-body flex flex-col justify-between bg-black/40 text-white h-150px">       
                                 <h2 className="card-title">
-                                    {game.title}
+                                    {console.name}
                                 </h2>
-                                <h4 className="text-white/60">Disponible para {game.console.name}</h4>
-                                <h4 className="text-white/60">Genre: {game.genre}</h4>
-                                <div className="card-actions justbtn-outlineify-end flex items-center content-center">
+                                <h4 className="text-white/60">Manufacurer {console.manuFacturer}</h4>
+                                <div className="card-actions justbtn-outlineify-end flex">
                                     <div className="btn btn-outline btn-warning">Edit</div>
                                     <div className="btn btn-outline btn-info">View</div>
                                     <div className="btn btn-outline btn-error">Delete</div>

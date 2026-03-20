@@ -14,7 +14,7 @@ export default function SideBar({ currentPath = "/dashboard",children }: { curre
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
-                <nav className="navbar w-full bg-base-300 top-0 ">
+                <nav className="navbar w-full bg-black text-white top-0 ">
                     <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
                         <ListIcon size={28} />
                     </label>
@@ -27,12 +27,12 @@ export default function SideBar({ currentPath = "/dashboard",children }: { curre
                     </div>
                 </nav>
                 {/* Page content here */}
-                <div className="p-4">{children}</div>
+                <div className="p-4 bg-black/90">{children}</div>
             </div>
 
             <div className="drawer-side is-drawer-close:overflow-visible">
                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-                <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+                <div className="flex min-h-full flex-col items-start bg-black is-drawer-close:w-14 is-drawer-open:w-64">
                     <div className="menu w-full grow space-y-2">
                         {navigation.map((item, key) => {
                             const IconComponent = item.icon;
