@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Territorio FPC</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#0d1535;
+  --navy:#101b46;
+  --blue:#1b2a66;
+  --gold:#d79d21;
+  --gold-btn:#c8930f;
+  --red-btn:#d94040;
+  --white:#fff;
+  --w80:rgba(255,255,255,0.8);
+  --w40:rgba(255,255,255,0.4);
+  --w15:rgba(255,255,255,0.15);
+  --w08:rgba(255,255,255,0.08);
+  --W:390px;
+  --H:844px;
+}
+body{
+  background:#060c24;
+  font-family:'Montserrat',sans-serif;
+  color:var(--white);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px 0 60px;
+  gap:16px;
+}
+/* ---- NAV TABS ---- */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:440px;padding:0 12px;}
+.tab{
+  font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.8px;
+  padding:6px 12px;border:1.5px solid var(--w15);border-radius:20px;
+  background:transparent;color:var(--w40);cursor:pointer;transition:all .18s;
+}
+.tab.on,.tab:hover{background:var(--gold);border-color:var(--gold);color:#0d1535;}
+
+/* ---- PHONE SHELL ---- */
+.phone{
+  width:var(--W);
+  min-height:var(--H);
+  background:var(--navy);
+  border-radius:44px;
+  overflow:hidden;
+  display:none;
+  flex-direction:column;
+  box-shadow:0 0 0 1.5px rgba(255,255,255,.08), 0 24px 80px rgba(0,0,0,.7);
+  position:relative;
+}
+.phone.on{display:flex;}
+
+/* ---- STATUS BAR ---- */
+.sbar{
+  background:var(--dark);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 24px 10px;font-size:12px;font-weight:700;flex-shrink:0;
+}
+.sbar .icons{display:flex;gap:5px;font-size:12px;}
+
+/* ============================================================
+   SCREEN: HOME (sin login) - Primera A / Primera B
+   ============================================================ */
+/* Header home pre-login */
+.home-header{
+  background:var(--dark);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 18px 10px;
+  border-bottom:2px solid var(--gold);
+  flex-shrink:0;
+}
+.tf-logo{width:50px;height:50px;border-radius:50%;background:#0d1535;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;}
+.tf-logo img{width:40px;height:40px;object-fit:contain;}
+.tf-logo-txt{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);letter-spacing:1px;line-height:1;text-align:center;}
+.hdr-btns{display:flex;gap:8px;}
+.hdr-btn{
+  padding:8px 18px;border-radius:22px;font-size:13px;font-weight:600;cursor:pointer;border:none;
+}
+.hdr-btn.login{background:var(--navy);color:var(--white);border:1px solid var(--w40);}
+.hdr-btn.register{background:var(--navy);color:var(--white);border:1px solid var(--w40);}
+.hdr-btn.active-tab{border:2px solid var(--gold);}
+
+/* League body */
+.league-body{flex:1;overflow-y:auto;padding:10px 0 20px;scrollbar-width:none;}
+.league-body::-webkit-scrollbar{display:none;}
+.league-title{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:700;padding:16px 20px 10px;color:var(--white);}
+
+.teams-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:18px;padding:0 24px;
+}
+.team-img-wrap{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:transform .2s;
+}
+.team-img-wrap:hover{transform:scale(1.04);}
+.team-circle{
+  width:140px;height:140px;border-radius:50%;
+  background:#fff;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.team-circle img{width:100%;height:100%;object-fit:cover;}
+.team-circle .placeholder{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;color:#1b2a66;text-align:center;padding:10px;
+}
+
+.league-nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 20px;
+}
+.arr-btn{
+  background:none;border:none;color:var(--white);font-size:22px;cursor:pointer;
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+}
+.league-sep{height:2px;background:var(--gold);margin:0 0 4px;}
+
+/* ============================================================
+   SCREEN: LOGIN / REGISTER  (card con borde dorado)
+   ============================================================ */
+.auth-bg{
+  flex:1;background:var(--dark);
+  display:flex;align-items:center;justify-content:center;padding:30px 24px;
+}
+.auth-card{
+  width:100%;
+  background:var(--navy);
+  border:1.5px solid var(--gold);
+  border-radius:32px;
+  padding:32px 28px 28px;
+  position:relative;
+}
+.auth-back{
+  background:none;border:none;color:var(--white);font-size:20px;cursor:pointer;
+  position:absolute;top:22px;left:22px;
+}
+.auth-title{
+  font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;
+  text-align:center;margin-bottom:28px;
+}
+.auth-input{
+  display:block;width:100%;
+  background:#fff;border:none;border-radius:30px;
+  padding:13px 20px;font-size:14px;font-family:'Montserrat',sans-serif;
+  color:#111;outline:none;margin-bottom:14px;
+}
+.auth-forgot{font-size:11px;color:var(--w40);margin:4px 0 24px;cursor:pointer;}
+.auth-submit{
+  display:block;width:100%;
+  background:var(--gold);border:none;border-radius:30px;
+  padding:15px;font-size:18px;font-weight:700;font-family:'Montserrat',sans-serif;
+  color:#0d1535;cursor:pointer;margin-bottom:14px;transition:background .2s;
+}
+.auth-submit:hover{background:#e8aa28;}
+.auth-alt{text-align:center;font-size:13px;color:var(--white);cursor:pointer;}
+
+/* ============================================================
+   SCREEN: DASHBOARD
+   ============================================================ */
+.dash-header{
+  background:var(--dark);display:flex;align-items:center;justify-content:space-between;
+  padding:10px 18px;border-bottom:2px solid var(--gold);flex-shrink:0;
+}
+.logout-btn{
+  background:var(--gold);color:#0d1535;border:none;border-radius:20px;
+  padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;
+}
+.dash-body{flex:1;overflow-y:auto;padding:24px 20px;scrollbar-width:none;}
+.dash-body::-webkit-scrollbar{display:none;}
+
+.dash-link-btn{
+  display:block;width:100%;background:#fff;color:#111;
+  border:none;border-radius:30px;padding:15px 22px;
+  font-size:15px;font-weight:500;text-align:left;cursor:pointer;
+  margin-bottom:14px;font-family:'Montserrat',sans-serif;
+}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0 24px;}
+.dash-stat{
+  border-radius:12px;padding:16px 14px;
+  font-size:14px;font-weight:700;color:#fff;cursor:pointer;
+}
+.dash-stat.gold{background:var(--gold);color:#0d1535;}
+.dash-stat.red{background:#d94040;}
+.dash-stat.green{background:#27a84a;}
+.dash-stat.purple{background:#5b3fa0;}
+
+.chart-box{
+  background:var(--dark);border-radius:16px;padding:16px;
+}
+.chart-title{font-size:13px;font-weight:700;text-align:center;margin-bottom:12px;}
+.bars{display:flex;align-items:flex-end;gap:8px;height:100px;padding:0 4px;}
+.bar{flex:1;border-radius:3px 3px 0 0;min-height:10px;}
+.chart-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:11px;color:var(--w40);}
+.chart-legend{display:flex;gap:10px;font-size:11px;}
+.leg{display:flex;align-items:center;gap:4px;}
+.leg-dot{width:10px;height:10px;border-radius:2px;}
+
+/* ============================================================
+   SCREEN: EQUIPOS / CIUDADES (authenticated list)
+   ============================================================ */
+.list-header{
+  background:var(--dark);display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;border-bottom:2px solid var(--gold);flex-shrink:0;
+  gap:10px;
+}
+.list-tab-btn{
+  padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;border:none;cursor:pointer;
+}
+.list-tab-btn.active{background:var(--gold);color:#0d1535;}
+.list-tab-btn.inactive{background:var(--blue);color:var(--white);}
+.user-icon{width:32px;height:32px;border-radius:50%;background:var(--w15);display:flex;align-items:center;justify-content:center;font-size:16px;}
+
+/* dropdown menu */
+.list-dropdown{
+  position:absolute;top:80px;right:16px;
+  background:var(--navy);border:1px solid var(--w15);border-radius:12px;
+  padding:8px 0;z-index:10;min-width:110px;
+}
+.dd-item{padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;}
+.dd-item:hover{background:var(--w08);}
+
+.list-search-row{display:flex;align-items:center;gap:10px;padding:12px 18px 6px;}
+.list-search{
+  flex:1;background:#fff;border:none;border-radius:30px;
+  padding:10px 16px;font-size:13px;font-family:'Montserrat',sans-serif;color:#111;outline:none;
+}
+.list-filter-row{display:flex;align-items:center;gap:8px;padding:4px 18px 8px;}
+.fpc-big{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--white);letter-spacing:2px;}
+.cat-label{font-size:12px;color:var(--w40);}
+.cat-dropdown{
+  background:var(--navy);border:1px solid var(--w15);border-radius:10px;
+  padding:6px 0;min-width:100px;
+}
+.cat-opt{padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;}
+.cat-opt:hover,.cat-opt.sel{background:var(--gold);color:#0d1535;border-radius:8px;margin:0 4px;}
+
+.add-fab{
+  width:40px;height:40px;border-radius:50%;background:var(--gold);
+  border:none;color:#0d1535;font-size:22px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+
+.circles-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:20px;padding:12px 24px 12px;
+}
+.item-circle{
+  aspect-ratio:1;
+  border-radius:50%;
+  background:#1b3a6b;
+  overflow:hidden;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.item-circle:hover{transform:scale(1.04);}
+.item-circle img{width:100%;height:100%;object-fit:cover;}
+.item-circle .ph{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;text-align:center;padding:14px;}
+
+.list-pagination{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:10px 16px;background:var(--dark);border-top:1px solid var(--w08);flex-shrink:0;
+}
+.pg-btn{background:none;border:none;color:var(--white);font-size:18px;cursor:pointer;padding:6px;}
+.pg-info{font-size:12px;font-weight:600;color:var(--w80);display:flex;align-items:center;gap:6px;}
+.pg-chevron{font-size:13px;color:var(--gold);}
+.pg-reset{background:none;border:none;color:var(--w40);font-size:16px;cursor:pointer;}
+
+/* Category select */
+.cat-select{
+  background:var(--gold);color:#0d1535;
+  border:none;border-radius:20px;
+  padding:8px 14px;font-size:13px;font-weight:700;
+  font-family:'Montserrat',sans-serif;cursor:pointer;outline:none;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%230d1535' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;
+  padding-right:28px;
+}
+
+/* ============================================================
+   SCREEN: SHOW
+   ============================================================ */
+.show-header{
+  background:var(--navy);display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;flex-shrink:0;
+}
+.show-back{background:none;border:none;color:var(--white);font-size:22px;cursor:pointer;}
+.show-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;}
+.show-expand{width:28px;height:28px;background:var(--w08);border-radius:6px;border:none;color:var(--white);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+.show-body{flex:1;overflow-y:auto;padding:20px 24px;scrollbar-width:none;}
+.show-body::-webkit-scrollbar{display:none;}
+.show-img-box{
+  width:180px;height:180px;border-radius:20px;overflow:hidden;
+  background:var(--dark);margin:0 auto 24px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(0,0,0,.5);
+}
+.show-img-box img{width:100%;height:100%;object-fit:cover;}
+.show-img-box .ph{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);text-align:center;padding:20px;}
+
+.show-field-label{font-size:13px;font-weight:600;margin-bottom:4px;color:var(--white);}
+.show-field-val{
+  background:#fff;color:#111;border-radius:8px;
+  padding:11px 14px;font-size:14px;font-weight:500;
+  margin-bottom:14px;
+}
+.show-actions{display:flex;gap:14px;padding:16px 24px;flex-shrink:0;}
+.show-del{
+  flex:1;background:var(--red-btn);border:none;border-radius:30px;
+  padding:14px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;
+}
+.show-edit{
+  flex:1;background:var(--gold);border:none;border-radius:30px;
+  padding:14px;font-size:16px;font-weight:700;color:#0d1535;cursor:pointer;
+}
+
+/* ============================================================
+   SCREEN: EDITAR
+   ============================================================ */
+.edit-header{
+  background:var(--navy);display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;flex-shrink:0;
+}
+.edit-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;}
+.edit-body2{flex:1;overflow-y:auto;padding:20px 24px;scrollbar-width:none;}
+.edit-body2::-webkit-scrollbar{display:none;}
+.edit-img-box{
+  width:180px;height:180px;border-radius:20px;overflow:hidden;
+  background:var(--dark);margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(0,0,0,.5);cursor:pointer;
+}
+.edit-img-box img{width:100%;height:100%;object-fit:cover;}
+.upload-btn{
+  display:flex;align-items:center;gap:8px;
+  background:var(--w08);border:1px solid var(--w15);border-radius:20px;
+  padding:8px 18px;font-size:12px;color:var(--white);cursor:pointer;
+  margin:0 auto 18px;width:fit-content;
+}
+.edit-label{font-size:13px;font-weight:600;margin-bottom:4px;color:var(--white);}
+.edit-input{
+  display:block;width:100%;
+  background:var(--w08);border:1px solid var(--w15);border-radius:30px;
+  padding:12px 18px;font-size:13px;font-family:'Montserrat',sans-serif;
+  color:var(--white);outline:none;margin-bottom:14px;
+}
+.edit-input::placeholder{color:var(--w40);}
+.edit-submit{
+  display:block;width:100%;
+  background:var(--gold);border:none;border-radius:30px;
+  padding:18px;font-size:20px;font-weight:700;font-family:'Montserrat',sans-serif;
+  color:#0d1535;cursor:pointer;margin-top:8px;
+}
+
+/* ============================================================
+   SCREEN: AGREGAR
+   ============================================================ */
+.add-header{
+  background:var(--dark);display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;border-bottom:1px solid var(--w08);flex-shrink:0;
+}
+.add-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;}
+.add-body{flex:1;overflow-y:auto;padding:20px 24px;scrollbar-width:none;}
+.add-body::-webkit-scrollbar{display:none;}
+.photo-upload{
+  width:90px;height:90px;border-radius:20px;background:var(--w08);
+  border:2px dashed var(--w15);display:flex;align-items:center;justify-content:center;
+  font-size:28px;color:var(--w40);margin:0 auto 20px;cursor:pointer;
+}
+.add-label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--w40);margin-bottom:5px;text-transform:uppercase;}
+.add-input{
+  display:block;width:100%;
+  background:var(--w08);border:1px solid var(--w15);border-radius:10px;
+  padding:12px 16px;font-size:13px;font-family:'Montserrat',sans-serif;
+  color:var(--white);outline:none;margin-bottom:16px;
+}
+.add-input::placeholder{color:var(--w40);}
+.add-submit{
+  display:block;width:100%;
+  background:var(--gold);border:none;border-radius:10px;
+  padding:15px;font-size:17px;font-weight:700;font-family:'Montserrat',sans-serif;
+  color:#0d1535;cursor:pointer;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.phone.on{animation:fadeUp .22s ease;}
+*{scrollbar-width:none;}
+*::-webkit-scrollbar{display:none;}
+@media(max-width:420px){:root{--W:100vw;}.phone{border-radius:0;}}
+</style>
+</head>
+<body>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab on"   onclick="go('home')">🏠 Home</button>
+  <button class="tab"      onclick="go('login')">Login</button>
+  <button class="tab"      onclick="go('register')">Register</button>
+  <button class="tab"      onclick="go('dashboard')">Dashboard</button>
+  <button class="tab"      onclick="go('equipos')">Equipos</button>
+  <button class="tab"      onclick="go('ciudades')">Ciudades</button>
+  <button class="tab"      onclick="go('show-equipo')">Show</button>
+  <button class="tab"      onclick="go('editar')">Editar</button>
+  <button class="tab"      onclick="go('agregar')">Agregar</button>
+</div>
+
+<!-- ============================================================
+HOME (pre-login)
+============================================================ -->
+<div class="phone on" id="ph-home">
+  <div class="sbar" style="background:var(--dark);">
+    <span style="font-size:13px;font-weight:700;">9:41</span>
+    <div class="icons" style="display:flex;gap:5px;font-size:12px;">▌▌▌ ▾ 🔋</div>
+  </div>
+  <!-- header -->
+  <div class="home-header">
+    <div class="tf-logo"><div class="tf-logo-txt">TF</div></div>
+    <div class="hdr-btns">
+      <button class="hdr-btn login active-tab" onclick="go('login')">Login</button>
+      <button class="hdr-btn register" onclick="go('register')">Register</button>
+    </div>
+  </div>
+  <!-- body -->
+  <div class="league-body">
+    <!-- Primera A -->
+    <div class="league-title">Primera A</div>
+    <div class="teams-grid">
+      <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-circle">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Junior_FC_logo.svg/200px-Junior_FC_logo.svg.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Junior">
+          <div class="placeholder" style="display:none;">JUNIOR</div>
+        </div>
+      </div>
+      <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-circle">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Once Caldas">
+          <div class="placeholder" style="display:none;">OC</div>
+        </div>
+      </div>
+      <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-circle" style="background:#eee;">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Independiente_Medell%C3%ADn_logo.svg/200px-Independiente_Medell%C3%ADn_logo.svg.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="DIM">
+          <div class="placeholder" style="display:none;color:#c00;">DIM</div>
+        </div>
+      </div>
+      <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-circle">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Deportivo_Cali_logo.svg/200px-Deportivo_Cali_logo.svg.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Deportivo Cali">
+          <div class="placeholder" style="display:none;color:#006400;">CALI</div>
+        </div>
+      </div>
+    </div>
+    <div class="league-nav">
+      <button class="arr-btn">←</button>
+      <button class="arr-btn">→</button>
+    </div>
+    <div class="league-sep"></div>
+    <!-- Primera B -->
+    <div class="league-title">Primera B</div>
+    <div class="teams-grid">
+      <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-circle">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Envigado_FC_logo.svg/200px-Envigado_FC_logo.svg.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Envigado">
+          <div class="placeholder" style="display:none;">EFC</div>
+        </div>
+      </div>
+      <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-circle">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Real_Cartagena_logo.svg/200px-Real_Cartagena_logo.svg.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Real Cartagena">
+          <div class="placeholder" style="display:none;">RC</div>
+        </div>
+      </div>
+    </div>
+    <div class="league-nav">
+      <button class="arr-btn">←</button>
+      <button class="arr-btn">→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     LOGIN
+     ============================================================ -->
+<div class="phone" id="ph-login">
+  <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span><div></div></div>
+  <div class="auth-bg">
+    <div class="auth-card">
+      <button class="auth-back" onclick="go('home')">←</button>
+      <div class="auth-title">LOGIN</div>
+      <input class="auth-input" type="text" placeholder="User Name">
+      <input class="auth-input" type="password" placeholder="Password">
+      <div class="auth-forgot">¿forgot your password?</div>
+      <button class="auth-submit" onclick="go('dashboard')">Sign in</button>
+      <div class="auth-alt" onclick="go('register')">Register</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     REGISTER
+     ============================================================ -->
+<div class="phone" id="ph-register">
+  <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span><div></div></div>
+  <div class="auth-bg">
+    <div class="auth-card">
+      <button class="auth-back" onclick="go('home')">←</button>
+      <div class="auth-title">REGISTER</div>
+      <input class="auth-input" type="text" placeholder="User Name">
+      <input class="auth-input" type="password" placeholder="Password">
+      <input class="auth-input" type="password" placeholder="Repeat Password">
+      <button class="auth-submit" style="margin-top:18px;" onclick="go('dashboard')">Register</button>
+      <div class="auth-alt" onclick="go('login')">Login</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     DASHBOARD
+     ============================================================ -->
+<div class="phone" id="ph-dashboard">
+  <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span><div></div></div>
+  <div class="dash-header">
+    <div class="tf-logo"><div class="tf-logo-txt">TF</div></div>
+    <button class="logout-btn" onclick="go('home')">Logout</button>
+  </div>
+  <div class="dash-body">
+    <button class="dash-link-btn" onclick="go('equipos')">ver equipos</button>
+    <button class="dash-link-btn" onclick="go('ciudades')">ver ciudades</button>
+    <div class="dash-grid">
+      <div class="dash-stat gold" onclick="go('equipos')">Total equipos</div>
+      <div class="dash-stat red" onclick="go('equipos')">Primera A</div>
+      <div class="dash-stat green" onclick="go('equipos')">Primera B</div>
+      <div class="dash-stat purple" onclick="go('ciudades')">Ciudades</div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Colores preferidos</div>
+      <div class="bars">
+        <div class="bar" style="height:65%;background:#111;"></div>
+        <div class="bar" style="height:80%;background:#1565c0;"></div>
+        <div class="bar" style="height:50%;background:#f9d923;"></div>
+        <div class="bar" style="height:85%;background:#c00;"></div>
+      </div>
+      <div class="chart-footer">
+        <span style="display:flex;align-items:center;gap:4px;"><span class="pg-chevron">‹</span> 7/32 <span class="pg-chevron">›</span></span>
+        <div class="chart-legend">
+          <div class="leg"><div class="leg-dot" style="background:#f9d923;"></div>amarillo</div>
+          <div class="leg"><div class="leg-dot" style="background:#c00;"></div>Rojo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     EQUIPOS (autenticado)
+     ============================================================ -->
+<div class="phone" id="ph-equipos" style="position:relative;">
+  <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span><div></div></div>
+  <div class="list-header">
+    <div class="tf-logo" style="width:42px;height:42px;"><div class="tf-logo-txt" style="font-size:15px;">TF</div></div>
+    <button class="list-tab-btn inactive" onclick="go('ciudades')">Ciudades</button>
+    <button class="list-tab-btn active">Equipos</button>
+    <!-- user icon triggers dropdown -->
+    <div class="user-icon" id="user-eq" onclick="toggleDD('dd-eq')" style="cursor:pointer;position:relative;">👤</div>
+  </div>
+  <!-- dropdown del usuario (oculto por defecto) -->
+  <div id="dd-eq" style="display:none;position:absolute;top:74px;right:14px;background:var(--navy);border:1px solid var(--w15);border-radius:12px;padding:6px 0;z-index:20;min-width:120px;box-shadow:0 8px 24px rgba(0,0,0,.5);">
+    <div class="dd-item" onclick="go('dashboard');closeDD('dd-eq')">Dashboard</div>
+    <div class="dd-item" onclick="go('home');closeDD('dd-eq')">Logout</div>
+  </div>
+
+  <!-- search + FPC + cat -->
+  <div style="padding:10px 18px 0;">
+    <input class="list-search" type="text" placeholder="">
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;padding:6px 18px;">
+    <div class="fpc-big">FPC</div>
+    <button class="add-fab" onclick="go('agregar')">+</button>
+    <div style="margin-left:auto;display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
+      <div class="cat-label">categoria 🌐</div>
+      <select class="cat-select" onchange="">
+        <option>Primera A</option>
+        <option>Primera B</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="circles-grid">
+    <div class="item-circle" onclick="go('show-equipo')">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Junior_FC_logo.svg/200px-Junior_FC_logo.svg.png" onerror="this.style.display='none'" alt="Junior">
+    </div>
+    <div class="item-circle" onclick="go('show-equipo')" style="background:#fff;">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png" onerror="this.style.display='none'" alt="Once Caldas">
+    </div>
+    <div class="item-circle" onclick="go('show-equipo')" style="background:#eee;">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Independiente_Medell%C3%ADn_logo.svg/200px-Independiente_Medell%C3%ADn_logo.svg.png" onerror="this.style.display='none'" alt="DIM">
+    </div>
+    <div class="item-circle" onclick="go('show-equipo')">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Deportivo_Cali_logo.svg/200px-Deportivo_Cali_logo.svg.png" onerror="this.style.display='none'" alt="Deportivo Cali">
+    </div>
+    <div class="item-circle" onclick="go('show-equipo')">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Envigado_FC_logo.svg/200px-Envigado_FC_logo.svg.png" onerror="this.style.display='none'" alt="Envigado">
+    </div>
+    <div class="item-circle" onclick="go('show-equipo')">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Real_Cartagena_logo.svg/200px-Real_Cartagena_logo.svg.png" onerror="this.style.display='none'" alt="Real Cartagena">
+    </div>
+  </div>
+
+  <div class="list-pagination">
+    <button class="pg-btn">←</button>
+    <span class="pg-info"><span class="pg-chevron">‹</span> 4/32 <span class="pg-chevron">›</span></span>
+    <button class="pg-reset">↺</button>
+    <button class="pg-btn">→</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     CIUDADES (autenticado)
+     ============================================================ -->
+<div class="phone" id="ph-ciudades" style="position:relative;">
+  <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span><div></div></div>
+  <div class="list-header">
+    <div class="tf-logo" style="width:42px;height:42px;"><div class="tf-logo-txt" style="font-size:15px;">TF</div></div>
+    <button class="list-tab-btn active">Ciudades</button>
+    <button class="list-tab-btn inactive" onclick="go('equipos')">Equipos</button>
+    <div class="user-icon" id="user-ci" onclick="toggleDD('dd-ci')" style="cursor:pointer;">👤</div>
+  </div>
+  <div id="dd-ci" style="display:none;position:absolute;top:74px;right:14px;background:var(--navy);border:1px solid var(--w15);border-radius:12px;padding:6px 0;z-index:20;min-width:120px;box-shadow:0 8px 24px rgba(0,0,0,.5);">
+    <div class="dd-item" onclick="go('dashboard');closeDD('dd-ci')">Dashboard</div>
+    <div class="dd-item" onclick="go('home');closeDD('dd-ci')">Logout</div>
+  </div>
+  <div style="padding:10px 18px 0;">
+    <input class="list-search" type="text" placeholder="">
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;padding:6px 18px 4px;">
+    <button class="add-fab" onclick="go('agregar')">+</button>
+  </div>
+  <div class="circles-grid">
+    <!-- Barranquilla -->
+    <div class="item-circle" onclick="go('show-equipo')" style="background:#2a6e3a;">
+      <div class="ph" style="font-size:12px;font-weight:700;color:#fff;text-align:center;padding:12px;">BARRA<br>NQUILLA</div>
+    </div>
+    <!-- Manizales -->
+    <div class="item-circle" onclick="go('show-equipo')" style="background:#1a3a5c;">
+      <div class="ph" style="font-size:13px;font-weight:700;color:#fff;text-align:center;padding:12px;">MANI<br>ZALES</div>
+    </div>
+    <!-- Medellín -->
+    <div class="item-circle" onclick="go('show-equipo')" style="background:#2d1b4e;">
+      <div class="ph" style="font-size:14px;font-weight:700;color:#fff;text-align:center;padding:12px;">MDE<br>LLÍN</div>
+    </div>
+    <!-- Cali -->
+    <div class="item-circle" onclick="go('show-equipo')" style="background:#1a4a2e;">
+      <div class="ph" style="font-size:16px;font-weight:700;color:#fff;text-align:center;padding:12px;">CALI</div>
+    </div>
+    <!-- Envigado -->
+    <div class="item-circle" onclick="go('show-equipo')" style="background:#4a3a1a;">
+      <div class="ph" style="font-size:12px;font-weight:700;color:#fff;text-align:center;padding:12px;">ENVI<br>GADO</div>
+    </div>
+    <!-- Cartagena -->
+    <div class="item-circle" onclick="go('show-equipo')" style="background:#7a4a10;">
+      <div class="ph" style="font-size:11px;font-weight:700;color:#fff;text-align:center;padding:12px;">CARTA<br>GENA</div>
+    </div>
+  </div>
+  <div class="list-pagination">
+    <button class="pg-btn">←</button>
+    <span class="pg-info"><span class="pg-chevron">‹</span> 5/32 <span class="pg-chevron">›</span></span>
+    <button class="pg-reset">↺</button>
+    <button class="pg-btn">→</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     SHOW EQUIPO
+     ============================================================ -->
+<div class="phone" id="ph-show-equipo">
+  <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span><div></div></div>
+  <div class="show-header">
+    <button class="show-back" onclick="go('equipos')">←</button>
+    <div class="show-title">Show</div>
+    <button class="show-expand">⤢</button>
+  </div>
+  <div class="show-body">
+    <div class="show-img-box" style="background:#fff;">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png" onerror="this.style.display='none';this.nextSibling.style.display='block';" alt="Once Caldas">
+      <div class="ph" style="display:none;">OC</div>
+    </div>
+    <div class="show-field-label">Nombre</div>
+    <div class="show-field-val">Once Caldas</div>
+    <div class="show-field-label">Ciudad</div>
+    <div class="show-field-val">Manizales</div>
+    <div class="show-field-label">Estadio</div>
+    <div class="show-field-val">Palogrande</div>
+    <div class="show-field-label">Titulos Locales</div>
+    <div class="show-field-val">4</div>
+  </div>
+  <div class="list-pagination" style="background:var(--navy);">
+    <button class="pg-btn">←</button>
+    <span class="pg-info"><span class="pg-chevron">‹</span> 10/32 <span class="pg-chevron">›</span></span>
+    <button class="pg-reset">↺</button>
+  </div>
+  <div class="show-actions">
+    <button class="show-del">delete</button>
+    <button class="show-edit" onclick="go('editar')">edit</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     EDITAR
+     ============================================================ -->
+<div class="phone" id="ph-editar">
+  <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span><div></div></div>
+  <div class="edit-header">
+    <button class="show-back" onclick="go('show-equipo')">←</button>
+    <div class="edit-title">Editar</div>
+    <button class="show-expand">⤢</button>
+  </div>
+  <div class="edit-body2">
+    <div class="edit-img-box" style="background:#fff;">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png" alt="Once Caldas">
+    </div>
+    <div class="upload-btn">Upload Image ↑</div>
+    <div class="edit-label">Nombre</div>
+    <input class="edit-input" type="text" value="Once caldas">
+    <div class="edit-label">Ciudad</div>
+    <input class="edit-input" type="text" value="Manizales">
+    <div class="edit-label">Estadio</div>
+    <input class="edit-input" type="text" value="Palogrande">
+    <div class="edit-label">Titulos Locales</div>
+    <input class="edit-input" type="number" value="4">
+    <button class="edit-submit" onclick="go('show-equipo')">Edit</button>
+  </div>
+  <div class="list-pagination" style="background:var(--navy);border-top:1px solid var(--w08);">
+    <button class="pg-btn">←</button>
+    <span class="pg-info"><span class="pg-chevron">‹</span> 22/32 <span class="pg-chevron">›</span></span>
+    <button class="pg-reset">↺</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     AGREGAR
+     ============================================================ -->
+<div class="phone" id="ph-agregar">
+  <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span><div></div></div>
+  <div class="add-header">
+    <button class="show-back" onclick="go('equipos')">←</button>
+    <div class="add-title">Agregar</div>
+    <button class="show-expand">⤢</button>
+  </div>
+  <div class="add-body">
+    <div class="photo-upload">📷</div>
+    <div class="add-label">Nombre</div>
+    <input class="add-input" type="text" placeholder="Nombre del equipo">
+    <div class="add-label">Ciudad</div>
+    <input class="add-input" type="text" placeholder="Ciudad sede">
+    <div class="add-label">Estadio</div>
+    <input class="add-input" type="text" placeholder="Nombre del estadio">
+    <div class="add-label">Títulos Locales</div>
+    <input class="add-input" type="number" placeholder="0">
+    <div class="add-label">Categoría</div>
+    <select class="add-input" style="appearance:none;">
+      <option>Primera A</option>
+      <option>Primera B</option>
+    </select>
+    <button class="add-submit" onclick="go('equipos')">Add</button>
+  </div>
+</div>
+
+<script>
+function toggleDD(id){
+  const el=document.getElementById(id);
+  const visible=el.style.display==='block';
+  // close all dropdowns first
+  document.querySelectorAll('[id^="dd-"]').forEach(d=>d.style.display='none');
+  el.style.display=visible?'none':'block';
+}
+function closeDD(id){document.getElementById(id).style.display='none';}
+// close dropdowns when clicking outside
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.user-icon')&&!e.target.closest('[id^="dd-"]'))
+    document.querySelectorAll('[id^="dd-"]').forEach(d=>d.style.display='none');
+});
+const screens={
+  home:'ph-home',login:'ph-login',register:'ph-register',
+  dashboard:'ph-dashboard',equipos:'ph-equipos',ciudades:'ph-ciudades',
+  'show-equipo':'ph-show-equipo',editar:'ph-editar',agregar:'ph-agregar'
+};
+const tabs=document.querySelectorAll('.tab');
+const tabKeys=Object.keys(screens);
+function go(id){
+  document.querySelectorAll('.phone').forEach(p=>p.classList.remove('on'));
+  document.getElementById(screens[id]).classList.add('on');
+  tabs.forEach((t,i)=>{t.classList.remove('on');if(tabKeys[i]===id)t.classList.add('on');});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
