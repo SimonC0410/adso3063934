@@ -17,9 +17,9 @@
     }
 
     :root {
-      --dark: #0d1535;
+      --dark: #081027;
       --navy: #101b46;
-      --blue: #1b2a66;
+      --blue: #101B46;
       --gold: #d79d21;
       --gold-btn: #c8930f;
       --red-btn: #d94040;
@@ -133,12 +133,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
     .tf-logo img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
 
     .tf-logo-txt {
@@ -281,16 +283,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 30px 24px;
+      padding: 40px 30px;
     }
 
     .auth-card {
       width: 100%;
+      max-width: 280px;
       background: var(--navy);
-      border: 1.5px solid var(--gold);
+      border: 2px solid var(--gold);
       border-radius: 32px;
-      padding: 32px 28px 28px;
-      position: relative;
+      padding: 28px 24px 24px;
+      display: flex;
+      flex-direction: column;
     }
 
     .auth-back {
@@ -299,17 +303,19 @@
       color: var(--white);
       font-size: 20px;
       cursor: pointer;
-      position: absolute;
-      top: 22px;
-      left: 22px;
+      align-self: flex-start;
+      margin-bottom: 8px;
+      padding: 0;
+      line-height: 1;
     }
 
     .auth-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 32px;
-      letter-spacing: 3px;
+      font-size: 34px;
+      letter-spacing: 4px;
       text-align: center;
       margin-bottom: 28px;
+      color: var(--white);
     }
 
     .auth-input {
@@ -326,10 +332,14 @@
       margin-bottom: 14px;
     }
 
+    .auth-input::placeholder {
+      color: #999;
+    }
+
     .auth-forgot {
       font-size: 11px;
       color: var(--w40);
-      margin: 4px 0 24px;
+      margin: -4px 0 22px;
       cursor: pointer;
     }
 
@@ -747,12 +757,12 @@
    SCREEN: SHOW
    ============================================================ */
     .show-header {
-      background: var(--navy);
+      background: var(--dark);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 12px 18px;
+      padding: 16px 18px 12px;
       flex-shrink: 0;
+      position: relative;
     }
 
     .show-back {
@@ -761,109 +771,116 @@
       color: var(--white);
       font-size: 22px;
       cursor: pointer;
+      position: absolute;
+      left: 18px;
     }
 
     .show-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
-      letter-spacing: 2px;
+      font-size: 38px;
+      letter-spacing: 3px;
+      text-align: center;
+      width: 100%;
+      color: var(--white);
     }
 
     .show-expand {
-      width: 28px;
-      height: 28px;
-      background: var(--w08);
-      border-radius: 6px;
-      border: none;
-      color: var(--white);
-      font-size: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .show-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 24px;
-      scrollbar-width: none;
-    }
-
-    .show-body::-webkit-scrollbar {
       display: none;
     }
 
-    .show-img-box {
-      width: 180px;
-      height: 180px;
-      border-radius: 20px;
-      overflow: hidden;
+    /* fondo oscuro que cubre toda la pantalla */
+    .show-bg {
+      flex: 1;
       background: var(--dark);
-      margin: 0 auto 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px 24px;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .show-bg::-webkit-scrollbar {
+      display: none;
+    }
+
+    .show-card {
+      background: var(--navy);
+      border-radius: 24px;
+      padding: 24px 24px 16px;
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .show-img-box {
+      width: 140px;
+      height: 140px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, .5);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
+      flex-shrink: 0;
     }
 
     .show-img-box img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-
-    .show-img-box .ph {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      color: var(--gold);
-      text-align: center;
-      padding: 20px;
+      object-fit: contain;
     }
 
     .show-field-label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       color: var(--white);
+      align-self: flex-start;
     }
 
     .show-field-val {
       background: #fff;
       color: #111;
       border-radius: 8px;
-      padding: 11px 14px;
-      font-size: 14px;
+      padding: 10px 14px;
+      font-size: 13px;
       font-weight: 500;
       margin-bottom: 14px;
+      text-align: center;
+      width: 100%;
     }
 
     .show-actions {
       display: flex;
-      gap: 14px;
-      padding: 16px 24px;
-      flex-shrink: 0;
+      gap: 12px;
+      padding: 12px 0 4px;
+      justify-content: center;
+      width: 100%;
+      background: transparent;
     }
 
     .show-del {
-      flex: 1;
-      background: var(--red-btn);
+      background: #e05555;
       border: none;
       border-radius: 30px;
-      padding: 14px;
-      font-size: 16px;
+      padding: 11px 26px;
+      font-size: 14px;
       font-weight: 700;
       color: #fff;
       cursor: pointer;
     }
 
     .show-edit {
-      flex: 1;
       background: var(--gold);
       border: none;
       border-radius: 30px;
-      padding: 14px;
-      font-size: 16px;
+      padding: 11px 26px;
+      font-size: 14px;
       font-weight: 700;
       color: #0d1535;
       cursor: pointer;
@@ -873,49 +890,68 @@
    SCREEN: EDITAR
    ============================================================ */
     .edit-header {
-      background: var(--navy);
+      background: var(--dark);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 12px 18px;
+      padding: 16px 18px 12px;
       flex-shrink: 0;
+      position: relative;
     }
 
     .edit-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
-      letter-spacing: 2px;
+      font-size: 38px;
+      letter-spacing: 3px;
+      text-align: center;
+      width: 100%;
+      color: var(--white);
     }
 
-    .edit-body2 {
+    .edit-bg {
       flex: 1;
-      overflow-y: auto;
+      background: var(--dark);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
       padding: 20px 24px;
+      overflow-y: auto;
       scrollbar-width: none;
     }
 
-    .edit-body2::-webkit-scrollbar {
+    .edit-bg::-webkit-scrollbar {
       display: none;
     }
 
+    .edit-card {
+      background: var(--navy);
+      border-radius: 24px;
+      padding: 24px 24px 20px;
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .edit-img-box {
-      width: 180px;
-      height: 180px;
-      border-radius: 20px;
+      width: 140px;
+      height: 140px;
+      border-radius: 16px;
       overflow: hidden;
-      background: var(--dark);
-      margin: 0 auto 12px;
+      background: #fff;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, .5);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
+      flex-shrink: 0;
       cursor: pointer;
     }
 
     .edit-img-box img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .upload-btn {
@@ -925,37 +961,40 @@
       background: var(--w08);
       border: 1px solid var(--w15);
       border-radius: 20px;
-      padding: 8px 18px;
-      font-size: 12px;
+      padding: 7px 16px;
+      font-size: 11px;
       color: var(--white);
       cursor: pointer;
-      margin: 0 auto 18px;
+      margin-bottom: 18px;
       width: fit-content;
     }
 
     .edit-label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       color: var(--white);
+      align-self: flex-start;
+      width: 100%;
     }
 
     .edit-input {
       display: block;
       width: 100%;
-      background: var(--w08);
-      border: 1px solid var(--w15);
-      border-radius: 30px;
-      padding: 12px 18px;
+      background: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
       font-size: 13px;
       font-family: 'Montserrat', sans-serif;
-      color: var(--white);
+      color: #111;
       outline: none;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+      text-align: center;
     }
 
     .edit-input::placeholder {
-      color: var(--w40);
+      color: #999;
     }
 
     .edit-submit {
@@ -964,13 +1003,13 @@
       background: var(--gold);
       border: none;
       border-radius: 30px;
-      padding: 18px;
-      font-size: 20px;
+      padding: 14px;
+      font-size: 18px;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
       color: #0d1535;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     /* ============================================================
@@ -980,33 +1019,50 @@
       background: var(--dark);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 12px 18px;
-      border-bottom: 1px solid var(--w08);
+      padding: 16px 18px 12px;
       flex-shrink: 0;
+      position: relative;
     }
 
     .add-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      letter-spacing: 2px;
+      font-size: 38px;
+      letter-spacing: 3px;
+      text-align: center;
+      width: 100%;
+      color: var(--white);
     }
 
-    .add-body {
+    .add-bg {
       flex: 1;
-      overflow-y: auto;
+      background: var(--dark);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
       padding: 20px 24px;
+      overflow-y: auto;
       scrollbar-width: none;
     }
 
-    .add-body::-webkit-scrollbar {
+    .add-bg::-webkit-scrollbar {
       display: none;
     }
 
+    .add-card {
+      background: var(--navy);
+      border-radius: 24px;
+      padding: 24px 24px 20px;
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .photo-upload {
-      width: 90px;
-      height: 90px;
-      border-radius: 20px;
+      width: 100px;
+      height: 100px;
+      border-radius: 16px;
       background: var(--w08);
       border: 2px dashed var(--w15);
       display: flex;
@@ -1014,35 +1070,37 @@
       justify-content: center;
       font-size: 28px;
       color: var(--w40);
-      margin: 0 auto 20px;
+      margin-bottom: 18px;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .add-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      color: var(--w40);
-      margin-bottom: 5px;
-      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 3px;
+      align-self: flex-start;
+      width: 100%;
     }
 
     .add-input {
       display: block;
       width: 100%;
-      background: var(--w08);
-      border: 1px solid var(--w15);
-      border-radius: 10px;
-      padding: 12px 16px;
+      background: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
       font-size: 13px;
       font-family: 'Montserrat', sans-serif;
-      color: var(--white);
+      color: #111;
       outline: none;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      text-align: center;
     }
 
     .add-input::placeholder {
-      color: var(--w40);
+      color: #999;
     }
 
     .add-submit {
@@ -1050,13 +1108,14 @@
       width: 100%;
       background: var(--gold);
       border: none;
-      border-radius: 10px;
-      padding: 15px;
-      font-size: 17px;
+      border-radius: 30px;
+      padding: 14px;
+      font-size: 18px;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
       color: #0d1535;
       cursor: pointer;
+      margin-top: 6px;
     }
 
     @keyframes fadeUp {
@@ -1092,6 +1151,110 @@
         border-radius: 0;
       }
     }
+
+    /* ---- DASHBOARD CHART ---- */
+    .chart-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 14px 10px;
+      position: relative;
+    }
+
+    .chart-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #111;
+    }
+
+    .chart-wrap {
+      display: flex;
+      align-items: stretch;
+      gap: 6px;
+      height: 140px;
+      position: relative;
+    }
+
+    .chart-y-axis {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 9px;
+      color: #555;
+      padding-bottom: 22px;
+      min-width: 28px;
+    }
+
+    .chart-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .chart-gridlines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: calc(100% - 22px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .gridline {
+      width: 100%;
+      height: 1px;
+      background: #e0e0e0;
+    }
+
+    .chart-bars-row {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 0 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chart-bar-col {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+    }
+
+    .chart-bar-fill {
+      width: 100%;
+      border-radius: 2px 2px 0 0;
+      transition: height .3s ease;
+    }
+
+    .chart-x-labels {
+      display: flex;
+      justify-content: space-around;
+      font-size: 9px;
+      color: #555;
+      padding: 4px 6px 0;
+      height: 22px;
+    }
+
+    .chart-y-label {
+      position: absolute;
+      left: -2px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      font-size: 8px;
+      color: #888;
+      transform-origin: center;
+      white-space: nowrap;
+      transform: rotate(-90deg) translateX(40%);
+    }
   </style>
 </head>
 
@@ -1115,16 +1278,14 @@ HOME (pre-login)
 ============================================================ -->
   <div class="phone on" id="ph-home">
     <div class="sbar" style="background:var(--dark);">
-      <span style="font-size:13px;font-weight:700;">9:41</span>
-      <div class="icons" style="display:flex;gap:5px;font-size:12px;">▌▌▌ ▾ 🔋</div>
     </div>
     <!-- header -->
     <div class="home-header">
       <div class="tf-logo">
-        <div class="tf-logo-txt">TF</div>
+        <img src="img/logo.png" alt="TF logo">
       </div>
       <div class="hdr-btns">
-        <button class="hdr-btn login active-tab" onclick="go('login')">Login</button>
+        <button class="hdr-btn register" onclick="go('login')">Login</button>
         <button class="hdr-btn register" onclick="go('register')">Register</button>
       </div>
     </div>
@@ -1135,33 +1296,29 @@ HOME (pre-login)
       <div class="teams-grid">
         <div class="team-img-wrap" onclick="go('show-equipo')">
           <div class="team-circle">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Junior_FC_logo.svg/200px-Junior_FC_logo.svg.png"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Junior">
+            <img src="img/junior.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="Junior">
             <div class="placeholder" style="display:none;">JUNIOR</div>
           </div>
         </div>
         <div class="team-img-wrap" onclick="go('show-equipo')">
           <div class="team-circle">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
+            <img src="img/once caldas.png"
               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Once Caldas">
             <div class="placeholder" style="display:none;">OC</div>
           </div>
         </div>
         <div class="team-img-wrap" onclick="go('show-equipo')">
           <div class="team-circle" style="background:#eee;">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Independiente_Medell%C3%ADn_logo.svg/200px-Independiente_Medell%C3%ADn_logo.svg.png"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="DIM">
+            <img src="img/dim.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="DIM">
             <div class="placeholder" style="display:none;color:#c00;">DIM</div>
           </div>
         </div>
         <div class="team-img-wrap" onclick="go('show-equipo')">
           <div class="team-circle">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Deportivo_Cali_logo.svg/200px-Deportivo_Cali_logo.svg.png"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Deportivo Cali">
+            <img src="img/cali.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="Deportivo Cali">
             <div class="placeholder" style="display:none;color:#006400;">CALI</div>
           </div>
         </div>
@@ -1176,17 +1333,15 @@ HOME (pre-login)
       <div class="teams-grid">
         <div class="team-img-wrap" onclick="go('show-equipo')">
           <div class="team-circle">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Envigado_FC_logo.svg/200px-Envigado_FC_logo.svg.png"
+            <img src="img/envigado.png"
               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Envigado">
             <div class="placeholder" style="display:none;">EFC</div>
           </div>
         </div>
         <div class="team-img-wrap" onclick="go('show-equipo')">
           <div class="team-circle">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Real_Cartagena_logo.svg/200px-Real_Cartagena_logo.svg.png"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Real Cartagena">
+            <img src="img/realc.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="Real Cartagena">
             <div class="placeholder" style="display:none;">RC</div>
           </div>
         </div>
@@ -1202,7 +1357,7 @@ HOME (pre-login)
      LOGIN
      ============================================================ -->
   <div class="phone" id="ph-login">
-    <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span>
+    <div class="sbar" style="background:var(--dark);">
       <div></div>
     </div>
     <div class="auth-bg">
@@ -1222,7 +1377,7 @@ HOME (pre-login)
      REGISTER
      ============================================================ -->
   <div class="phone" id="ph-register">
-    <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span>
+    <div class="sbar" style="background:var(--dark);">
       <div></div>
     </div>
     <div class="auth-bg">
@@ -1242,12 +1397,10 @@ HOME (pre-login)
      DASHBOARD
      ============================================================ -->
   <div class="phone" id="ph-dashboard">
-    <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
+    <div class="sbar" style="background:var(--dark);"></div>
     <div class="dash-header">
       <div class="tf-logo">
-        <div class="tf-logo-txt">TF</div>
+        <img src="img/logo.png" alt="TF logo">
       </div>
       <button class="logout-btn" onclick="go('home')">Logout</button>
     </div>
@@ -1255,32 +1408,65 @@ HOME (pre-login)
       <button class="dash-link-btn" onclick="go('equipos')">ver equipos</button>
       <button class="dash-link-btn" onclick="go('ciudades')">ver ciudades</button>
       <div class="dash-grid">
-        <div class="dash-stat gold" onclick="go('equipos')">Total equipos</div>
-        <div class="dash-stat red" onclick="go('equipos')">Primera A</div>
-        <div class="dash-stat green" onclick="go('equipos')">Primera B</div>
-        <div class="dash-stat purple" onclick="go('ciudades')">Ciudades</div>
+        <div class="dash-stat gold">Total equipos</div>
+        <div class="dash-stat red">Primera A</div>
+        <div class="dash-stat green">Primera B</div>
+        <div class="dash-stat purple">Ciudades</div>
       </div>
+
+      <!-- GRÁFICA REAL -->
       <div class="chart-box">
         <div class="chart-title">Colores preferidos</div>
-        <div class="bars">
-          <div class="bar" style="height:65%;background:#111;"></div>
-          <div class="bar" style="height:80%;background:#1565c0;"></div>
-          <div class="bar" style="height:50%;background:#f9d923;"></div>
-          <div class="bar" style="height:85%;background:#c00;"></div>
-        </div>
-        <div class="chart-footer">
-          <span style="display:flex;align-items:center;gap:4px;"><span class="pg-chevron">‹</span> 7/32 <span
-              class="pg-chevron">›</span></span>
-          <div class="chart-legend">
-            <div class="leg">
-              <div class="leg-dot" style="background:#f9d923;"></div>amarillo
+        <div class="chart-wrap">
+          <!-- Eje Y -->
+          <div class="chart-y-axis">
+            <span>0.35</span>
+            <span>0.30</span>
+            <span>0.25</span>
+            <span>0.20</span>
+            <span>0.15</span>
+            <span>0.10</span>
+            <span>0.05</span>
+            <span>0.00</span>
+          </div>
+          <!-- Área de barras -->
+          <div class="chart-area">
+            <div class="chart-gridlines">
+              <div class="gridline"></div>
+              <div class="gridline"></div>
+              <div class="gridline"></div>
+              <div class="gridline"></div>
+              <div class="gridline"></div>
+              <div class="gridline"></div>
+              <div class="gridline"></div>
             </div>
-            <div class="leg">
-              <div class="leg-dot" style="background:#c00;"></div>Rojo
+            <div class="chart-bars-row">
+              <div class="chart-bar-col">
+                <div class="chart-bar-fill" style="height:60%;background:#111;"></div>
+              </div>
+              <div class="chart-bar-col">
+                <div class="chart-bar-fill" style="height:72%;background:#1565c0;"></div>
+              </div>
+              <div class="chart-bar-col">
+                <div class="chart-bar-fill" style="height:55%;background:#f9d923;"></div>
+              </div>
+              <div class="chart-bar-col">
+                <div class="chart-bar-fill" style="height:85%;background:#c00;"></div>
+              </div>
+            </div>
+            <!-- Eje X -->
+            <div class="chart-x-labels">
+              <span>Negro</span>
+              <span>Azul</span>
+              <span>Amarillo</span>
+              <span>Rojo</span>
             </div>
           </div>
         </div>
+        <!-- Etiqueta eje Y -->
+        <div class="chart-y-label">Frecuencia relativa</div>
       </div>
+
     </div>
   </div>
 
@@ -1288,12 +1474,12 @@ HOME (pre-login)
      EQUIPOS (autenticado)
      ============================================================ -->
   <div class="phone" id="ph-equipos" style="position:relative;">
-    <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span>
+    <div class="sbar" style="background:var(--dark);">
       <div></div>
     </div>
     <div class="list-header">
-      <div class="tf-logo" style="width:42px;height:42px;">
-        <div class="tf-logo-txt" style="font-size:15px;">TF</div>
+      <div class="tf-logo">
+        <img src="img/logo.png" alt="TF logo">
       </div>
       <button class="list-tab-btn inactive" onclick="go('ciudades')">Ciudades</button>
       <button class="list-tab-btn active">Equipos</button>
@@ -1308,13 +1494,13 @@ HOME (pre-login)
     </div>
 
     <!-- search + FPC + cat -->
-    <div style="padding:10px 18px 0;">
-      <input class="list-search" type="text" placeholder="">
+    <div style="padding:10px 18px 0; display:flex; justify-content:center; width:100%;">
+      <input class="list-search" type="text" placeholder="" style="max-width: 280px; width: 100%;">
     </div>
-    <div style="display:flex;align-items:center;gap:10px;padding:6px 18px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 18px;">
       <div class="fpc-big">FPC</div>
       <button class="add-fab" onclick="go('agregar')">+</button>
-      <div style="margin-left:auto;display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
+      <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
         <div class="cat-label">categoria 🌐</div>
         <select class="cat-select" onchange="">
           <option>Primera A</option>
@@ -1325,54 +1511,38 @@ HOME (pre-login)
 
     <div class="circles-grid">
       <div class="item-circle" onclick="go('show-equipo')">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Junior_FC_logo.svg/200px-Junior_FC_logo.svg.png"
-          onerror="this.style.display='none'" alt="Junior">
+        <img src="img/junior.png" onerror="this.style.display='none'" alt="Junior">
       </div>
       <div class="item-circle" onclick="go('show-equipo')" style="background:#fff;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-          onerror="this.style.display='none'" alt="Once Caldas">
+        <img src="img/once caldas.png" onerror="this.style.display='none'" alt="Once Caldas">
       </div>
       <div class="item-circle" onclick="go('show-equipo')" style="background:#eee;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Independiente_Medell%C3%ADn_logo.svg/200px-Independiente_Medell%C3%ADn_logo.svg.png"
-          onerror="this.style.display='none'" alt="DIM">
+        <img src="img/dim.png" onerror="this.style.display='none'" alt="DIM">
       </div>
       <div class="item-circle" onclick="go('show-equipo')">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Deportivo_Cali_logo.svg/200px-Deportivo_Cali_logo.svg.png"
-          onerror="this.style.display='none'" alt="Deportivo Cali">
+        <img src="img/cali.png" onerror="this.style.display='none'" alt="Deportivo Cali">
       </div>
       <div class="item-circle" onclick="go('show-equipo')">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Envigado_FC_logo.svg/200px-Envigado_FC_logo.svg.png"
-          onerror="this.style.display='none'" alt="Envigado">
+        <img src="img/envigado.png" onerror="this.style.display='none'" alt="Envigado">
       </div>
       <div class="item-circle" onclick="go('show-equipo')">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Real_Cartagena_logo.svg/200px-Real_Cartagena_logo.svg.png"
-          onerror="this.style.display='none'" alt="Real Cartagena">
+        <img src="img/realc.png" onerror="this.style.display='none'" alt="Real Cartagena">
       </div>
     </div>
 
-    <div class="list-pagination">
-      <button class="pg-btn">←</button>
-      <span class="pg-info"><span class="pg-chevron">‹</span> 4/32 <span class="pg-chevron">›</span></span>
-      <button class="pg-reset">↺</button>
-      <button class="pg-btn">→</button>
-    </div>
+
   </div>
 
   <!-- ============================================================
      CIUDADES (autenticado)
      ============================================================ -->
   <div class="phone" id="ph-ciudades" style="position:relative;">
-    <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span>
+    <div class="sbar" style="background:var(--dark);">
       <div></div>
     </div>
     <div class="list-header">
-      <div class="tf-logo" style="width:42px;height:42px;">
-        <div class="tf-logo-txt" style="font-size:15px;">TF</div>
+      <div class="tf-logo">
+        <img src="img/logo.png" alt="TF logo">
       </div>
       <button class="list-tab-btn active">Ciudades</button>
       <button class="list-tab-btn inactive" onclick="go('equipos')">Equipos</button>
@@ -1383,48 +1553,40 @@ HOME (pre-login)
       <div class="dd-item" onclick="go('dashboard');closeDD('dd-ci')">Dashboard</div>
       <div class="dd-item" onclick="go('home');closeDD('dd-ci')">Logout</div>
     </div>
-    <div style="padding:10px 18px 0;">
-      <input class="list-search" type="text" placeholder="">
+    <!-- search + FPC + cat -->
+    <div style="padding:10px 18px 0; display:flex; justify-content:center; width:100%;">
+      <input class="list-search" type="text" placeholder="" style="max-width: 280px; width: 100%;">
     </div>
-    <div style="display:flex;align-items:center;gap:10px;padding:6px 18px 4px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 18px;">
+      <div class="fpc-big">FPC</div>
       <button class="add-fab" onclick="go('agregar')">+</button>
+      <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
+        <div class="cat-label">categoria 🌐</div>
+        <select class="cat-select" onchange="">
+          <option>Primera A</option>
+          <option>Primera B</option>
+        </select>
+      </div>
     </div>
     <div class="circles-grid">
-      <!-- Barranquilla -->
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#2a6e3a;">
-        <div class="ph" style="font-size:12px;font-weight:700;color:#fff;text-align:center;padding:12px;">
-          BARRA<br>NQUILLA</div>
+      <div class="item-circle" onclick="go('show-equipo')">
+        <img src="img/ciudades/barranquilla.png" onerror="this.style.display='none'" alt="Barranquilla">
       </div>
-      <!-- Manizales -->
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#1a3a5c;">
-        <div class="ph" style="font-size:13px;font-weight:700;color:#fff;text-align:center;padding:12px;">MANI<br>ZALES
-        </div>
+      <div class="item-circle" onclick="go('show-equipo')" style="background:#fff;">
+        <img src="img/ciudades/manizales.png" onerror="this.style.display='none'" alt="Once Caldas">
       </div>
-      <!-- Medellín -->
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#2d1b4e;">
-        <div class="ph" style="font-size:14px;font-weight:700;color:#fff;text-align:center;padding:12px;">MDE<br>LLÍN
-        </div>
+      <div class="item-circle" onclick="go('show-equipo')" style="background:#eee;">
+        <img src="img/ciudades/medellin.png" onerror="this.style.display='none'" alt="DIM">
       </div>
-      <!-- Cali -->
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#1a4a2e;">
-        <div class="ph" style="font-size:16px;font-weight:700;color:#fff;text-align:center;padding:12px;">CALI</div>
+      <div class="item-circle" onclick="go('show-equipo')">
+        <img src="img/ciudades/cali.png" onerror="this.style.display='none'" alt="Deportivo Cali">
       </div>
-      <!-- Envigado -->
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#4a3a1a;">
-        <div class="ph" style="font-size:12px;font-weight:700;color:#fff;text-align:center;padding:12px;">ENVI<br>GADO
-        </div>
+      <div class="item-circle" onclick="go('show-equipo')">
+        <img src="img/ciudades/envigado.png" onerror="this.style.display='none'" alt="Envigado">
       </div>
-      <!-- Cartagena -->
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#7a4a10;">
-        <div class="ph" style="font-size:11px;font-weight:700;color:#fff;text-align:center;padding:12px;">CARTA<br>GENA
-        </div>
+      <div class="item-circle" onclick="go('show-equipo')">
+        <img src="img/ciudades/cartagena.png" onerror="this.style.display='none'" alt="Real Cartagena">
       </div>
-    </div>
-    <div class="list-pagination">
-      <button class="pg-btn">←</button>
-      <span class="pg-info"><span class="pg-chevron">‹</span> 5/32 <span class="pg-chevron">›</span></span>
-      <button class="pg-reset">↺</button>
-      <button class="pg-btn">→</button>
     </div>
   </div>
 
@@ -1432,276 +1594,86 @@ HOME (pre-login)
      SHOW EQUIPO Once
      ============================================================ -->
   <div class="phone" id="ph-show-equipo">
-    <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
+    <div class="sbar" style="background:var(--dark);"></div>
     <div class="show-header">
       <button class="show-back" onclick="go('equipos')">←</button>
       <div class="show-title">Show</div>
-      <button class="show-expand">⤢</button>
     </div>
-    <div class="show-body">
-      <div class="show-img-box" style="background:#fff;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-          onerror="this.style.display='none';this.nextSibling.style.display='block';" alt="Once Caldas">
-        <div class="ph" style="display:none;">OC</div>
+    <div class="show-bg">
+      <div class="show-card">
+        <div class="show-img-box">
+          <img src="..." alt="...">
+        </div>
+        <div class="show-field-label">Nombre</div>
+        <div class="show-field-val">Once Caldas</div>
+        <div class="show-field-label">Ciudad</div>
+        <div class="show-field-val">Manizales</div>
+        <div class="show-field-label">Estadio</div>
+        <div class="show-field-val">Palogrande</div>
+        <div class="show-field-label">Titulos Locales</div>
+        <div class="show-field-val">4</div>
+
+        <div class="show-actions">
+          <button class="show-del">delete</button>
+          <button class="show-edit" onclick="go('editar')">edit</button>
+        </div>
       </div>
-      <div class="show-field-label">Nombre</div>
-      <div class="show-field-val">Once Caldas</div>
-      <div class="show-field-label">Ciudad</div>
-      <div class="show-field-val">Manizales</div>
-      <div class="show-field-label">Estadio</div>
-      <div class="show-field-val">Palogrande</div>
-      <div class="show-field-label">Titulos Locales</div>
-      <div class="show-field-val">4</div>
     </div>
-    <div class="show-actions">
-      <button class="show-del">delete</button>
-      <button class="show-edit" onclick="go('editar')">edit</button>
-    </div>
+
   </div>
-
-
-
-  <!-- ============================================================
-     SHOW EQUIPO JUNIOR
-     ============================================================ -->
-  <div class="phone" id="ph-show-equipo">
-    <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
-    <div class="show-header">
-      <button class="show-back" onclick="go('equipos')">←</button>
-      <div class="show-title">Show</div>
-      <button class="show-expand">⤢</button>
-    </div>
-    <div class="show-body">
-      <div class="show-img-box" style="background:#fff;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-          onerror="this.style.display='none';this.nextSibling.style.display='block';" alt="Once Caldas">
-        <div class="ph" style="display:none;">Junior</div>
-      </div>
-      <div class="show-field-label">Nombre</div>
-      <div class="show-field-val">junior</div>
-      <div class="show-field-label">Ciudad</div>
-      <div class="show-field-val">Barranquilla</div>
-      <div class="show-field-label">Estadio</div>
-      <div class="show-field-val">Estadio Metropolitano Roberto Meléndez</div>
-      <div class="show-field-label">Titulos Locales</div>
-      <div class="show-field-val">15</div>
-    </div>
-    <div class="show-actions">
-      <button class="show-del">delete</button>
-      <button class="show-edit" onclick="go('editar')">edit</button>
-    </div>
-  </div>
-
-
-
-
-  <!-- ============================================================
-     SHOW EQUIPO DIM
-     ============================================================ -->
-  <div class="phone" id="ph-show-equipo">
-    <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
-    <div class="show-header">
-      <button class="show-back" onclick="go('equipos')">←</button>
-      <div class="show-title">Show</div>
-      <button class="show-expand">⤢</button>
-    </div>
-    <div class="show-body">
-      <div class="show-img-box" style="background:#fff;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-          onerror="this.style.display='none';this.nextSibling.style.display='block';" alt="Once Caldas">
-        <div class="ph" style="display:none;">DIM</div>
-      </div>
-      <div class="show-field-label">Nombre</div>
-      <div class="show-field-val">Indepentiente Medellin</div>
-      <div class="show-field-label">Ciudad</div>
-      <div class="show-field-val">Medellin</div>
-      <div class="show-field-label">Estadio</div>
-      <div class="show-field-val">Atanasio Girardot</div>
-      <div class="show-field-label">Titulos Locales</div>
-      <div class="show-field-val">9</div>
-    </div>
-    <div class="show-actions">
-      <button class="show-del">delete</button>
-      <button class="show-edit" onclick="go('editar')">edit</button>
-    </div>
-  </div>
-
-
-  <!-- ============================================================
-     SHOW EQUIPO CALI
-     ============================================================ -->
-  <div class="phone" id="ph-show-equipo">
-    <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
-    <div class="show-header">
-      <button class="show-back" onclick="go('equipos')">←</button>
-      <div class="show-title">Show</div>
-      <button class="show-expand">⤢</button>
-    </div>
-    <div class="show-body">
-      <div class="show-img-box" style="background:#fff;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-          onerror="this.style.display='none';this.nextSibling.style.display='block';" alt="Once Caldas">
-        <div class="ph" style="display:none;">CALI</div>
-      </div>
-      <div class="show-field-label">Nombre</div>
-      <div class="show-field-val">Deportivo Cali</div>
-      <div class="show-field-label">Ciudad</div>
-      <div class="show-field-val">Cali</div>
-      <div class="show-field-label">Estadio</div>
-      <div class="show-field-val">Palmaseca</div>
-      <div class="show-field-label">Titulos Locales</div>
-      <div class="show-field-val">12</div>
-    </div>
-    <div class="show-actions">
-      <button class="show-del">delete</button>
-      <button class="show-edit" onclick="go('editar')">edit</button>
-    </div>
-  </div>
-
-  <!-- ============================================================
-     SHOW EQUIPO EFC
-     ============================================================ -->
-  <div class="phone" id="ph-show-equipo">
-    <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
-    <div class="show-header">
-      <button class="show-back" onclick="go('equipos')">←</button>
-      <div class="show-title">Show</div>
-      <button class="show-expand">⤢</button>
-    </div>
-    <div class="show-body">
-      <div class="show-img-box" style="background:#fff;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-          onerror="this.style.display='none';this.nextSibling.style.display='block';" alt="Once Caldas">
-        <div class="ph" style="display:none;">EFC</div>
-      </div>
-      <div class="show-field-label">Nombre</div>
-      <div class="show-field-val">Envigado Furbol Club</div>
-      <div class="show-field-label">Ciudad</div>
-      <div class="show-field-val">Medellin</div>
-      <div class="show-field-label">Estadio</div>
-      <div class="show-field-val">Polideportivo Sur</div>
-      <div class="show-field-label">Titulos Locales</div>
-      <div class="show-field-val">0</div>
-    </div>
-    <div class="show-actions">
-      <button class="show-del">delete</button>
-      <button class="show-edit" onclick="go('editar')">edit</button>
-    </div>
-  </div>
-
-  <!-- ============================================================
-     SHOW EQUIPO Real Cartagena
-     ============================================================ -->
-  <div class="phone" id="ph-show-equipo">
-    <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
-    <div class="show-header">
-      <button class="show-back" onclick="go('equipos')">←</button>
-      <div class="show-title">Show</div>
-      <button class="show-expand">⤢</button>
-    </div>
-    <div class="show-body">
-      <div class="show-img-box" style="background:#fff;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-          onerror="this.style.display='none';this.nextSibling.style.display='block';" alt="Once Caldas">
-        <div class="ph" style="display:none;">Real Cartagena</div>
-      </div>
-      <div class="show-field-label">Nombre</div>
-      <div class="show-field-val">Real Cartagena</div>
-      <div class="show-field-label">Ciudad</div>
-      <div class="show-field-val">Cartagena</div>
-      <div class="show-field-label">Estadio</div>
-      <div class="show-field-val">Olímpico Jaime Morón León</div>
-      <div class="show-field-label">Titulos Locales</div>
-      <div class="show-field-val">0</div>
-    </div>
-    <div class="show-actions">
-      <button class="show-del">delete</button>
-      <button class="show-edit" onclick="go('editar')">edit</button>
-    </div>
-  </div>
-
-  <!-- ============================================================
-     EDITAR
-     ============================================================ -->
+  <!-- EDITAR -->
   <div class="phone" id="ph-editar">
-    <div class="sbar" style="background:var(--navy);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
+    <div class="sbar" style="background:var(--dark);"></div>
     <div class="edit-header">
       <button class="show-back" onclick="go('show-equipo')">←</button>
       <div class="edit-title">Editar</div>
-      <button class="show-expand">⤢</button>
     </div>
-    <div class="edit-body2">
-      <div class="edit-img-box" style="background:#fff;">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-          alt="Once Caldas">
+    <div class="edit-bg">
+      <div class="edit-card">
+        <div class="edit-img-box">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
+            alt="Once Caldas">
+        </div>
+        <div class="upload-btn">Upload Image ↑</div>
+        <div class="edit-label">Nombre</div>
+        <input class="edit-input" type="text" value="Once Caldas">
+        <div class="edit-label">Ciudad</div>
+        <input class="edit-input" type="text" value="Manizales">
+        <div class="edit-label">Estadio</div>
+        <input class="edit-input" type="text" value="Palogrande">
+        <div class="edit-label">Titulos Locales</div>
+        <input class="edit-input" type="number" value="4">
+        <button class="edit-submit" onclick="go('show-equipo')">Edit</button>
       </div>
-      <div class="upload-btn">Upload Image ↑</div>
-      <div class="edit-label">Nombre</div>
-      <input class="edit-input" type="text" value="Once caldas">
-      <div class="edit-label">Ciudad</div>
-      <input class="edit-input" type="text" value="Manizales">
-      <div class="edit-label">Estadio</div>
-      <input class="edit-input" type="text" value="Palogrande">
-      <div class="edit-label">Titulos Locales</div>
-      <input class="edit-input" type="number" value="4">
-      <button class="edit-submit" onclick="go('show-equipo')">Edit</button>
-    </div>
-    <div class="list-pagination" style="background:var(--navy);border-top:1px solid var(--w08);">
-      <button class="pg-btn">←</button>
-      <span class="pg-info"><span class="pg-chevron">‹</span> 22/32 <span class="pg-chevron">›</span></span>
-      <button class="pg-reset">↺</button>
     </div>
   </div>
 
-  <!-- ============================================================
-     AGREGAR
-     ============================================================ -->
+  <!-- AGREGAR -->
   <div class="phone" id="ph-agregar">
-    <div class="sbar" style="background:var(--dark);"><span style="font-size:13px;font-weight:700;">9:41</span>
-      <div></div>
-    </div>
+    <div class="sbar" style="background:var(--dark);"></div>
     <div class="add-header">
       <button class="show-back" onclick="go('equipos')">←</button>
       <div class="add-title">Agregar</div>
-      <button class="show-expand">⤢</button>
     </div>
-    <div class="add-body">
-      <div class="photo-upload">📷</div>
-      <div class="add-label">Nombre</div>
-      <input class="add-input" type="text" placeholder="Nombre del equipo">
-      <div class="add-label">Ciudad</div>
-      <input class="add-input" type="text" placeholder="Ciudad sede">
-      <div class="add-label">Estadio</div>
-      <input class="add-input" type="text" placeholder="Nombre del estadio">
-      <div class="add-label">Títulos Locales</div>
-      <input class="add-input" type="number" placeholder="0">
-      <div class="add-label">Categoría</div>
-      <select class="add-input" style="appearance:none;">
-        <option>Primera A</option>
-        <option>Primera B</option>
-      </select>
-      <button class="add-submit" onclick="go('equipos')">Add</button>
+    <div class="add-bg">
+      <div class="add-card">
+        <div class="photo-upload">📷</div>
+        <div class="add-label">Nombre</div>
+        <input class="add-input" type="text" placeholder="Nombre del equipo">
+        <div class="add-label">Ciudad</div>
+        <input class="add-input" type="text" placeholder="Ciudad sede">
+        <div class="add-label">Estadio</div>
+        <input class="add-input" type="text" placeholder="Nombre del estadio">
+        <div class="add-label">Títulos Locales</div>
+        <input class="add-input" type="number" placeholder="0">
+        <div class="add-label">Categoría</div>
+        <select class="add-input" style="appearance:none;">
+          <option>Primera A</option>
+          <option>Primera B</option>
+        </select>
+        <button class="add-submit" onclick="go('equipos')">Add</button>
+      </div>
     </div>
   </div>
 
