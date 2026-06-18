@@ -1559,7 +1559,7 @@ HOME (pre-login)
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 18px;">
       <div class="fpc-big">FPC</div>
-      <button class="add-fab" onclick="go('agregar')">+</button>
+      <button class="add-fab" onclick="go('agregar-ciudad')">+</button>
       <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
         <div class="cat-label">categoria 🌐</div>
         <select class="cat-select" onchange="">
@@ -1701,6 +1701,28 @@ HOME (pre-login)
     </div>
   </div>
 
+  <div class="phone" id="ph-agregar-ciudad">
+    <div class="sbar" style="background:var(--dark);"></div>
+    <div class="add-header">
+      <button class="show-back" onclick="go('ciudades')">←</button>
+      <div class="add-title">Agregar Ciudad</div>
+    </div>
+    <div class="add-bg">
+      <div class="add-card">
+        <div class="photo-upload">📷</div>
+        <div class="add-label">Nombre</div>
+        <input id="create-ciudad-name" class="add-input" type="text" placeholder="Nombre de la ciudad">
+        <div class="add-label">Departamento</div>
+        <input id="create-ciudad-dept" class="add-input" type="text" placeholder="Departamento">
+        <div class="add-label">Población</div>
+        <input id="create-ciudad-pop" class="add-input" type="text" placeholder="Población">
+        <div class="add-label">Región</div>
+        <input id="create-ciudad-region" class="add-input" type="text" placeholder="Región">
+        <button class="add-submit" onclick="go('ciudades')">Create</button>
+      </div>
+    </div>
+  </div>
+
   <!-- AGREGAR -->
   <div class="phone" id="ph-agregar">
     <div class="sbar" style="background:var(--dark);"></div>
@@ -1746,7 +1768,7 @@ HOME (pre-login)
     const screens = {
       home: 'ph-home', login: 'ph-login', register: 'ph-register',
       dashboard: 'ph-dashboard', equipos: 'ph-equipos', ciudades: 'ph-ciudades',
-      'show-equipo': 'ph-show-equipo', 'show-ciudad': 'ph-show-ciudad', editar: 'ph-editar', 'editar-ciudad': 'ph-editar-ciudad', agregar: 'ph-agregar'
+      'show-equipo': 'ph-show-equipo', 'show-ciudad': 'ph-show-ciudad', editar: 'ph-editar', 'editar-ciudad': 'ph-editar-ciudad', agregar: 'ph-agregar', 'agregar-ciudad': 'ph-agregar-ciudad'
     };
     const tabs = document.querySelectorAll('.tab');
     const tabKeys = Object.keys(screens);
@@ -1919,6 +1941,24 @@ HOME (pre-login)
       city.dept = document.getElementById('edit-ciudad-dept').value || city.dept;
       city.pop = document.getElementById('edit-ciudad-pop').value || city.pop;
       city.region = document.getElementById('edit-ciudad-region').value || city.region;
+      updateShowCiudad();
+      go('show-ciudad');
+    }
+
+    function createCiudad() {
+      const name = document.getElementById('create-ciudad-name').value.trim();
+      const dept = document.getElementById('create-ciudad-dept').value.trim();
+      const pop = document.getElementById('create-ciudad-pop').value.trim();
+      const region = document.getElementById('create-ciudad-region').value.trim();
+      const img = document.getElementById('create-ciudad-img').value.trim() || 'img/ciudades/cartagena.png';
+      if (!name || !dept || !pop || !region) {
+        alert('Completa todos los datos de la ciudad');
+        return;
+      }
+      const key = 'city_' + Date.now();
+      cities[key] = { name, dept, pop, region, img };
+      selectedCity = key;
+      prevSection = 'ciudades';
       updateShowCiudad();
       go('show-ciudad');
     }
