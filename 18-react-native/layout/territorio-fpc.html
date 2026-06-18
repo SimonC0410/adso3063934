@@ -1261,7 +1261,7 @@
 <body>
 
   <!-- TABS -->
-  <div class="tabs">
+<!--   <div class="tabs">
     <button class="tab on" onclick="go('home')">🏠 Home</button>
     <button class="tab" onclick="go('login')">Login</button>
     <button class="tab" onclick="go('register')">Register</button>
@@ -1271,7 +1271,7 @@
     <button class="tab" onclick="go('show-equipo')">Show</button>
     <button class="tab" onclick="go('editar')">Editar</button>
     <button class="tab" onclick="go('agregar')">Agregar</button>
-  </div>
+  </div> -->
 
   <!-- ============================================================
 HOME (pre-login)
@@ -1294,28 +1294,28 @@ HOME (pre-login)
       <!-- Primera A -->
       <div class="league-title">Primera A</div>
       <div class="teams-grid">
-        <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-img-wrap">
           <div class="team-circle">
             <img src="img/junior.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
               alt="Junior">
             <div class="placeholder" style="display:none;">JUNIOR</div>
           </div>
         </div>
-        <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-img-wrap">
           <div class="team-circle">
             <img src="img/once caldas.png"
               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Once Caldas">
             <div class="placeholder" style="display:none;">OC</div>
           </div>
         </div>
-        <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-img-wrap">
           <div class="team-circle" style="background:#eee;">
             <img src="img/dim.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
               alt="DIM">
             <div class="placeholder" style="display:none;color:#c00;">DIM</div>
           </div>
         </div>
-        <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-img-wrap">
           <div class="team-circle">
             <img src="img/cali.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
               alt="Deportivo Cali">
@@ -1331,14 +1331,14 @@ HOME (pre-login)
       <!-- Primera B -->
       <div class="league-title">Primera B</div>
       <div class="teams-grid">
-        <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-img-wrap">
           <div class="team-circle">
             <img src="img/envigado.png"
               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Envigado">
             <div class="placeholder" style="display:none;">EFC</div>
           </div>
         </div>
-        <div class="team-img-wrap" onclick="go('show-equipo')">
+        <div class="team-img-wrap">
           <div class="team-circle">
             <img src="img/realc.png" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
               alt="Real Cartagena">
@@ -1510,22 +1510,22 @@ HOME (pre-login)
     </div>
 
     <div class="circles-grid">
-      <div class="item-circle" onclick="go('show-equipo')">
+      <div class="item-circle" onclick="openEquipo('junior','equipos')">
         <img src="img/junior.png" onerror="this.style.display='none'" alt="Junior">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#fff;">
+      <div class="item-circle" onclick="openEquipo('once','equipos')" style="background:#fff;">
         <img src="img/once caldas.png" onerror="this.style.display='none'" alt="Once Caldas">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#eee;">
+      <div class="item-circle" onclick="openEquipo('dim','equipos')" style="background:#eee;">
         <img src="img/dim.png" onerror="this.style.display='none'" alt="DIM">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')">
+      <div class="item-circle" onclick="openEquipo('cali','equipos')">
         <img src="img/cali.png" onerror="this.style.display='none'" alt="Deportivo Cali">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')">
+      <div class="item-circle" onclick="openEquipo('envigado','equipos')">
         <img src="img/envigado.png" onerror="this.style.display='none'" alt="Envigado">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')">
+      <div class="item-circle" onclick="openEquipo('realc','equipos')">
         <img src="img/realc.png" onerror="this.style.display='none'" alt="Real Cartagena">
       </div>
     </div>
@@ -1569,58 +1569,87 @@ HOME (pre-login)
       </div>
     </div>
     <div class="circles-grid">
-      <div class="item-circle" onclick="go('show-equipo')">
+      <div class="item-circle" onclick="openCiudad('barranquilla','ciudades')">
         <img src="img/ciudades/barranquilla.png" onerror="this.style.display='none'" alt="Barranquilla">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#fff;">
-        <img src="img/ciudades/manizales.png" onerror="this.style.display='none'" alt="Once Caldas">
+      <div class="item-circle" onclick="openCiudad('manizales','ciudades')" style="background:#fff;">
+        <img src="img/ciudades/manizales.png" onerror="this.style.display='none'" alt="Manizales">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')" style="background:#eee;">
-        <img src="img/ciudades/medellin.png" onerror="this.style.display='none'" alt="DIM">
+      <div class="item-circle" onclick="openCiudad('medellin','ciudades')" style="background:#eee;">
+        <img src="img/ciudades/medellin.png" onerror="this.style.display='none'" alt="Medellín">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')">
-        <img src="img/ciudades/cali.png" onerror="this.style.display='none'" alt="Deportivo Cali">
+      <div class="item-circle" onclick="openCiudad('cali','ciudades')">
+        <img src="img/ciudades/cali.png" onerror="this.style.display='none'" alt="Cali">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')">
+      <div class="item-circle" onclick="openCiudad('envigado','ciudades')">
         <img src="img/ciudades/envigado.png" onerror="this.style.display='none'" alt="Envigado">
       </div>
-      <div class="item-circle" onclick="go('show-equipo')">
-        <img src="img/ciudades/cartagena.png" onerror="this.style.display='none'" alt="Real Cartagena">
+      <div class="item-circle" onclick="openCiudad('cartagena','ciudades')">
+        <img src="img/ciudades/cartagena.png" onerror="this.style.display='none'" alt="Cartagena">
       </div>
     </div>
   </div>
 
   <!-- ============================================================
-     SHOW EQUIPO Once
+     SHOW EQUIPOS
      ============================================================ -->
   <div class="phone" id="ph-show-equipo">
     <div class="sbar" style="background:var(--dark);"></div>
     <div class="show-header">
-      <button class="show-back" onclick="go('equipos')">←</button>
+      <button class="show-back" onclick="go(prevSection || 'equipos')">←</button>
       <div class="show-title">Show</div>
     </div>
     <div class="show-bg">
       <div class="show-card">
         <div class="show-img-box">
-          <img src="..." alt="...">
+          <img id="show-img" src="" alt="Equipo">
         </div>
         <div class="show-field-label">Nombre</div>
-        <div class="show-field-val">Once Caldas</div>
+        <div class="show-field-val" id="show-name">Selecciona un equipo</div>
         <div class="show-field-label">Ciudad</div>
-        <div class="show-field-val">Manizales</div>
+        <div class="show-field-val" id="show-city">-</div>
         <div class="show-field-label">Estadio</div>
-        <div class="show-field-val">Palogrande</div>
+        <div class="show-field-val" id="show-stadium">-</div>
         <div class="show-field-label">Titulos Locales</div>
-        <div class="show-field-val">4</div>
+        <div class="show-field-val" id="show-titles">-</div>
 
-        <div class="show-actions">
-          <button class="show-del">delete</button>
-          <button class="show-edit" onclick="go('editar')">edit</button>
+        <div class="show-actions" id="show-actions" style="display:none;">
+          <button class="show-del" onclick="deleteTeam()">delete</button>
+          <button class="show-edit" onclick="openEdit()">edit</button>
         </div>
       </div>
     </div>
-
   </div>
+
+  <!-- SHOW CIUDADES -->
+  <div class="phone" id="ph-show-ciudad">
+    <div class="sbar" style="background:var(--dark);"></div>
+    <div class="show-header">
+      <button class="show-back" onclick="go(prevSection || 'ciudades')">←</button>
+      <div class="show-title">Show Ciudad</div>
+    </div>
+    <div class="show-bg">
+      <div class="show-card">
+        <div class="show-img-box">
+          <img id="show-ciudad-img" src="" alt="Ciudad">
+        </div>
+        <div class="show-field-label">Nombre</div>
+        <div class="show-field-val" id="show-ciudad-name">Selecciona una ciudad</div>
+        <div class="show-field-label">Departamento</div>
+        <div class="show-field-val" id="show-ciudad-dept">-</div>
+        <div class="show-field-label">Población</div>
+        <div class="show-field-val" id="show-ciudad-pop">-</div>
+        <div class="show-field-label">Región</div>
+        <div class="show-field-val" id="show-ciudad-region">-</div>
+
+        <div class="show-actions" id="show-ciudad-actions" style="display:none;">
+          <button class="show-del" onclick="deleteCiudad()">delete</button>
+          <button class="show-edit" onclick="openEditCiudad()">edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- EDITAR -->
   <div class="phone" id="ph-editar">
     <div class="sbar" style="background:var(--dark);"></div>
@@ -1631,20 +1660,43 @@ HOME (pre-login)
     <div class="edit-bg">
       <div class="edit-card">
         <div class="edit-img-box">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Once_Caldas_logo.svg/200px-Once_Caldas_logo.svg.png"
-            alt="Once Caldas">
+          <img id="edit-img" src="" alt="Equipo">
         </div>
         <div class="upload-btn">Upload Image ↑</div>
         <div class="edit-label">Nombre</div>
-        <input class="edit-input" type="text" value="Once Caldas">
+        <input id="edit-name" class="edit-input" type="text" value="">
         <div class="edit-label">Ciudad</div>
-        <input class="edit-input" type="text" value="Manizales">
+        <input id="edit-city" class="edit-input" type="text" value="">
         <div class="edit-label">Estadio</div>
-        <input class="edit-input" type="text" value="Palogrande">
+        <input id="edit-stadium" class="edit-input" type="text" value="">
         <div class="edit-label">Titulos Locales</div>
-        <input class="edit-input" type="number" value="4">
-        <button class="edit-submit" onclick="go('show-equipo')">Edit</button>
+        <input id="edit-titles" class="edit-input" type="number" value="">
+        <button class="edit-submit" onclick="saveEdit()">Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone" id="ph-editar-ciudad">
+    <div class="sbar" style="background:var(--dark);"></div>
+    <div class="edit-header">
+      <button class="show-back" onclick="go('show-ciudad')">←</button>
+      <div class="edit-title">Editar Ciudad</div>
+    </div>
+    <div class="edit-bg">
+      <div class="edit-card">
+        <div class="edit-img-box">
+          <img id="edit-ciudad-img" src="" alt="Ciudad">
+        </div>
+        <div class="upload-btn">Upload Image ↑</div>
+        <div class="edit-label">Nombre</div>
+        <input id="edit-ciudad-name" class="edit-input" type="text" value="">
+        <div class="edit-label">Departamento</div>
+        <input id="edit-ciudad-dept" class="edit-input" type="text" value="">
+        <div class="edit-label">Población</div>
+        <input id="edit-ciudad-pop" class="edit-input" type="text" value="">
+        <div class="edit-label">Región</div>
+        <input id="edit-ciudad-region" class="edit-input" type="text" value="">
+        <button class="edit-submit" onclick="saveEditCiudad()">Edit</button>
       </div>
     </div>
   </div>
@@ -1694,10 +1746,199 @@ HOME (pre-login)
     const screens = {
       home: 'ph-home', login: 'ph-login', register: 'ph-register',
       dashboard: 'ph-dashboard', equipos: 'ph-equipos', ciudades: 'ph-ciudades',
-      'show-equipo': 'ph-show-equipo', editar: 'ph-editar', agregar: 'ph-agregar'
+      'show-equipo': 'ph-show-equipo', 'show-ciudad': 'ph-show-ciudad', editar: 'ph-editar', 'editar-ciudad': 'ph-editar-ciudad', agregar: 'ph-agregar'
     };
     const tabs = document.querySelectorAll('.tab');
     const tabKeys = Object.keys(screens);
+
+    const teams = {
+      junior: {
+        name: 'Junior', city: 'Barranquilla', stadium: 'Metropolitano Roberto Meléndez',
+        titles: '12', img: 'img/junior.png'
+      },
+      once: {
+        name: 'Once Caldas', city: 'Manizales', stadium: 'Palogrande',
+        titles: '4', img: 'img/once caldas.png'
+      },
+      dim: {
+        name: 'Independiente Medellin', city: 'Medellin', stadium: 'Atanasio Girardot',
+        titles: '6', img: 'img/dim.png'
+      },
+      cali: {
+        name: 'Cali', city: 'Cali', stadium: 'Myriam Guerrero',
+        titles: '10', img: 'img/cali.png'
+      },
+      envigado: {
+        name: 'Envigado', city: 'Envigado', stadium: 'Polideportivo Sur',
+        titles: '0', img: 'img/envigado.png'
+      },
+      realc: {
+        name: 'Real Cartagena', city: 'Cartagena', stadium: 'Manuel Murillo Toro',
+        titles: '0', img: 'img/realc.png'
+      }
+    };
+
+    const cities = {
+      barranquilla: {
+        name: 'Barranquilla', dept: 'Atlántico', pop: '1.2M', region: 'Caribe', img: 'img/ciudades/barranquilla.png'
+      },
+      manizales: {
+        name: 'Manizales', dept: 'Caldas', pop: '0.4M', region: 'Eje Cafetero', img: 'img/ciudades/manizales.png'
+      },
+      medellin: {
+        name: 'Medellín', dept: 'Antioquia', pop: '2.4M', region: 'Antioquia', img: 'img/ciudades/medellin.png'
+      },
+      cali: {
+        name: 'Cali', dept: 'Valle del Cauca', pop: '2.5M', region: 'Pacífico', img: 'img/ciudades/cali.png'
+      },
+      envigado: {
+        name: 'Envigado', dept: 'Antioquia', pop: '0.2M', region: 'Antioquia', img: 'img/ciudades/envigado.png'
+      },
+      cartagena: {
+        name: 'Cartagena', dept: 'Bolívar', pop: '1.0M', region: 'Caribe', img: 'img/ciudades/cartagena.png'
+      }
+    };
+
+    let selectedTeam = null;
+    let selectedCity = null;
+    let prevSection = 'equipos';
+
+    function openEquipo(teamKey, section = 'equipos') {
+      if (!teams[teamKey]) return;
+      selectedTeam = teamKey;
+      prevSection = section;
+      updateShowEquipo();
+      go('show-equipo');
+    }
+
+    function openCiudad(cityKey, section = 'ciudades') {
+      if (!cities[cityKey]) return;
+      selectedCity = cityKey;
+      prevSection = section;
+      updateShowCiudad();
+      go('show-ciudad');
+    }
+
+    function updateShowEquipo() {
+      const showImg = document.getElementById('show-img');
+      const showName = document.getElementById('show-name');
+      const showCity = document.getElementById('show-city');
+      const showStadium = document.getElementById('show-stadium');
+      const showTitles = document.getElementById('show-titles');
+      const showActions = document.getElementById('show-actions');
+
+      if (!selectedTeam) {
+        showImg.src = '';
+        showImg.alt = 'Equipo';
+        showName.textContent = 'Selecciona un equipo';
+        showCity.textContent = '-';
+        showStadium.textContent = '-';
+        showTitles.textContent = '-';
+        showActions.style.display = 'none';
+        return;
+      }
+
+      const team = teams[selectedTeam];
+      showImg.src = team.img;
+      showImg.alt = team.name;
+      showName.textContent = team.name;
+      showCity.textContent = team.city;
+      showStadium.textContent = team.stadium;
+      showTitles.textContent = team.titles;
+      showActions.style.display = 'flex';
+    }
+
+    function updateShowCiudad() {
+      const showImg = document.getElementById('show-ciudad-img');
+      const showName = document.getElementById('show-ciudad-name');
+      const showDept = document.getElementById('show-ciudad-dept');
+      const showPop = document.getElementById('show-ciudad-pop');
+      const showRegion = document.getElementById('show-ciudad-region');
+      const showActions = document.getElementById('show-ciudad-actions');
+
+      if (!selectedCity) {
+        showImg.src = '';
+        showImg.alt = 'Ciudad';
+        showName.textContent = 'Selecciona una ciudad';
+        showDept.textContent = '-';
+        showPop.textContent = '-';
+        showRegion.textContent = '-';
+        showActions.style.display = 'none';
+        return;
+      }
+
+      const city = cities[selectedCity];
+      showImg.src = city.img;
+      showImg.alt = city.name;
+      showName.textContent = city.name;
+      showDept.textContent = city.dept;
+      showPop.textContent = city.pop;
+      showRegion.textContent = city.region;
+      showActions.style.display = 'flex';
+    }
+
+    function openEdit() {
+      if (!selectedTeam) return;
+      const team = teams[selectedTeam];
+      document.getElementById('edit-img').src = team.img;
+      document.getElementById('edit-img').alt = team.name;
+      document.getElementById('edit-name').value = team.name;
+      document.getElementById('edit-city').value = team.city;
+      document.getElementById('edit-stadium').value = team.stadium;
+      document.getElementById('edit-titles').value = team.titles;
+      go('editar');
+    }
+
+    function openEditCiudad() {
+      if (!selectedCity) return;
+      const city = cities[selectedCity];
+      document.getElementById('edit-ciudad-img').src = city.img;
+      document.getElementById('edit-ciudad-img').alt = city.name;
+      document.getElementById('edit-ciudad-name').value = city.name;
+      document.getElementById('edit-ciudad-dept').value = city.dept;
+      document.getElementById('edit-ciudad-pop').value = city.pop;
+      document.getElementById('edit-ciudad-region').value = city.region;
+      go('editar-ciudad');
+    }
+
+    function saveEdit() {
+      if (!selectedTeam) return;
+      const team = teams[selectedTeam];
+      team.name = document.getElementById('edit-name').value || team.name;
+      team.city = document.getElementById('edit-city').value || team.city;
+      team.stadium = document.getElementById('edit-stadium').value || team.stadium;
+      team.titles = document.getElementById('edit-titles').value || team.titles;
+      updateShowEquipo();
+      go('show-equipo');
+    }
+
+    function saveEditCiudad() {
+      if (!selectedCity) return;
+      const city = cities[selectedCity];
+      city.name = document.getElementById('edit-ciudad-name').value || city.name;
+      city.dept = document.getElementById('edit-ciudad-dept').value || city.dept;
+      city.pop = document.getElementById('edit-ciudad-pop').value || city.pop;
+      city.region = document.getElementById('edit-ciudad-region').value || city.region;
+      updateShowCiudad();
+      go('show-ciudad');
+    }
+
+    function deleteTeam() {
+      if (!selectedTeam) return;
+      alert('Se eliminó correctamente');
+      selectedTeam = null;
+      prevSection = 'dashboard';
+      go('dashboard');
+    }
+
+    function deleteCiudad() {
+      if (!selectedCity) return;
+      alert('Se eliminó correctamente');
+      selectedCity = null;
+      prevSection = 'dashboard';
+      go('dashboard');
+    }
+
     function go(id) {
       document.querySelectorAll('.phone').forEach(p => p.classList.remove('on'));
       document.getElementById(screens[id]).classList.add('on');
