@@ -40,50 +40,144 @@ app.post('/login', (req, res) => {
     });
 });
  
-// manga
- 
-// GET: /manga
-app.get('/manga', auth, (req, res) => {
-    db.all(`SELECT * FROM mangas`, [], (err, rows) => {
+// =========================
+// CIUDADES
+// =========================
+
+// GET: todas las ciudades
+app.get('/ciudades', auth, (req, res) => {
+    db.all(`SELECT * FROM ciudades`, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
         res.json(rows);
     });
 });
 
-// GET: /manga/:id
-app.get('/manga/:id', auth, (req, res) => {
-    db.get(`SELECT * FROM mangas WHERE id = ?`, [req.params.id], (err, row) => {
-        if(err || !row) return res.status(404).json({error: 'Not found!'});
+// GET: ciudad por ID
+app.get('/ciudades/:id', auth, (req, res) => {
+    db.get(`SELECT * FROM ciudades WHERE id = ?`, [req.params.id], (err, row) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (!row) return res.status(404).json({ error: 'Ciudad no encontrada' });
         res.json(row);
     });
 });
 
-// POST: /manga
-app.post('/manga', auth, (req, res) => {
-    const {title, author, volumes} = req.body;
-    db.run(`INSERT INTO mangas (title, author, volumes)
-            VALUES(?, ?, ?)`, [title, author, volumes], (err) => {
-                if(err) return res.status(400).json({error: 'Already exists!'});
-                res.json({message: 'Created!'});
-            }
+// POST: crear ciudad
+app.post('/ciudades', auth, (req, res) => {
+    const { nombre, departamento, poblacion, region } = req.body;
+
+    db.run(
+        `INSERT INTO ciudades (nombre, departamento, poblacion, region)
+         VALUES (?, ?, ?, ?)`,
+        [nombre, departamento, poblacion, region],
+        function (err) {
+            if (err) return res.status(400).json({ error: 'Error creando ciudad' });
+            res.json({ message: 'Ciudad creada', id: this.lastID });
+        }
     );
 });
 
-// PUT: /manga/:id
-app.put('/manga/:id', auth, (req, res) => {
-    const {title, author, volumes} = req.body;
-    db.run(`UPDATE mangas SET title = ?, author = ?, volumes = ?
-            WHERE id = ?`, [title, author, volumes, req.params.id], (err) => {
-                if(err) return res.status(400).json({error: 'Error updating!'});
-                res.json({message: 'Updated!'});
-            }
+// PUT: actualizar ciudad
+app.put('/ciudades/:id', auth, (req, res) => {
+    const { nombre, departamento, poblacion, region } = req.body;
+
+    db.run(
+        `UPDATE ciudades 
+         SET nombre = ?, departamento = ?, poblacion = ?, region = ?
+         WHERE id = ?`,
+        [nombre, departamento, poblacion, region, req.params.id],
+        function (err) {
+            if (err) return res.status(400).json({ error: 'Error actualizando ciudad' });
+            if (this.changes === 0) return res.status(404).json({ error: 'No encontrada' });
+            res.json({ message: 'Ciudad actualizada' });
+        }
     );
 });
 
-// DELETE: /manga/:id
-app.delete('/manga/:id', auth, (req, res) => {
-    db.run(`DELETE FROM mangas WHERE id = ?`, [req.params.id], (err) => {
-        if(err) return res.status(400).json({error: 'Error deleting!'});
-        res.json({message: 'Deleted!'});
+// DELETE: eliminar ciudad
+app.delete('/ciudades/:id', auth, (req, res) => {
+    db.run(`DELETE FROM ciudades WHERE id = ?`, [req.params.id], function (err) {
+        if (err) return res.status(400).json({ error: 'Error eliminando ciudad' });
+        if (this.changes === 0) return res.status(404).json({ error: 'No encontrada' });
+        res.json({ message: 'Ciudad eliminada' });
+    });
+});
+
+
+
+
+
+// =========================
+// EQUIPOS
+// =========================
+
+// GET: todos los equipos (con ciudad)
+app.get('/equipos', auth, (req, res) => {
+    const query = `
+        SELECT equipos.*, ciudades.nombre AS ciudad
+        FROM equipos
+        LEFT JOIN ciudades ON equipos.id_ciudad = ciudades.id
+    `;
+
+    db.all(query, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+
+// GET: equipo por ID
+app.get('/equipos/:id', auth, (req, res) => {
+    const query = `
+        SELECT equipos.*, ciudades.nombre AS ciudad
+        FROM equipos
+        LEFT JOIN ciudades ON equipos.id_ciudad = ciudades.id
+        WHERE equipos.id = ?
+    `;
+
+    db.get(query, [req.params.id], (err, row) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (!row) return res.status(404).json({ error: 'Equipo no encontrado' });
+        res.json(row);
+    });
+});
+
+// POST: crear equipo
+app.post('/equipos', auth, (req, res) => {
+    const { nombre, id_ciudad, estadio, titulos } = req.body;
+
+    db.run(
+        `INSERT INTO equipos (nombre, id_ciudad, estadio, titulos)
+         VALUES (?, ?, ?, ?)`,
+        [nombre, id_ciudad, estadio, titulos],
+        function (err) {
+            if (err) return res.status(400).json({ error: 'Error creando equipo' });
+            res.json({ message: 'Equipo creado', id: this.lastID });
+        }
+    );
+});
+
+// PUT: actualizar equipo
+app.put('/equipos/:id', auth, (req, res) => {
+    const { nombre, id_ciudad, estadio, titulos } = req.body;
+
+    db.run(
+        `UPDATE equipos 
+         SET nombre = ?, id_ciudad = ?, estadio = ?, titulos = ?
+         WHERE id = ?`,
+        [nombre, id_ciudad, estadio, titulos, req.params.id],
+        function (err) {
+            if (err) return res.status(400).json({ error: 'Error actualizando equipo' });
+            if (this.changes === 0) return res.status(404).json({ error: 'No encontrado' });
+            res.json({ message: 'Equipo actualizado' });
+        }
+    );
+});
+
+// DELETE: eliminar equipo
+app.delete('/equipos/:id', auth, (req, res) => {
+    db.run(`DELETE FROM equipos WHERE id = ?`, [req.params.id], function (err) {
+        if (err) return res.status(400).json({ error: 'Error eliminando equipo' });
+        if (this.changes === 0) return res.status(404).json({ error: 'No encontrado' });
+        res.json({ message: 'Equipo eliminado' });
     });
 });
  
