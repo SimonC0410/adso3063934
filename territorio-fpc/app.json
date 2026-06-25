@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Territorio FPC",
+    "slug": "territorio-fpc",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#081027"
+    },
+    "android": {
+      "package": "com.territoriofpc.app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.territoriofpc.app"
+    }
+  }
+}
