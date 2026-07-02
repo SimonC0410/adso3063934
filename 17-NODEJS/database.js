@@ -13,6 +13,7 @@ db.serialize(() => {
 
     db.run(`CREATE TABLE IF NOT EXISTS ciudades(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        imagen TEXT,
         nombre TEXT UNIQUE NOT NULL,
         departamento TEXT,
         poblacion INTEGER,
@@ -21,7 +22,9 @@ db.serialize(() => {
 
     db.run(`CREATE TABLE IF NOT EXISTS equipos(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        imagen TEXT,
         nombre TEXT UNIQUE NOT NULL,
+        categoria TEXT,
         id_ciudad INTEGER,
         estadio TEXT,
         titulos INTEGER DEFAULT 0,

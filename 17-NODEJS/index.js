@@ -4,10 +4,44 @@ const jwt     = require('jsonwebtoken');
 const cors    = require('cors');
 const db      = require('./database');
 const auth    = require('./authMiddleware');
- 
+
+const multer = require('multer');
+const path   = require('path');
+const fs     = require('fs');
+
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+// Carpeta donde se guardan las imágenes
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+
+// Configuración de multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => {
+    const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, unique + path.extname(file.originalname));
+  },
+});
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowed = /jpeg|jpg|png|webp|gif/;
+    const ok = allowed.test(path.extname(file.originalname).toLowerCase())
+              && allowed.test(file.mimetype);
+    ok ? cb(null, true) : cb(new Error('Solo se permiten imágenes'));
+  },
+});
+
+// Servir imágenes como archivos estáticos
+app.use('/uploads', express.static(uploadDir));
  
 const SECRET_KEY = 'your_secret';
  
@@ -63,12 +97,12 @@ app.get('/ciudades/:id', auth, (req, res) => {
 
 // POST: crear ciudad
 app.post('/ciudades', auth, (req, res) => {
-    const { nombre, departamento, poblacion, region } = req.body;
+    const { imagen, nombre, departamento, poblacion, region } = req.body;
 
     db.run(
-        `INSERT INTO ciudades (nombre, departamento, poblacion, region)
-         VALUES (?, ?, ?, ?)`,
-        [nombre, departamento, poblacion, region],
+        `INSERT INTO ciudades (imagen, nombre, departamento, poblacion, region)
+         VALUES (?, ?, ?, ?, ?)`,
+        [imagen, nombre, departamento, poblacion, region],
         function (err) {
             if (err) return res.status(400).json({ error: 'Error creando ciudad' });
             res.json({ message: 'Ciudad creada', id: this.lastID });
@@ -78,15 +112,21 @@ app.post('/ciudades', auth, (req, res) => {
 
 // PUT: actualizar ciudad
 app.put('/ciudades/:id', auth, (req, res) => {
-    const { nombre, departamento, poblacion, region } = req.body;
+    const { imagen, nombre, departamento, poblacion, region } = req.body;
+    
+    // Log temporal para ver qué llega
+    console.log('PUT /ciudades body:', req.body);
 
     db.run(
         `UPDATE ciudades 
-         SET nombre = ?, departamento = ?, poblacion = ?, region = ?
+         SET imagen = ?, nombre = ?, departamento = ?, poblacion = ?, region = ?
          WHERE id = ?`,
-        [nombre, departamento, poblacion, region, req.params.id],
+        [imagen ?? null, nombre, departamento, poblacion ?? null, region ?? null, req.params.id],
         function (err) {
-            if (err) return res.status(400).json({ error: 'Error actualizando ciudad' });
+            if (err) {
+                console.log('Error SQL:', err.message); // ← ver el error exacto
+                return res.status(400).json({ error: err.message }); // ← devolver error real
+            }
             if (this.changes === 0) return res.status(404).json({ error: 'No encontrada' });
             res.json({ message: 'Ciudad actualizada' });
         }
@@ -142,12 +182,12 @@ app.get('/equipos/:id', auth, (req, res) => {
 
 // POST: crear equipo
 app.post('/equipos', auth, (req, res) => {
-    const { nombre, id_ciudad, estadio, titulos } = req.body;
+    const { imagen, nombre, id_ciudad, estadio, titulos, categoria } = req.body;
 
     db.run(
-        `INSERT INTO equipos (nombre, id_ciudad, estadio, titulos)
-         VALUES (?, ?, ?, ?)`,
-        [nombre, id_ciudad, estadio, titulos],
+        `INSERT INTO equipos (imagen, nombre, id_ciudad, estadio, titulos, categoria)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [imagen, nombre, id_ciudad, estadio, titulos, categoria],
         function (err) {
             if (err) return res.status(400).json({ error: 'Error creando equipo' });
             res.json({ message: 'Equipo creado', id: this.lastID });
@@ -157,13 +197,13 @@ app.post('/equipos', auth, (req, res) => {
 
 // PUT: actualizar equipo
 app.put('/equipos/:id', auth, (req, res) => {
-    const { nombre, id_ciudad, estadio, titulos } = req.body;
+    const { imagen, nombre, id_ciudad, estadio, titulos, categoria } = req.body;
 
     db.run(
         `UPDATE equipos 
-         SET nombre = ?, id_ciudad = ?, estadio = ?, titulos = ?
+         SET imagen = ?, nombre = ?, id_ciudad = ?, estadio = ?, titulos = ?, categoria = ?
          WHERE id = ?`,
-        [nombre, id_ciudad, estadio, titulos, req.params.id],
+        [imagen, nombre, id_ciudad, estadio, titulos, categoria, req.params.id],
         function (err) {
             if (err) return res.status(400).json({ error: 'Error actualizando equipo' });
             if (this.changes === 0) return res.status(404).json({ error: 'No encontrado' });
@@ -181,4 +221,18 @@ app.delete('/equipos/:id', auth, (req, res) => {
     });
 });
  
+// POST /upload
+app.post('/upload', auth, (req, res, next) => {
+  console.log('Content-Type:', req.headers['content-type']);
+  console.log('Body:', req.body);
+  next();
+}, upload.single('imagen'), (req, res) => {
+  console.log('File recibido:', req.file);
+  if (!req.file) return res.status(400).json({ error: 'No se recibió imagen' });
+  const host = req.protocol + '://' + req.get('host');
+  const url  = `${host}/uploads/${req.file.filename}`;
+  res.json({ url });
+});
+
+
 app.listen(3000, () => console.log('Server running on http://localhost:3000'))

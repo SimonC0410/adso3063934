@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import InputField from '../components/InputField';
 import PrimaryButton from '../components/PrimaryButton';
 import { useAuth } from '../context/AuthContext';
@@ -29,13 +30,14 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.bg}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      <View style={styles.card}>
-        <Text style={styles.title}>LOGIN</Text>
-        <InputField
+    <SafeAreaView style={styles.bg}>
+      <KeyboardAvoidingView
+        style={styles.content}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <View style={styles.card}>
+          <Text style={styles.title}>LOGIN</Text>
+          <InputField
           placeholder="User Name"
           value={username}
           onChangeText={setUsername}
@@ -51,13 +53,15 @@ export default function LoginScreen({ navigation }) {
         <Text style={styles.alt} onPress={() => navigation.navigate('Register')}>
           ¿No tienes cuenta? Regístrate
         </Text>
-      </View>
-    </KeyboardAvoidingView>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  bg: { flex: 1, backgroundColor: colors.dark, alignItems: 'center', justifyContent: 'center', padding: 24 },
+  bg: { flex: 1, backgroundColor: colors.dark },
+  content: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
   card: {
     width: '100%',
     maxWidth: 320,

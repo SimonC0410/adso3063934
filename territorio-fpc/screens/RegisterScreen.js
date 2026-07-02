@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import InputField from '../components/InputField';
 import PrimaryButton from '../components/PrimaryButton';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme';
+import SweetAlert from '../components/SweetAlert';
 
 export default function RegisterScreen({ navigation }) {
   const { register } = useAuth();
@@ -13,36 +15,42 @@ export default function RegisterScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   async function handleRegister() {
-    if (!username || !password) {
+    const normalizedUsername = username.trim();
+    const normalizedPassword = password.trim();
+
+    if (!normalizedUsername || !normalizedPassword) {
       Alert.alert('Faltan datos', 'Ingresa usuario y contraseña');
       return;
     }
-    if (password !== confirm) {
+    if (normalizedPassword !== confirm.trim()) {
       Alert.alert('Error', 'Las contraseñas no coinciden');
       return;
     }
+
     setLoading(true);
     try {
-      await register(username, password);
-      Alert.alert('Listo', 'Usuario registrado, ahora inicia sesión', [
-        { text: 'OK', onPress: () => navigation.navigate('Login') },
-      ]);
+      await register(normalizedUsername, normalizedPassword);
+      setShowSuccess(true);
     } catch (err) {
       const msg = err.response?.data?.error || 'No se pudo registrar';
+      console.error('Register screen error:', msg);
       Alert.alert('Error', msg);
     } finally {
       setLoading(false);
     }
   }
 
+  const [showSuccess, setShowSuccess] = useState(false);
+
   return (
-    <KeyboardAvoidingView
-      style={styles.bg}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      <View style={styles.card}>
-        <Text style={styles.title}>REGISTER</Text>
-        <InputField
+    <SafeAreaView style={styles.bg}>
+      <KeyboardAvoidingView
+        style={styles.content}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <View style={styles.card}>
+          <Text style={styles.title}>REGISTER</Text>
+          <InputField
           placeholder="User Name"
           value={username}
           onChangeText={setUsername}
@@ -64,13 +72,24 @@ export default function RegisterScreen({ navigation }) {
         <Text style={styles.alt} onPress={() => navigation.navigate('Login')}>
           ¿Ya tienes cuenta? Inicia sesión
         </Text>
-      </View>
-    </KeyboardAvoidingView>
+        <SweetAlert
+          visible={showSuccess}
+          title="Listo"
+          message="Usuario registrado, ahora inicia sesión"
+          onConfirm={() => {
+            setShowSuccess(false);
+            navigation.navigate('Login');
+          }}
+        />
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  bg: { flex: 1, backgroundColor: colors.dark, alignItems: 'center', justifyContent: 'center', padding: 24 },
+  bg: { flex: 1, backgroundColor: colors.dark },
+  content: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
   card: {
     width: '100%',
     maxWidth: 320,

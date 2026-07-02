@@ -14,6 +14,7 @@ import CiudadesListScreen from '../screens/CiudadesListScreen';
 import CiudadDetailScreen from '../screens/CiudadDetailScreen';
 import CiudadFormScreen from '../screens/CiudadFormScreen';
 
+import TopNavbar from '../components/TopNavbar';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme';
 
@@ -22,15 +23,13 @@ const Tabs = createBottomTabNavigator();
 const EquiposStack = createNativeStackNavigator();
 const CiudadesStack = createNativeStackNavigator();
 
-const stackOptions = {
-  headerStyle: { backgroundColor: colors.dark },
-  headerTintColor: '#fff',
-  headerTitleStyle: { fontWeight: '700' },
-};
-
 function EquiposStackNavigator() {
   return (
-    <EquiposStack.Navigator screenOptions={stackOptions}>
+    <EquiposStack.Navigator
+      screenOptions={{
+        header: (props) => <TopNavbar {...props} active="Equipos" />,
+      }}
+    >
       <EquiposStack.Screen name="EquiposList" component={EquiposListScreen} options={{ title: 'Equipos' }} />
       <EquiposStack.Screen name="EquipoDetail" component={EquipoDetailScreen} options={{ title: 'Equipo' }} />
       <EquiposStack.Screen name="EquipoForm" component={EquipoFormScreen} options={{ title: 'Equipo' }} />
@@ -40,7 +39,11 @@ function EquiposStackNavigator() {
 
 function CiudadesStackNavigator() {
   return (
-    <CiudadesStack.Navigator screenOptions={stackOptions}>
+    <CiudadesStack.Navigator
+      screenOptions={{
+        header: (props) => <TopNavbar {...props} active="Ciudades" />,
+      }}
+    >
       <CiudadesStack.Screen name="CiudadesList" component={CiudadesListScreen} options={{ title: 'Ciudades' }} />
       <CiudadesStack.Screen name="CiudadDetail" component={CiudadDetailScreen} options={{ title: 'Ciudad' }} />
       <CiudadesStack.Screen name="CiudadForm" component={CiudadFormScreen} options={{ title: 'Ciudad' }} />
@@ -53,9 +56,7 @@ function MainTabs() {
     <Tabs.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.gold,
-        tabBarInactiveTintColor: colors.w40,
-        tabBarStyle: { backgroundColor: colors.dark, borderTopColor: colors.w15 },
+        tabBarStyle: { display: 'none' },
       }}
     >
       <Tabs.Screen name="DashboardTab" component={DashboardScreen} options={{ title: 'Inicio' }} />

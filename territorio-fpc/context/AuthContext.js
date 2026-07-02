@@ -9,7 +9,6 @@ export function AuthProvider({ children }) {
   const [username, setUsername] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Al abrir la app, revisa si ya había sesión guardada
   useEffect(() => {
     (async () => {
       try {
@@ -26,15 +25,29 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function login(user, password) {
-    const { data } = await api.post('/login', { username: user, password });
-    await AsyncStorage.setItem('token', data.token);
-    await AsyncStorage.setItem('username', user);
-    setToken(data.token);
-    setUsername(user);
+    try {
+      const { data } = await api.post('/login', { username: user, password });
+      await AsyncStorage.setItem('token', data.token);
+      await AsyncStorage.setItem('username', user);
+      setToken(data.token);
+      setUsername(user);
+    } catch (error) {
+      console.error('Login failed:', error.message, error.response?.status, error.response?.data);
+      throw error;
+    }
   }
 
   async function register(user, password) {
-    await api.post('/register', { username: user, password });
+    const payload = { username: String(user).trim(), password };
+    console.log('Register request payload:', payload);
+    try {
+      const response = await api.post('/register', payload);
+      console.log('Register response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Register failed:', error.response?.status, error.response?.data || error.message);
+      throw error;
+    }
   }
 
   async function logout() {
@@ -52,4 +65,4 @@ export function AuthProvider({ children }) {
 
 export function useAuth() {
   return useContext(AuthContext);
-}
+}9
