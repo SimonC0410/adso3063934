@@ -1,432 +1,713 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Presentación · Diapositivas sin scroll</title>
-  <!-- Estilos modernos y responsivos -->
-  <style>
-    /* Reset y base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🌿 Propuesta Doctoral · Pasifloras · Diseño floral</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;          /* ← sin scroll, ni vertical ni horizontal */
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-      background: #0b1120;
-      color: #f0f4ff;
-    }
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Roboto, system-ui, sans-serif;
+            background: #f5f3f0;
+            color: #1e2b1c;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
 
-    /* Contenedor principal ocupa toda la pantalla */
-    .presentation {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+        .presentation {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #ffffff;
+        }
 
-    /* Cada diapositiva ocupa el 100% del viewport, sin scroll */
-    .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem 3rem;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-      background: radial-gradient(circle at 20% 30%, #1a2639, #0b1120);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-      will-change: transform;
-      text-align: center;
-      overflow: hidden;          /* evita desbordes internos */
-    }
+        /* Diapositivas con padding inferior extra para evitar solapamiento */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 1.8rem 2.5rem 5.5rem 2.5rem; /* ← padding inferior aumentado */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            background: #ffffff;
+            overflow-y: auto;
+            text-align: center;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+            will-change: transform;
+        }
 
-    /* diapositiva activa (visible) */
-    .slide.active {
-      opacity: 1;
-      visibility: visible;
-      z-index: 10;
-    }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
 
-    /* diapositivas con estilos diferenciados (opcional) */
-    .slide:nth-child(1) { background: radial-gradient(circle at 70% 20%, #1d2b4a, #0a0f1c); }
-    .slide:nth-child(2) { background: radial-gradient(circle at 30% 80%, #1f3a4a, #0b141f); }
-    .slide:nth-child(3) { background: radial-gradient(circle at 60% 60%, #2a1f3a, #0e0a17); }
-    .slide:nth-child(4) { background: radial-gradient(circle at 80% 30%, #1f3a2a, #0a140f); }
-    .slide:nth-child(5) { background: radial-gradient(circle at 40% 40%, #2a2a3a, #0e0e18); }
+        /* Decoración floral: imágenes SVG de pasifloras como fondo */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 40%;
+            height: 70%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 20 C120 40 140 20 160 40 C180 60 160 80 180 100 C200 120 180 140 160 160 C140 180 120 160 100 180 C80 160 60 180 40 160 C20 140 40 120 20 100 C0 80 20 60 40 40 C60 20 80 40 100 20Z' fill='rgba(200,220,190,0.15)'/%3E%3Ccircle cx='100' cy='100' r='25' fill='rgba(180,200,160,0.2)'/%3E%3Ccircle cx='100' cy='100' r='12' fill='rgba(160,180,140,0.15)'/%3E%3C/svg%3E") no-repeat;
+            background-size: contain;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
 
-    /* Contenido interno con tipografía fluida */
-    .slide-content {
-      max-width: 1100px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 0.5rem;
-      /* Evita desbordes en pantallas pequeñas */
-      word-break: break-word;
-    }
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: -5%;
+            left: -5%;
+            width: 35%;
+            height: 50%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 30 C115 50 135 40 150 55 C165 70 155 90 170 105 C185 120 165 135 150 150 C135 165 115 155 100 170 C85 155 65 165 50 150 C35 135 45 115 30 100 C15 85 35 70 50 55 C65 40 85 50 100 30Z' fill='rgba(200,220,190,0.12)'/%3E%3Ccircle cx='100' cy='100' r='20' fill='rgba(180,200,160,0.15)'/%3E%3C/svg%3E") no-repeat;
+            background-size: contain;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
 
-    h1 {
-      font-size: clamp(2.8rem, 12vw, 6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      background: linear-gradient(to right, #f0e6ff, #b7c9ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 30px rgba(90, 120, 255, 0.2);
-    }
+        /* Contenido con fondo semitransparente para legibilidad */
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 1.2rem 2rem;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            border: 1px solid rgba(180, 200, 160, 0.25);
+            box-shadow: 0 8px 40px rgba(0, 20, 0, 0.04);
+        }
 
-    h2 {
-      font-size: clamp(2rem, 7vw, 3.8rem);
-      font-weight: 500;
-      color: #d6e2ff;
-      letter-spacing: -0.01em;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    }
+        .slide-content h1 {
+            font-size: clamp(2rem, 7vw, 3.8rem);
+            font-weight: 700;
+            color: #1a3a1a;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
 
-    p {
-      font-size: clamp(1.2rem, 4vw, 2.2rem);
-      max-width: 800px;
-      color: #cbd5f0;
-      line-height: 1.5;
-      font-weight: 300;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
+        .slide-content h2 {
+            font-size: clamp(1.6rem, 5vw, 3rem);
+            font-weight: 600;
+            color: #1a3a1a;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.2rem;
+        }
 
-    .badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(4px);
-      padding: 0.6rem 1.8rem;
-      border-radius: 60px;
-      font-size: clamp(0.9rem, 2.5vw, 1.6rem);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #b7cbff;
-      letter-spacing: 0.3px;
-      margin-top: 0.5rem;
-    }
+        .slide-content h3 {
+            font-size: clamp(1.1rem, 2.8vw, 1.8rem);
+            font-weight: 500;
+            color: #2d5a2d;
+            margin-bottom: 0.1rem;
+        }
 
-    .slide-icon {
-      font-size: clamp(4rem, 15vw, 8rem);
-      margin-bottom: 0.25rem;
-      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
-    }
+        .slide-content p {
+            font-size: clamp(0.95rem, 2.2vw, 1.4rem);
+            max-width: 800px;
+            color: #2d3d2a;
+            line-height: 1.6;
+            font-weight: 400;
+        }
 
-    /* controles de navegación (fijos, siempre visibles) */
-    .nav-controls {
-      position: fixed;
-      bottom: 2rem;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem 2rem;
-      flex-wrap: wrap;
-      z-index: 100;
-      padding: 0 1rem;
-      pointer-events: none;      /* permite clics en los botones pero no bloquea el fondo */
-    }
+        .slide-content ul {
+            text-align: left;
+            max-width: 750px;
+            width: 100%;
+            list-style: none;
+            padding: 0;
+        }
 
-    .nav-controls button {
-      pointer-events: auto;     /* reactiva clics */
-      background: rgba(20, 30, 50, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #eef4ff;
-      padding: 0.7rem 1.8rem;
-      border-radius: 60px;
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.2s ease;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      min-width: 100px;
-      letter-spacing: 0.3px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+        .slide-content ul li {
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            padding: 0.3rem 0 0.3rem 2rem;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%232d5a2d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>') left center no-repeat;
+            background-size: 1.2rem;
+            margin-bottom: 0.15rem;
+            color: #1e2b1c;
+            font-weight: 400;
+        }
 
-    .nav-controls button:hover {
-      background: rgba(60, 80, 140, 0.7);
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: scale(1.02);
-    }
+        .badge {
+            display: inline-block;
+            background: rgba(45, 90, 45, 0.04);
+            padding: 0.3rem 1.4rem;
+            border-radius: 60px;
+            font-size: clamp(0.75rem, 1.6vw, 1rem);
+            border: 1px solid rgba(45, 90, 45, 0.1);
+            color: #2d5a2d;
+            letter-spacing: 0.3px;
+            font-weight: 500;
+        }
 
-    .nav-controls button:active {
-      transform: scale(0.96);
-    }
+        .flower-icon {
+            font-size: clamp(2.8rem, 8vw, 4.5rem);
+            line-height: 1;
+            filter: drop-shadow(0 4px 12px rgba(0, 20, 0, 0.06));
+        }
 
-    .nav-controls .indicator {
-      pointer-events: auto;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(8px);
-      padding: 0.5rem 1.8rem;
-      border-radius: 60px;
-      font-size: clamp(0.9rem, 2vw, 1.3rem);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: #b7cbff;
-      font-weight: 400;
-      min-width: 80px;
-      text-align: center;
-    }
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem 1.8rem;
+            width: 100%;
+            max-width: 750px;
+            margin-top: 0.3rem;
+        }
+        .grid-2col .item {
+            background: rgba(45, 90, 45, 0.02);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(45, 90, 45, 0.06);
+            font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+            color: #1e2b1c;
+            text-align: left;
+        }
+        .grid-2col .item strong {
+            color: #1a4a1a;
+            display: block;
+            font-size: 0.95em;
+        }
 
-    /* Responsive: ajustes finos para pantallas muy pequeñas */
-    @media (max-width: 640px) {
-      .slide {
-        padding: 1.5rem 1.2rem;
-      }
-      .nav-controls {
-        bottom: 1.2rem;
-        gap: 0.6rem;
-      }
-      .nav-controls button {
-        padding: 0.5rem 1.2rem;
-        min-width: 70px;
-        font-size: 0.9rem;
-      }
-      .nav-controls .indicator {
-        padding: 0.4rem 1rem;
-        font-size: 0.8rem;
-        min-width: 60px;
-      }
-      .badge {
-        padding: 0.3rem 1.2rem;
-      }
-    }
+        .highlight {
+            color: #1a6b1a;
+            font-weight: 600;
+        }
 
-    /* para orientación landscape en móviles, mantener legible */
-    @media (max-height: 500px) and (orientation: landscape) {
-      .slide {
-        padding: 0.8rem 2rem;
-      }
-      h1 { font-size: clamp(2rem, 10vh, 3.5rem); }
-      p { font-size: clamp(1rem, 3vh, 1.6rem); }
-      .slide-icon { font-size: clamp(2.5rem, 12vh, 4rem); }
-      .nav-controls {
-        bottom: 0.6rem;
-      }
-    }
+        .mini-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.3rem;
+            width: 100%;
+            max-width: 750px;
+            font-size: clamp(0.7rem, 1.4vw, 0.9rem);
+            margin-top: 0.2rem;
+        }
+        .mini-table .cell {
+            background: rgba(45, 90, 45, 0.02);
+            padding: 0.4rem 0.2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(45, 90, 45, 0.04);
+        }
+        .mini-table .cell.header {
+            background: rgba(45, 90, 45, 0.06);
+            font-weight: 600;
+            color: #1a3a1a;
+        }
 
-    /* imagen/imagen de prueba */
-    .demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1.2rem;
-      width: 100%;
-      max-width: 600px;
-      margin-top: 0.8rem;
-    }
-    .demo-grid span {
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 20px;
-      padding: 1rem 0.5rem;
-      font-size: clamp(0.9rem, 2vw, 1.3rem);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(4px);
-    }
+        /* ============================================================ */
+        /* CONTROLES MEJORADOS - Más compactos y menos intrusivos        */
+        /* ============================================================ */
+        .nav-controls {
+            position: fixed;
+            bottom: 0.8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 0.25rem 0.6rem;
+            border-radius: 40px;
+            border: 1px solid rgba(45, 90, 45, 0.06);
+            box-shadow: 0 2px 12px rgba(0, 20, 0, 0.04);
+            pointer-events: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
 
-    /* flechas unicode */
-    .arrow {
-      display: inline-block;
-      font-size: 1.2em;
-      line-height: 1;
-    }
+        .nav-controls:hover {
+            opacity: 1;
+        }
 
-    /* quitar focus outline pero mantener accesibilidad */
-    button:focus-visible {
-      outline: 2px solid #7a9eff;
-      outline-offset: 4px;
-    }
-  </style>
+        .nav-controls button {
+            pointer-events: auto;
+            background: transparent;
+            border: none;
+            color: #1a3a1a;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: clamp(0.65rem, 1vw, 0.8rem);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            font-family: inherit;
+            letter-spacing: 0.2px;
+            opacity: 0.7;
+        }
+
+        .nav-controls button:hover {
+            background: rgba(45, 90, 45, 0.06);
+            opacity: 1;
+            transform: scale(1.02);
+        }
+
+        .nav-controls button:active {
+            transform: scale(0.92);
+        }
+
+        .nav-controls button .arrow {
+            font-size: 0.8em;
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .nav-controls .indicator {
+            pointer-events: auto;
+            background: transparent;
+            padding: 0.1rem 0.4rem;
+            border-radius: 30px;
+            font-size: clamp(0.6rem, 1vw, 0.75rem);
+            color: #1a3a1a;
+            min-width: 35px;
+            text-align: center;
+            font-weight: 400;
+            opacity: 0.5;
+            letter-spacing: 0.5px;
+            user-select: none;
+        }
+
+        .nav-controls .divider {
+            width: 1px;
+            height: 14px;
+            background: rgba(45, 90, 45, 0.08);
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .slide { 
+                padding: 0.8rem 0.8rem 4rem 0.8rem; 
+            }
+            .slide-content { padding: 1rem; border-radius: 20px; }
+            .grid-2col { grid-template-columns: 1fr; gap: 0.4rem; }
+            .mini-table { grid-template-columns: 1fr 1fr; }
+
+            .nav-controls {
+                bottom: 0.5rem;
+                padding: 0.2rem 0.4rem;
+                gap: 0.2rem;
+                border-radius: 30px;
+            }
+            .nav-controls button {
+                padding: 0.15rem 0.5rem;
+                font-size: 0.6rem;
+            }
+            .nav-controls .indicator {
+                font-size: 0.55rem;
+                min-width: 25px;
+            }
+            .nav-controls .divider {
+                height: 10px;
+            }
+        }
+
+        @media (max-height: 500px) and (orientation: landscape) {
+            .slide { 
+                padding: 0.6rem 1.2rem 3rem 1.2rem; 
+            }
+            .slide-content { padding: 0.6rem 1.2rem; }
+            .slide-content h1 { font-size: clamp(1.4rem, 6vh, 2.4rem); }
+            .slide-content p { font-size: clamp(0.7rem, 2vh, 1rem); }
+            .flower-icon { font-size: clamp(1.8rem, 6vh, 3rem); }
+
+            .nav-controls {
+                bottom: 0.3rem;
+                padding: 0.15rem 0.4rem;
+                gap: 0.2rem;
+            }
+            .nav-controls button {
+                padding: 0.1rem 0.4rem;
+                font-size: 0.55rem;
+            }
+            .nav-controls .indicator {
+                font-size: 0.5rem;
+                min-width: 20px;
+            }
+            .nav-controls .divider {
+                height: 8px;
+            }
+        }
+
+        .slide::-webkit-scrollbar { width: 3px; }
+        .slide::-webkit-scrollbar-track { background: rgba(0,0,0,0.02); }
+        .slide::-webkit-scrollbar-thumb { background: #a0b89a; border-radius: 10px; }
+    </style>
 </head>
 <body>
-  <div class="presentation" role="presentation">
-    <!-- Diapositiva 1 -->
-    <div class="slide active" data-index="0" role="tabpanel" aria-label="Diapositiva 1">
-      <div class="slide-content">
-        <div class="slide-icon">🚀</div>
-        <h1>Presentación<br>sin scroll</h1>
-        <p>Diapositivas que se adaptan a cualquier pantalla, diseñadas para TV y móvil.</p>
-        <span class="badge">✦ 100% responsive ✦</span>
-      </div>
-    </div>
+<div class="presentation" role="presentation">
 
-    <!-- Diapositiva 2 -->
-    <div class="slide" data-index="1" role="tabpanel" aria-label="Diapositiva 2">
-      <div class="slide-content">
-        <div class="slide-icon">📱</div>
-        <h2>Responsive & TV</h2>
-        <p>Escala desde móviles hasta pantallas grandes sin perder legibilidad.</p>
-        <div class="demo-grid">
-          <span>📺 4K</span>
-          <span>📱 móvil</span>
-          <span>🖥️ escritorio</span>
-          <span>📟 tablet</span>
+    <!-- SLIDE 1 - Portada -->
+    <div class="slide active" data-index="0">
+        <div class="slide-content">
+            <div class="flower-icon">🌸</div>
+            <h1>Bioprospección y aprovechamiento sostenible de recursos genéticos del género <em>Passiflora</em></h1>
+            <p style="font-size:clamp(1rem,2.5vw,1.6rem); font-weight:300;">Estrategia de adaptación al cambio climático en el cultivo de gulupa (<em>Passiflora edulis f. edulis</em>) en Colombia</p>
+            <div style="display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; margin-top:0.4rem;">
+                <span class="badge">🌱 Doctorado en Ciencias Agrarias</span>
+                <span class="badge">🧬 Universidad de Caldas</span>
+            </div>
+            <p style="font-size:clamp(0.8rem,1.6vw,1.1rem); color:#3d5a3d; margin-top:0.3rem;">Jorge Andres Montoya Palacio · Director: Alejandro Hurtado-Salazar</p>
+            <p style="font-size:clamp(0.7rem,1.2vw,0.9rem); color:#5a7a5a;">Caldas, Colombia · 2026</p>
         </div>
-      </div>
     </div>
 
-    <!-- Diapositiva 3 -->
-    <div class="slide" data-index="2" role="tabpanel" aria-label="Diapositiva 3">
-      <div class="slide-content">
-        <div class="slide-icon">⚡</div>
-        <h2>Sin scroll, solo clic</h2>
-        <p>Navegación fluida con botones o teclado. <br>Las diapositivas ocupan siempre el 100% del viewport.</p>
-        <span class="badge">← → o botones</span>
-      </div>
-    </div>
-
-    <!-- Diapositiva 4 -->
-    <div class="slide" data-index="3" role="tabpanel" aria-label="Diapositiva 4">
-      <div class="slide-content">
-        <div class="slide-icon">🎯</div>
-        <h2>Listo para tu contenido</h2>
-        <p>Cambia textos, colores o añade imágenes. La estructura es modular.</p>
-        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem;">
-          <span style="background:rgba(255,255,255,0.05); padding:0.4rem 1.2rem; border-radius:40px;">HTML</span>
-          <span style="background:rgba(255,255,255,0.05); padding:0.4rem 1.2rem; border-radius:40px;">CSS</span>
-          <span style="background:rgba(255,255,255,0.05); padding:0.4rem 1.2rem; border-radius:40px;">JavaScript</span>
+    <!-- SLIDE 2 - Tabla de contenido / estructura -->
+    <div class="slide" data-index="1">
+        <div class="slide-content">
+            <div class="flower-icon">📋</div>
+            <h2>Estructura de la propuesta</h2>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem; width:100%; max-width:750px; margin-top:0.3rem;">
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">A. Información general</div>
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">B. Título</div>
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">C. Líneas de investigación</div>
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">D. Planteamiento del problema</div>
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">E. Justificación</div>
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">F. Objetivos</div>
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">G. Metodología</div>
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">H. Productos CTeI</div>
+                <div style="background:rgba(45,90,45,0.02); padding:0.6rem; border-radius:16px; border:1px solid rgba(45,90,45,0.04); font-size:clamp(0.7rem,1.4vw,1rem);">I. Resultados esperados</div>
+            </div>
+            <p style="font-size:clamp(0.8rem,1.6vw,1rem); margin-top:0.3rem; color:#3d5a3d;">La investigación se enmarca en tres líneas: Bioprospección, Cambio climático y Producción de cultivos</p>
         </div>
-      </div>
     </div>
 
-    <!-- Diapositiva 5 -->
-    <div class="slide" data-index="4" role="tabpanel" aria-label="Diapositiva 5">
-      <div class="slide-content">
-        <div class="slide-icon">✨</div>
-        <h2>¡Listo para usar!</h2>
-        <p>Prueba la navegación con los botones o las flechas del teclado.</p>
-        <span class="badge">⬅️ ➡️  ·  navegación</span>
-        <p style="font-size: clamp(0.8rem, 2vw, 1.2rem); opacity:0.6; margin-top:1rem;">Diapositiva 5 de 5</p>
-      </div>
+    <!-- SLIDE 3 - Contexto y problema (resumen) -->
+    <div class="slide" data-index="2">
+        <div class="slide-content">
+            <div class="flower-icon">📉</div>
+            <h2>Planteamiento del problema</h2>
+            <ul>
+                <li>Reducción del área sembrada en Colombia: <span class="highlight">-1,7%</span> (2023-2024)</li>
+                <li>Caldas: <span class="highlight">-23,8%</span> (77,1 → 58,7 ha)</li>
+                <li>Variabilidad climática + propagación por semilla → poblaciones heterogéneas</li>
+                <li>Riesgo de plagas: pérdidas hasta <span class="highlight">60%</span> en maracuyá</li>
+                <li>Vacío de conocimiento en ecofisiología y viabilidad técnica/económica</li>
+            </ul>
+            <p style="margin-top:0.4rem; font-weight:500; color:#1a4a1a;">❓ <span class="highlight">Pregunta de investigación:</span> ¿Comportamiento ecofisiológico, productivo y factibilidad económica del uso de <em>P. incarnata</em> como portainjerto y del híbrido <em>gulupa × maracuyá</em> en dos pisos térmicos de Caldas?</p>
+        </div>
     </div>
-  </div>
 
-  <!-- Controles fijos -->
-  <div class="nav-controls" role="navigation" aria-label="Controles de presentación">
+    <!-- SLIDE 4 - Justificación -->
+    <div class="slide" data-index="3">
+        <div class="slide-content">
+            <div class="flower-icon">🌿</div>
+            <h2>Justificación</h2>
+            <ul>
+                <li><span class="highlight">Científica:</span> Generar conocimiento sobre mecanismos de tolerancia al estrés en ecosistemas de montaña.</li>
+                <li><span class="highlight">Agronómica:</span> Validar <em>P. incarnata</em> como portainjerto y el híbrido intraespecífico como alternativas resilientes.</li>
+                <li><span class="highlight">Económica:</span> Análisis de factibilidad (costo-beneficio) para reducir el riesgo de inversión.</li>
+                <li><span class="highlight">Social:</span> Fortalecer la cadena exportadora de gulupa, proteger el medio de vida rural y fomentar el relevo generacional.</li>
+                <li>Alineación con demandas territoriales de Caldas: adaptación al cambio climático y uso sostenible de la biodiversidad.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SLIDE 5 - Objetivo General y Específicos (la que tenía problema) -->
+    <div class="slide" data-index="4">
+        <div class="slide-content">
+            <div class="flower-icon">🎯</div>
+            <h2>Objetivos</h2>
+            <h3>General</h3>
+            <p style="max-width:700px; font-weight:400;">Desarrollar tecnologías innovadoras para los sistemas de producción de gulupa mediante el aprovechamiento y valoración de los recursos genéticos del género <span class="highlight">Passiflora</span>, orientadas a la adaptación al cambio climático.</p>
+            <div style="width:100%; max-width:750px; text-align:left; margin-top:0.3rem;">
+                <p style="font-weight:500; margin-bottom:0.2rem; color:#1a4a1a;"><span class="highlight">OE1:</span> Obtener y evaluar agronómicamente el híbrido <em>gulupa × maracuyá</em> en dos pisos térmicos contrastantes.</p>
+                <p style="font-weight:500; margin-bottom:0.2rem; color:#1a4a1a;"><span class="highlight">OE2:</span> Determinar el desempeño agronómico de gulupa injertada sobre <em>P. incarnata</em> (maypop) en dos pisos térmicos.</p>
+                <p style="font-weight:500; color:#1a4a1a;"><span class="highlight">OE3:</span> Analizar la factibilidad económica de las estrategias evaluadas en dos pisos térmicos contrastantes.</p>
+            </div>
+            <div class="badge" style="margin-top:0.3rem;">📍 Granjas Tesorito (2280 m) y Montelindo (1010 m)</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6 - Metodología: ubicación y material vegetal -->
+    <div class="slide" data-index="5">
+        <div class="slide-content">
+            <div class="flower-icon">🧪</div>
+            <h2>Metodología · Ubicación y material</h2>
+            <div class="grid-2col">
+                <div class="item"><strong>🌡️ Localidades</strong>Tesorito: 2280 m · 17 °C · 1800 mm<br>Montelindo: 1010 m · 22.8 °C · 2200 mm</div>
+                <div class="item"><strong>🧬 Material vegetal</strong><em>P. edulis f. edulis</em> (gulupa) · <em>P. incarnata</em> (maypop)<br><em>P. flavicarpa</em> (maracuyá) · <em>P. maliformis</em> (cholupa)</div>
+                <div class="item"><strong>🌱 Portainjertos</strong><em>P. incarnata</em> (experimental)<br><em>P. maliformis</em> (testigo comercial)</div>
+                <div class="item"><strong>🔬 Híbrido</strong><em>P. edulis</em> (♀) × <em>P. flavicarpa</em> (♂)<br>220 cruzamientos · 25% germinación esperada</div>
+            </div>
+            <p style="font-size:clamp(0.8rem,1.6vw,1rem); margin-top:0.2rem;">Diseño: bloques completos al azar · 3 bloques · 7 tratamientos · 210 unidades experimentales</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 7 - Metodología OE1: obtención del híbrido -->
+    <div class="slide" data-index="6">
+        <div class="slide-content">
+            <div class="flower-icon">🌺</div>
+            <h2>OE1 · Obtención del híbrido</h2>
+            <ul>
+                <li><span class="highlight">Cruzamiento:</span> <em>P. edulis f. edulis</em> (♀) × <em>P. flavicarpa</em> (♂) — compatibilidad unidireccional</li>
+                <li>220 flores polinizadas en 10 fechas (22 polinizaciones/día)</li>
+                <li>Emasculación en fase 1, polinización en fases 2 y 3 (Melgarejo, 2012)</li>
+                <li>Variables evaluadas: cuajamiento, retención, número de semillas</li>
+                <li>Tratamiento pregerminativo: H<sub>2</sub>O<sub>2</sub> al 20% (Camargo et al., 2020)</li>
+                <li>Evaluación en vivero: altura, diámetro, número de hojas, área foliar, tasas de crecimiento</li>
+            </ul>
+            <div class="badge" style="margin-top:0.2rem;">🌱 Se esperan ~144 plántulas · 120 para campo</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8 - Metodología OE1: siembra y evaluación -->
+    <div class="slide" data-index="7">
+        <div class="slide-content">
+            <div class="flower-icon">📊</div>
+            <h2>OE1 · Evaluación agronómica</h2>
+            <ul>
+                <li><span class="highlight">Establecimiento:</span> 60 plantas por localidad · distancia 2.5 × 4 m</li>
+                <li><span class="highlight">Variables de crecimiento:</span> altura, diámetro del tallo, índice SPAD</li>
+                <li><span class="highlight">Variables de producción:</span> número y peso de frutos por planta</li>
+                <li><span class="highlight">Calidad del fruto:</span> diámetros, °Brix, actividad enzimática (SOD, CAT)</li>
+                <li>Clasificación por calidades de exportación · Rendimiento (t/ha)</li>
+            </ul>
+            <p style="font-size:clamp(0.8rem,1.6vw,1rem); margin-top:0.2rem;">Análisis estadístico con SAS · nivel de significancia 5%</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 9 - Metodología OE2: injertación -->
+    <div class="slide" data-index="8">
+        <div class="slide-content">
+            <div class="flower-icon">🔬</div>
+            <h2>OE2 · Injertación y desempeño</h2>
+            <ul>
+                <li>Tratamientos: <em>P. edulis</em> sobre <em>P. incarnata</em> (experimental) y <em>P. maliformis</em> (testigo)</li>
+                <li>Injerto de hendidura a 10 cm del cuello · 60 días después de siembra</li>
+                <li><span class="highlight">Compatibilidad:</span> relación DP/DC ≥ 1 (Kokalis-Burelle et al., 2009)</li>
+                <li>Evaluación a 15, 30, 45 y 60 días post-injerto</li>
+                <li>Variables: altura, diámetros, número de hojas, SPAD, prendimiento</li>
+                <li>Siembra en campo: 7 tratamientos · 10 repeticiones por bloque</li>
+            </ul>
+            <div class="badge" style="margin-top:0.2rem;">🌿 También se evalúa el híbrido sobre portainjertos</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 10 - Metodología OE2: variables fenológicas y productivas -->
+    <div class="slide" data-index="9">
+        <div class="slide-content">
+            <div class="flower-icon">📈</div>
+            <h2>OE2 · Fenología, producción y calidad</h2>
+            <ul>
+                <li><span class="highlight">Fenología floral:</span> caracterización según Melgarejo (2012), duración de estadios</li>
+                <li>Tasa de emisión de yemas, cuajamiento, retención, precocidad floral</li>
+                <li><span class="highlight">Producción:</span> número y peso de frutos por planta · rendimiento (t/ha)</li>
+                <li><span class="highlight">Calidad:</span> diámetros, °Brix, actividad SOD y CAT (kits colorimétricos)</li>
+                <li>Clasificación por calidades de exportación</li>
+            </ul>
+            <p style="font-size:clamp(0.8rem,1.6vw,1rem); margin-top:0.2rem;">Evaluación en ambos pisos térmicos · comparación de tratamientos</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 11 - Metodología OE3: factibilidad económica -->
+    <div class="slide" data-index="10">
+        <div class="slide-content">
+            <div class="flower-icon">💰</div>
+            <h2>OE3 · Factibilidad económica</h2>
+            <ul>
+                <li><span class="highlight">Costos de producción:</span> siembra, fitosanitarios, fertilización, cosecha, poscosecha</li>
+                <li><span class="highlight">Ingresos:</span> registro por categoría de calidad (C1, C2, C3)</li>
+                <li>Indicadores: Margen Unitario de Producción (MUP), Relación Beneficio/Costo</li>
+                <li>Tasa Interna de Retorno (TIR) considerando extensión de vida útil del cultivo</li>
+                <li>Comparación objetiva entre tratamientos en ambos pisos térmicos</li>
+            </ul>
+            <p style="font-size:clamp(0.8rem,1.6vw,1rem); margin-top:0.2rem;">Criterio técnico-económico para recomendación de manejo y transferencia tecnológica</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 12 - Productos CTeI -->
+    <div class="slide" data-index="11">
+        <div class="slide-content">
+            <div class="flower-icon">📄</div>
+            <h2>Productos CTeI</h2>
+            <div style="width:100%; max-width:750px; text-align:left;">
+                <p style="font-weight:500; color:#1a4a1a; margin-bottom:0.1rem;">🔬 Generación de nuevo conocimiento</p>
+                <ul>
+                    <li>2 artículos científicos en revista A1/A2 (OE1 y OE2)</li>
+                    <li>Material vegetal mejorado: híbrido F1 (<em>gulupa × maracuyá</em>)</li>
+                </ul>
+                <p style="font-weight:500; color:#1a4a1a; margin-top:0.3rem;">📢 Apropiación social del conocimiento</p>
+                <ul>
+                    <li>Jornada de capacitación con Avance Pasifloras</li>
+                    <li>Trabajo conjunto con el centro de ciencia Francisco José de Caldas</li>
+                    <li>Organización de simposio en pasifloras</li>
+                </ul>
+                <p style="font-weight:500; color:#1a4a1a; margin-top:0.3rem;">👨‍🎓 Formación de recurso humano</p>
+                <ul>
+                    <li>Dirección de 2 trabajos de pregrado</li>
+                    <li>Formación de doctorado (1)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 13 - Resultados esperados -->
+    <div class="slide" data-index="12">
+        <div class="slide-content">
+            <div class="flower-icon">🌟</div>
+            <h2>Resultados esperados</h2>
+            <ul>
+                <li>Tecnologías basadas en portainjertos e híbridos para ampliar el rango altitudinal de adaptación de la gulupa</li>
+                <li>Aportes significativos para el manejo agronómico sostenible de pasifloras en Caldas y Colombia</li>
+                <li>Transferencia de resultados a asociaciones de productores y exportadoras</li>
+                <li>Formación científica: 2 estudiantes de pregrado y 1 doctorado</li>
+                <li>Participación en eventos científicos nacionales e internacionales</li>
+                <li>Publicación de 2 artículos A1/A2</li>
+                <li>Fortalecimiento del grupo de investigación Bioprospección y Recursos Genéticos</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SLIDE 14 - Cronograma -->
+    <div class="slide" data-index="13">
+        <div class="slide-content">
+            <div class="flower-icon">📅</div>
+            <h2>Cronograma · 8 semestres</h2>
+            <div class="mini-table">
+                <div class="cell header">Semestre</div>
+                <div class="cell header">Actividades</div>
+                <div class="cell header">Semestre</div>
+                <div class="cell header">Actividades</div>
+                <div class="cell">I</div>
+                <div class="cell">Revisión literatura, asignaturas</div>
+                <div class="cell">V</div>
+                <div class="cell">Evaluación crecimiento, fenología</div>
+                <div class="cell">II</div>
+                <div class="cell">Examen candidatura, montaje</div>
+                <div class="cell">VI</div>
+                <div class="cell">Producción, calidad, análisis</div>
+                <div class="cell">III</div>
+                <div class="cell">Desarrollo híbrido, siembra</div>
+                <div class="cell">VII</div>
+                <div class="cell">Escritura artículos, pasantía</div>
+                <div class="cell">IV</div>
+                <div class="cell">Injertación, caracterización</div>
+                <div class="cell">VIII</div>
+                <div class="cell">Tesis, presentación final</div>
+            </div>
+            <p style="font-size:clamp(0.8rem,1.6vw,1rem); margin-top:0.4rem;">🌍 Pasantía internacional: UFV (Brasil) o CIRAD (Francia)</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 15 - Bibliografía y cierre -->
+    <div class="slide" data-index="14">
+        <div class="slide-content">
+            <div class="flower-icon">📚</div>
+            <h2>Referencias clave</h2>
+            <ul style="font-size:clamp(0.7rem,1.4vw,0.95rem); max-width:750px;">
+                <li>Ocampo et al. (2016). Interspecific hybridization between cultivated and wild species of <em>Passiflora</em>. <em>Euphytica</em>.</li>
+                <li>Camargo et al. (2020). Evaluation of pregerminative treatments in gulupa seeds. <em>Rev. Bras. Frutic.</em></li>
+                <li>Morgado et al. (2015). Desenvolvimento de mudas de maracujazeiro-azedo enxertadas. <em>Rev. Bras. Frutic.</em></li>
+                <li>Melgarejo (2012). <em>Ecofisiología del cultivo de la gulupa</em>. Universidad Nacional de Colombia.</li>
+                <li>Luo et al. (2026). Effects of continuous high temperature stress on passion fruit. <em>Tropical Plant Biology</em>.</li>
+                <li>Stafne (2023). Challenges in breeding <em>P. edulis</em> × <em>P. incarnata</em> hybrids. <em>Technology in Horticulture</em>.</li>
+            </ul>
+            <div style="display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; margin-top:0.3rem;">
+                <span class="badge">🌱 Bioprospección</span>
+                <span class="badge">🧬 Cambio climático</span>
+                <span class="badge">📈 Sostenibilidad</span>
+            </div>
+            <p style="font-size:clamp(0.9rem,1.8vw,1.2rem); margin-top:0.3rem; color:#1a4a1a; font-weight:500;">"Aprovechar el conocimiento, conservación y uso sostenible de la biodiversidad"</p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONTROLES MEJORADOS - Compactos, semi-transparentes          -->
+<!-- ============================================================ -->
+<div class="nav-controls">
     <button id="prevSlide" aria-label="Diapositiva anterior">
-      <span class="arrow">◀</span> Anterior
+        <span class="arrow">◀</span> Anterior
     </button>
-    <span class="indicator" id="slideIndicator">1 / 5</span>
+    <span class="divider"></span>
+    <span class="indicator" id="slideIndicator">1 / 15</span>
+    <span class="divider"></span>
     <button id="nextSlide" aria-label="Diapositiva siguiente">
-      Siguiente <span class="arrow">▶</span>
+        Siguiente <span class="arrow">▶</span>
     </button>
-  </div>
+</div>
 
-  <script>
+<script>
     (function() {
-      "use strict";
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        let current = 0;
+        const indicator = document.getElementById('slideIndicator');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
 
-      const slides = document.querySelectorAll('.slide');
-      const totalSlides = slides.length;
-      let current = 0; // índice 0-based
-
-      const indicator = document.getElementById('slideIndicator');
-      const prevBtn = document.getElementById('prevSlide');
-      const nextBtn = document.getElementById('nextSlide');
-
-      // Función para actualizar la diapositiva activa
-      function goToSlide(index) {
-        // clamp
-        if (index < 0) index = totalSlides - 1;
-        if (index >= totalSlides) index = 0;
-
-        // remover active de todas
-        slides.forEach(s => s.classList.remove('active'));
-        // añadir active a la nueva
-        slides[index].classList.add('active');
-        current = index;
-        // actualizar indicador (1-based)
-        indicator.textContent = `${current + 1} / ${totalSlides}`;
-      }
-
-      // Eventos de botones
-      prevBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        goToSlide(current - 1);
-      });
-
-      nextBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        goToSlide(current + 1);
-      });
-
-      // Teclado: flechas izquierda/derecha
-      document.addEventListener('keydown', function(e) {
-        // Prevenir scroll con flechas o espacio
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === ' ') {
-          e.preventDefault();  // ← evita que la página se mueva
+        function goTo(index) {
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+            slides.forEach(s => s.classList.remove('active'));
+            slides[index].classList.add('active');
+            current = index;
+            indicator.textContent = `${current + 1} / ${total}`;
         }
-        if (e.key === 'ArrowLeft') {
-          goToSlide(current - 1);
-        } else if (e.key === 'ArrowRight') {
-          goToSlide(current + 1);
-        } else if (e.key === ' ') {
-          // opcional: espacio avanza
-          goToSlide(current + 1);
-        }
-      });
 
-      // También prevenir scroll con rueda del mouse (por si acaso)
-      document.addEventListener('wheel', function(e) {
-        // Permitir zoom con Ctrl+rueda (no interferir)
-        if (e.ctrlKey) return;
-        // Si el evento es en la presentación, prevenir scroll vertical
-        const presentation = document.querySelector('.presentation');
-        if (presentation && presentation.contains(e.target)) {
-          e.preventDefault();
-        }
-      }, { passive: false });
+        prevBtn.addEventListener('click', (e) => { e.preventDefault(); goTo(current - 1); });
+        nextBtn.addEventListener('click', (e) => { e.preventDefault(); goTo(current + 1); });
 
-      // Prevenir gestos táctiles de scroll (especialmente en móviles)
-      document.addEventListener('touchmove', function(e) {
-        const presentation = document.querySelector('.presentation');
-        if (presentation && presentation.contains(e.target)) {
-          e.preventDefault();
-        }
-      }, { passive: false });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+            }
+            if (e.key === 'ArrowLeft') goTo(current - 1);
+            else if (e.key === 'ArrowRight') goTo(current + 1);
+            else if (e.key === ' ') goTo(current + 1);
+        });
 
-      // Inicializar: asegurar que la primera esté activa
-      goToSlide(0);
+        document.addEventListener('wheel', (e) => {
+            if (e.ctrlKey) return;
+            if (document.querySelector('.presentation')?.contains(e.target)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
 
-      // Opcional: click en la diapositiva para avanzar (útil en TV)
-      document.querySelector('.presentation')?.addEventListener('click', function(e) {
-        // Si el clic no es en un botón o indicador, avanzar
-        const target = e.target;
-        if (target.closest('button') || target.closest('.indicator')) return;
-        goToSlide(current + 1);
-      });
+        document.addEventListener('touchmove', (e) => {
+            if (document.querySelector('.presentation')?.contains(e.target)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
 
-      // Para evitar que el foco se pierda y el teclado deje de funcionar
-      // Enfoque al body para capturar teclas
-      document.body.setAttribute('tabindex', '0');
-      document.body.focus();
+        document.querySelector('.presentation')?.addEventListener('click', (e) => {
+            if (e.target.closest('button') || e.target.closest('.indicator')) return;
+            goTo(current + 1);
+        });
 
-      console.log('Presentación lista · sin scroll · diapositivas responsivas');
+        goTo(0);
+        document.body.setAttribute('tabindex', '0');
+        document.body.focus();
     })();
-  </script>
+</script>
 </body>
 </html>
